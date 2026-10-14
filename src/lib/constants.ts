@@ -1,7 +1,7 @@
 // Placeholder brand details: replace with the real company information.
 export const SITE = {
-  name: 'buying-house-backend',
-  suffix: 'Buying House',
+  name: 'buying-house',
+  suffix: '.',
   description:
     'International garments buying house connecting global brands with vetted manufacturers: sourcing, product development, quality assurance and shipment coordination.',
   email: 'hello@example.com',
