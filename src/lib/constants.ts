@@ -1,6 +1,6 @@
 // Placeholder brand details: replace with the real company information.
 export const SITE = {
-  name: 'Harbor & Loom',
+  name: 'buying-house-backend',
   suffix: 'Buying House',
   description:
     'International garments buying house connecting global brands with vetted manufacturers: sourcing, product development, quality assurance and shipment coordination.',
