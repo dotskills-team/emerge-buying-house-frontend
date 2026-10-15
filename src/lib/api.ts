@@ -1,29 +1,31 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000/api';
+import { ApiError, rawRequest } from './http';
+import { refreshSession } from './session';
+import { tokenStore } from './token-store';
 
-export class ApiError extends Error {
-  constructor(
-    public readonly status: number,
-    message: string,
-  ) {
-    super(message);
-    this.name = 'ApiError';
-  }
+export { ApiError };
+
+interface ApiOptions extends RequestInit {
+  /** Sends the access token and, on a 401, refreshes the session once and retries. */
+  auth?: boolean;
 }
 
-export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, {
-    ...init,
-    headers: { 'Content-Type': 'application/json', ...init?.headers },
-  });
+export async function apiFetch<T>(
+  path: string,
+  { auth = false, ...init }: ApiOptions = {},
+): Promise<T> {
+  if (!auth) return rawRequest<T>(path, init);
 
-  const body = (await res.json().catch(() => null)) as {
-    success: boolean;
-    data?: T;
-    message?: string;
-  } | null;
+  const send = () =>
+    rawRequest<T>(path, {
+      ...init,
+      headers: { ...init.headers, Authorization: `Bearer ${tokenStore.get() ?? ''}` },
+    });
 
-  if (!res.ok || !body?.success) {
-    throw new ApiError(res.status, body?.message ?? `Request failed (${res.status})`);
+  try {
+    return await send();
+  } catch (err) {
+    if (!(err instanceof ApiError) || err.status !== 401) throw err;
+    await refreshSession(); // throws if the session is over
+    return send();
   }
-  return body.data as T;
 }
