@@ -12,6 +12,8 @@ interface AuthState {
   signedOut: boolean;
   setLoading: () => void;
   setAuthenticated: (user: PublicUser) => void;
+  /** Refreshes the signed-in user's details (name, role, permissions) without a status change. */
+  setUser: (user: PublicUser) => void;
   setUnauthenticated: (signedOut?: boolean) => void;
   setError: (message: string) => void;
 }
@@ -23,6 +25,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   signedOut: false,
   setLoading: () => set({ status: 'loading', error: null }),
   setAuthenticated: (user) => set({ status: 'authenticated', user, error: null, signedOut: false }),
+  setUser: (user) => set({ user }),
   setUnauthenticated: (signedOut = false) =>
     set({ status: 'unauthenticated', user: null, error: null, signedOut }),
   setError: (error) => set({ status: 'error', error }),

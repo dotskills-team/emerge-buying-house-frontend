@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2 } from 'lucide-react';
-import { SITE } from '@/lib/constants';
+import { Alert } from '@/components/feedback/alert';
+import { Button } from '@/components/ui/button';
+import { Field, Input } from '@/components/ui/field';
+import { errorMessage } from '@/lib/http';
 import { useAuthStore } from '@/store/auth-store';
 import { useAuthBootstrap } from '../hooks/use-auth-bootstrap';
-import { loginSchema, type LoginValues } from '../schemas/login.schema';
+import { loginSchema, type LoginValues } from '../schemas/auth.schemas';
 import { login } from '../services/auth.service';
 
 /** Only same-site paths are allowed, so ?next= cannot be used to redirect to another site. */
@@ -19,12 +21,11 @@ function safeNext(value: string | null): string {
     : '/dashboard';
 }
 
-const inputClass =
-  'border-line mt-1.5 w-full rounded-sm border bg-white px-3.5 py-2.5 text-navy-900 outline-none transition-colors focus:border-navy-500 aria-[invalid=true]:border-red-500';
-
 export function LoginForm() {
   const router = useRouter();
-  const next = safeNext(useSearchParams().get('next'));
+  const params = useSearchParams();
+  const next = safeNext(params.get('next'));
+  const justReset = params.get('reset') === '1';
   const status = useAuthStore((s) => s.status);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -50,89 +51,42 @@ export function LoginForm() {
       useAuthStore.getState().setAuthenticated(data.user);
       router.replace(next);
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'Could not sign in. Try again.');
+      setServerError(errorMessage(err, 'Could not sign in. Try again.'));
     }
   }
 
   return (
-    <div className="w-full max-w-md">
-      <p className="text-center font-serif text-2xl font-semibold text-navy-900">
-        {SITE.name}{' '}
-        <span className="text-ink-soft font-sans text-base font-normal">{SITE.suffix}</span>
-      </p>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+      <div>
+        <h1 className="text-h2 text-fg">Sign in</h1>
+        <p className="text-fg-muted mt-1 text-sm">Use your staff account to continue.</p>
+      </div>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className="border-line mt-8 rounded-sm border bg-white p-8"
-      >
-        <h1 className="font-serif text-2xl text-navy-900">Sign in</h1>
-        <p className="text-ink-soft mt-1 text-sm">Use your staff account to continue.</p>
+      {justReset && !serverError && (
+        <Alert tone="success">Your password has been changed. Sign in with the new one.</Alert>
+      )}
+      {serverError && <Alert tone="danger">{serverError}</Alert>}
 
-        {serverError && (
-          <p
-            role="alert"
-            className="mt-5 rounded-sm border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-800"
-          >
-            {serverError}
-          </p>
-        )}
+      <Field label="Email" error={errors.email?.message}>
+        <Input type="email" autoComplete="username" inputMode="email" {...register('email')} />
+      </Field>
 
-        <div className="mt-6">
-          <label htmlFor="email" className="text-sm font-medium text-navy-900">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            autoComplete="username"
-            aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? 'email-error' : undefined}
-            className={inputClass}
-            {...register('email')}
-          />
-          {errors.email && (
-            <p id="email-error" className="mt-1.5 text-sm text-red-700">
-              {errors.email.message}
-            </p>
-          )}
-        </div>
+      <Field label="Password" error={errors.password?.message}>
+        <Input type="password" autoComplete="current-password" {...register('password')} />
+      </Field>
 
-        <div className="mt-5">
-          <label htmlFor="password" className="text-sm font-medium text-navy-900">
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-            aria-invalid={!!errors.password}
-            aria-describedby={errors.password ? 'password-error' : undefined}
-            className={inputClass}
-            {...register('password')}
-          />
-          {errors.password && (
-            <p id="password-error" className="mt-1.5 text-sm text-red-700">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-navy-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-navy-700 disabled:opacity-60"
+      <div className="flex justify-end">
+        <Link
+          href="/forgot-password"
+          className="text-primary text-sm underline-offset-4 hover:underline"
         >
-          {isSubmitting && <Loader2 size={16} className="animate-spin" aria-hidden />}
-          {isSubmitting ? 'Signing in…' : 'Sign in'}
-        </button>
-      </form>
-
-      <p className="mt-6 text-center text-sm">
-        <Link href="/" className="text-ink-soft underline underline-offset-4 hover:text-navy-900">
-          Back to the website
+          Forgot your password?
         </Link>
-      </p>
-    </div>
+      </div>
+
+      <Button type="submit" loading={isSubmitting} className="w-full">
+        {isSubmitting ? 'Signing in…' : 'Sign in'}
+      </Button>
+    </form>
   );
 }

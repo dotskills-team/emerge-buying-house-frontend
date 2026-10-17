@@ -2,9 +2,9 @@
 
 import { useEffect, type ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { ErrorState, FullPageLoader } from '@/components/feedback/states';
 import { useAuthStore } from '@/store/auth-store';
 import { useAuthBootstrap } from '../hooks/use-auth-bootstrap';
-import { ErrorPanel, FullPageLoader } from './full-page-state';
 
 /** Renders its children only for a signed-in user; everyone else is sent to the login page. */
 export function AuthGuard({ children }: { children: ReactNode }) {
@@ -22,12 +22,13 @@ export function AuthGuard({ children }: { children: ReactNode }) {
 
   if (status === 'error') {
     return (
-      <ErrorPanel
-        fullPage
-        title="We could not verify your session"
-        message={error}
-        onRetry={() => void retry()}
-      />
+      <div className="grid min-h-svh place-items-center">
+        <ErrorState
+          title="We could not verify your session"
+          message={error}
+          onRetry={() => void retry()}
+        />
+      </div>
     );
   }
 

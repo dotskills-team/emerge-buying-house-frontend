@@ -44,36 +44,25 @@ const SERVICES: Array<{ icon: LucideIcon; title: string; body: string }> = [
 
 export function Services() {
   return (
-    <section id="services" className="py-20 md:py-28">
+    <section id="services" className="border-border bg-surface border-t py-16 sm:py-20 lg:py-28">
       <Container>
         <div className="max-w-2xl">
-          <h2 className="text-navy-900 font-serif text-3xl leading-tight font-medium md:text-4xl">
-            Everything between the design and the dock.
-          </h2>
-          <p className="text-ink-soft mt-5 leading-relaxed">
+          <p className="text-primary text-sm font-medium">Services</p>
+          <h2 className="text-h1 text-fg mt-2">Everything between the design and the dock.</h2>
+          <p className="text-fg-muted mt-5">
             Use us for a single step or hand over the whole order. Each service plugs into the same
             process and the same merchandiser.
           </p>
         </div>
 
-        <ul className="border-line mt-14 grid border-t md:grid-cols-2">
-          {SERVICES.map(({ icon: Icon, title, body }, i) => (
-            <li
-              key={title}
-              className={`border-line flex gap-5 border-b py-8 md:pr-10 ${
-                i % 2 === 1 ? 'md:border-l md:pr-0 md:pl-10' : ''
-              }`}
-            >
-              <Icon
-                size={26}
-                strokeWidth={1.5}
-                className="text-navy-700 mt-0.5 shrink-0"
-                aria-hidden
-              />
-              <div>
-                <h3 className="text-navy-900 font-medium">{title}</h3>
-                <p className="text-ink-soft mt-2 leading-relaxed">{body}</p>
-              </div>
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map(({ icon: Icon, title, body }) => (
+            <li key={title} className="border-border bg-bg rounded-lg border p-6">
+              <span className="bg-primary-soft text-primary flex size-10 items-center justify-center rounded-md">
+                <Icon size={20} strokeWidth={1.75} aria-hidden />
+              </span>
+              <h3 className="text-fg mt-4 font-semibold">{title}</h3>
+              <p className="text-fg-muted mt-2 text-sm">{body}</p>
             </li>
           ))}
         </ul>

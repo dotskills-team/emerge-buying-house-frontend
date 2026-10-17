@@ -1,11 +1,14 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
+import { ButtonLink } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
-import { NAV_LINKS, SITE } from '@/lib/constants';
+import { MARKETING_NAV, SITE } from '@/config/site';
 import { useUiStore } from '@/store/ui-store';
+import { Logo } from './logo';
 
 export function Navbar() {
   const { mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useUiStore();
@@ -18,29 +21,25 @@ export function Navbar() {
   }, [mobileMenuOpen, closeMobileMenu]);
 
   return (
-    <header className="border-line sticky top-0 z-40 border-b bg-white/90 backdrop-blur">
-      <Container className="flex h-16 items-center justify-between">
-        <a href="#top" className="flex items-baseline gap-2" aria-label={`${SITE.name} home`}>
-          <span className="text-navy-900 font-serif text-xl font-semibold">{SITE.name}</span>
-          <span className="text-ink-soft hidden text-sm sm:inline">{SITE.suffix}</span>
-        </a>
+    <header className="border-border bg-surface/90 sticky top-0 z-(--z-header) border-b backdrop-blur">
+      <Container className="flex h-(--header-height) items-center justify-between gap-4">
+        <Link href="/" aria-label={`${SITE.name} home`} onClick={closeMobileMenu}>
+          <Logo />
+        </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((l) => (
-            <a
+          {MARKETING_NAV.map((l) => (
+            <Link
               key={l.href}
               href={l.href}
-              className="text-ink-soft hover:text-navy-900 text-sm transition-colors"
+              className="text-fg-muted hover:text-fg text-sm transition-colors"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#contact"
-            className="bg-navy-900 hover:bg-navy-700 rounded-sm px-4 py-2 text-sm font-medium text-white transition-colors"
-          >
+          <ButtonLink href="/#contact" size="sm">
             Request a quote
-          </a>
+          </ButtonLink>
         </nav>
 
         <button
@@ -49,9 +48,9 @@ export function Navbar() {
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-menu"
           aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-          className="text-navy-900 -mr-2 p-2 md:hidden"
+          className="text-fg -mr-2 inline-flex size-11 items-center justify-center rounded-md md:hidden"
         >
-          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          {mobileMenuOpen ? <X size={22} aria-hidden /> : <Menu size={22} aria-hidden />}
         </button>
       </Container>
 
@@ -64,18 +63,18 @@ export function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="border-line overflow-hidden border-t bg-white md:hidden"
+            className="border-border bg-surface overflow-hidden border-t md:hidden"
           >
             <Container className="flex flex-col py-2">
-              {NAV_LINKS.map((l) => (
-                <a
+              {MARKETING_NAV.map((l) => (
+                <Link
                   key={l.href}
                   href={l.href}
                   onClick={closeMobileMenu}
-                  className="border-line text-navy-900 border-b py-4 text-base last:border-b-0"
+                  className="border-border text-fg border-b py-4 text-base last:border-b-0"
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
             </Container>
           </motion.nav>
