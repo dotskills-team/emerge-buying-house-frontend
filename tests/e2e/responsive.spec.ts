@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { hasNoHorizontalOverflow, signIn } from './helpers';
 
-const WIDTHS = [320, 375, 390, 768, 1024, 1280, 1440];
+const WIDTHS = [320, 375, 430, 768, 1024, 1280, 1440, 1920];
 const PUBLIC_PAGES = [
   '/',
   '/blog',
@@ -58,18 +58,30 @@ for (const width of WIDTHS) {
       }
 
       await page.goto('/dashboard');
-      if (width < 1024) {
+      const sidebar = page.getByRole('navigation', { name: 'Dashboard' });
+      if (width < 768) {
+        // Phones: off-canvas drawer behind a menu button.
         await page.getByRole('button', { name: 'Open navigation' }).click();
         const drawer = page.getByRole('dialog', { name: 'Navigation' });
         await drawer.getByRole('link', { name: 'Users' }).click();
         await expect(page).toHaveURL(/\/dashboard\/users$/);
         await expect(drawer).toHaveCount(0);
       } else {
-        await page
-          .getByRole('navigation', { name: 'Dashboard' })
-          .getByRole('link', { name: 'Users' })
-          .click();
+        // Tablets: icon rail; laptops and up: full sidebar. Links keep their accessible names.
+        await sidebar.getByRole('link', { name: 'Users' }).click();
         await expect(page).toHaveURL(/\/dashboard\/users$/);
+      }
+
+      if (width >= 1024) {
+        // The sidebar collapses to a rail and the content grows to use the space.
+        const main = page.locator('main');
+        const before = (await main.boundingBox())?.width ?? 0;
+        await page.getByRole('button', { name: 'Collapse sidebar' }).click();
+        await expect(page.getByRole('button', { name: 'Expand sidebar' })).toBeVisible();
+        await expect.poll(async () => (await main.boundingBox())?.width ?? 0).toBeGreaterThanOrEqual(before);
+        expect(await hasNoHorizontalOverflow(page)).toBe(true);
+        await page.getByRole('button', { name: 'Expand sidebar' }).click();
+        await expect(page.getByRole('button', { name: 'Collapse sidebar' })).toBeVisible();
       }
     });
   });

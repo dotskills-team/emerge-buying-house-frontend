@@ -20,6 +20,7 @@ import { Card } from '@/components/ui/card';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { Input, Select } from '@/components/ui/field';
 import { Pagination } from '@/components/ui/pagination';
+import { TBody, THead, Table, Td, Th, Tr } from '@/components/ui/table';
 import { ListSkeleton } from '@/components/ui/skeleton';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { errorMessage } from '@/lib/http';
@@ -50,6 +51,7 @@ type Confirm = { kind: 'trash' | 'purge'; post: PostSummary };
 export function BlogPostsPage() {
   const { user, can } = usePermissions();
   const [tab, setTab] = useState<TabKey>('all');
+  const [sort, setSort] = useState<'newest' | 'oldest' | 'title'>('newest');
   const [search, setSearch] = useState('');
   const [q, setQ] = useState('');
   const [category, setCategory] = useState('');
@@ -70,7 +72,7 @@ export function BlogPostsPage() {
     status: tab === 'published' || tab === 'draft' ? tab : undefined,
     trash: isTrash,
     category: category || undefined,
-    sort: 'newest',
+    sort,
     page,
     limit: 10,
   });
@@ -239,7 +241,7 @@ export function BlogPostsPage() {
           ))}
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-[1fr_14rem]">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[1fr_14rem_12rem]">
           <label className="relative">
             <span className="sr-only">Search posts</span>
             <Search
@@ -270,6 +272,21 @@ export function BlogPostsPage() {
                   {c.name}
                 </option>
               ))}
+            </Select>
+          </label>
+          <label className="sm:col-span-2 lg:col-span-1">
+            <span className="sr-only">Sort posts</span>
+            <Select
+              value={sort}
+              onChange={(e) => {
+                const v = e.target.value;
+                if (v === 'newest' || v === 'oldest' || v === 'title') setSort(v);
+                setPage(1);
+              }}
+            >
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="title">Title A–Z</option>
             </Select>
           </label>
         </div>
@@ -338,31 +355,24 @@ export function BlogPostsPage() {
               ))}
             </ul>
 
-            <table className="hidden w-full text-left text-sm md:table">
+            <Table className="hidden md:table">
               <caption className="sr-only">Blog posts</caption>
-              <thead className="border-border text-fg-muted border-b">
+              <THead>
                 <tr>
-                  <th scope="col" className="px-5 py-3 font-medium">
-                    Title
-                  </th>
-                  <th scope="col" className="px-3 py-3 font-medium">
-                    Category
-                  </th>
-                  <th scope="col" className="px-3 py-3 font-medium">
-                    Status
-                  </th>
-                  <th scope="col" className="px-3 py-3 font-medium">
-                    {isTrash ? 'Deleted' : 'Updated'}
-                  </th>
-                  <th scope="col" className="px-5 py-3 text-right font-medium">
+                  <Th>Title</Th>
+                  <Th>Category</Th>
+                  <Th className="hidden xl:table-cell">Author</Th>
+                  <Th>Status</Th>
+                  <Th>{isTrash ? 'Deleted' : 'Updated'}</Th>
+                  <Th className="text-right">
                     <span className="sr-only">Actions</span>
-                  </th>
+                  </Th>
                 </tr>
-              </thead>
-              <tbody className="divide-border divide-y">
+              </THead>
+              <TBody>
                 {data.items.map((post) => (
-                  <tr key={post.id} className="hover:bg-surface-muted">
-                    <td className="max-w-md px-5 py-3">
+                  <Tr key={post.id}>
+                    <Td className="max-w-md">
                       {isTrash ? (
                         <p className="text-fg font-medium">{post.title}</p>
                       ) : (
@@ -374,23 +384,26 @@ export function BlogPostsPage() {
                         </Link>
                       )}
                       <p className="text-fg-subtle truncate text-xs">/{post.slug}</p>
-                    </td>
-                    <td className="text-fg px-3 py-3">
+                    </Td>
+                    <Td className="text-fg">
                       {post.category?.name ?? <span className="text-fg-subtle">Uncategorised</span>}
-                    </td>
-                    <td className="px-3 py-3">
+                    </Td>
+                    <Td className="text-fg-muted hidden xl:table-cell">
+                      {post.author?.name ?? '—'}
+                    </Td>
+                    <Td>
                       <PostStatusBadge status={post.status} />
-                    </td>
-                    <td className="text-fg-muted px-3 py-3 whitespace-nowrap">
+                    </Td>
+                    <Td className="text-fg-muted whitespace-nowrap tabular-nums">
                       {formatDate(isTrash ? post.deletedAt : post.updatedAt)}
-                    </td>
-                    <td className="px-5 py-3">
+                    </Td>
+                    <Td className="py-2">
                       <div className="flex justify-end gap-0.5">{renderActions(post)}</div>
-                    </td>
-                  </tr>
+                    </Td>
+                  </Tr>
                 ))}
-              </tbody>
-            </table>
+              </TBody>
+            </Table>
           </>
         )}
       </Card>

@@ -5,12 +5,21 @@ import { extendTailwindMerge } from 'tailwind-merge';
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      text: ['h1', 'h2', 'h3', 'display'],
+      text: ['h1', 'h2', 'h3', 'display', 'kpi'],
       color: [
         'primary',
         'primary-hover',
         'primary-soft',
         'secondary',
+        'secondary-soft',
+        'cyan',
+        'cyan-soft',
+        'emerald',
+        'emerald-soft',
+        'series-1',
+        'series-2',
+        'series-3',
+        'nav-active',
         'accent',
         'accent-soft',
         'focus',

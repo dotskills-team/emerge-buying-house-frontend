@@ -71,110 +71,116 @@ export function CategoriesManager() {
   }
 
   return (
-    <div className="mx-auto max-w-(--container-narrow) space-y-6">
+    <div className="mx-auto max-w-(--container-content) space-y-6">
       <PageHeader
         title="Categories"
         description="Group your articles so readers can find related posts."
         back={{ href: '/dashboard/blog', label: 'Back to posts' }}
       />
 
-      <Card className="p-5">
-        <form
-          onSubmit={(e) => void onCreate(e)}
-          noValidate
-          className="flex flex-col gap-3 sm:flex-row sm:items-start"
-        >
-          <Field label="New category" error={nameError ?? undefined} className="flex-1">
-            <Input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              maxLength={60}
-              placeholder="e.g. Factory news"
-            />
-          </Field>
-          <Button type="submit" loading={create.isPending} className="sm:mt-7">
-            {!create.isPending && <Plus size={16} aria-hidden />} Add
-          </Button>
-        </form>
-      </Card>
+      {/* Wide screens: the add form sits beside the list; phones and tablets stack them. */}
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
+        <Card className="p-4 sm:p-5 lg:sticky lg:top-[calc(var(--header-height)+1.5rem)]">
+          <form
+            onSubmit={(e) => void onCreate(e)}
+            noValidate
+            className="flex flex-col gap-3 sm:flex-row sm:items-start lg:flex-col lg:items-stretch"
+          >
+            <Field label="New category" error={nameError ?? undefined} className="flex-1">
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                maxLength={60}
+                placeholder="e.g. Factory news"
+              />
+            </Field>
+            <Button type="submit" loading={create.isPending} className="sm:mt-7 lg:mt-0">
+              {!create.isPending && <Plus size={16} aria-hidden />} Add category
+            </Button>
+          </form>
+        </Card>
 
-      <Card>
-        {isError ? (
-          <ErrorState
-            title="Could not load categories"
-            message={error.message}
-            onRetry={() => void refetch()}
-          />
-        ) : isPending ? (
-          <ListSkeleton rows={3} label="Loading categories" />
-        ) : data.length === 0 ? (
-          <EmptyState
-            icon={FolderTree}
-            title="No categories yet"
-            message="Add your first one above."
-          />
-        ) : (
-          <ul className="divide-border divide-y">
-            {data.map((c) => (
-              <li key={c.id} className="flex items-center justify-between gap-3 px-4 py-3 sm:px-5">
-                {editingId === c.id ? (
-                  <>
-                    <Input
-                      autoFocus
-                      aria-label={`New name for ${c.name}`}
-                      value={editName}
-                      onChange={(e) => setEditName(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') void onSaveEdit(c);
-                        if (e.key === 'Escape') setEditingId(null);
-                      }}
-                      maxLength={60}
-                      className="flex-1"
-                    />
-                    <div className="flex shrink-0 gap-1">
-                      <IconButton
-                        label="Save name"
-                        onClick={() => void onSaveEdit(c)}
-                        disabled={update.isPending}
-                      >
-                        <Check size={16} aria-hidden />
-                      </IconButton>
-                      <IconButton label="Cancel" onClick={() => setEditingId(null)}>
-                        <X size={16} aria-hidden />
-                      </IconButton>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="min-w-0">
-                      <p className="text-fg truncate text-sm font-medium">{c.name}</p>
-                      <p className="text-fg-subtle truncate text-xs">/{c.slug}</p>
-                    </div>
-                    <div className="flex shrink-0 gap-1">
-                      <IconButton
-                        label={`Rename ${c.name}`}
-                        onClick={() => {
-                          setEditingId(c.id);
-                          setEditName(c.name);
+        <Card>
+          {isError ? (
+            <ErrorState
+              title="Could not load categories"
+              message={error.message}
+              onRetry={() => void refetch()}
+            />
+          ) : isPending ? (
+            <ListSkeleton rows={3} label="Loading categories" />
+          ) : data.length === 0 ? (
+            <EmptyState
+              icon={FolderTree}
+              title="No categories yet"
+              message="Add your first one above."
+            />
+          ) : (
+            <ul className="divide-border divide-y">
+              {data.map((c) => (
+                <li
+                  key={c.id}
+                  className="flex items-center justify-between gap-3 px-4 py-3 sm:px-5"
+                >
+                  {editingId === c.id ? (
+                    <>
+                      <Input
+                        autoFocus
+                        aria-label={`New name for ${c.name}`}
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') void onSaveEdit(c);
+                          if (e.key === 'Escape') setEditingId(null);
                         }}
-                      >
-                        <Pencil size={16} aria-hidden />
-                      </IconButton>
-                      <IconButton
-                        label={`Delete ${c.name}`}
-                        tone="danger"
-                        onClick={() => setToDelete(c)}
-                      >
-                        <Trash2 size={16} aria-hidden />
-                      </IconButton>
-                    </div>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </Card>
+                        maxLength={60}
+                        className="flex-1"
+                      />
+                      <div className="flex shrink-0 gap-1">
+                        <IconButton
+                          label="Save name"
+                          onClick={() => void onSaveEdit(c)}
+                          disabled={update.isPending}
+                        >
+                          <Check size={16} aria-hidden />
+                        </IconButton>
+                        <IconButton label="Cancel" onClick={() => setEditingId(null)}>
+                          <X size={16} aria-hidden />
+                        </IconButton>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="min-w-0">
+                        <p className="text-fg truncate text-sm font-medium">{c.name}</p>
+                        <p className="text-fg-subtle truncate text-xs">/{c.slug}</p>
+                      </div>
+                      <div className="flex shrink-0 gap-1">
+                        <IconButton
+                          label={`Rename ${c.name}`}
+                          onClick={() => {
+                            setEditingId(c.id);
+                            setEditName(c.name);
+                          }}
+                        >
+                          <Pencil size={16} aria-hidden />
+                        </IconButton>
+                        <IconButton
+                          label={`Delete ${c.name}`}
+                          tone="danger"
+                          onClick={() => setToDelete(c)}
+                        >
+                          <Trash2 size={16} aria-hidden />
+                        </IconButton>
+                      </div>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card>
+      </div>
 
       <ConfirmDialog
         open={toDelete !== null}

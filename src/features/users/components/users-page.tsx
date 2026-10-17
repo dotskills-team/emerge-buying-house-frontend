@@ -9,12 +9,13 @@ import { ButtonLink } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input, Select } from '@/components/ui/field';
 import { Pagination } from '@/components/ui/pagination';
+import { TBody, THead, Table, Td, Th, Tr } from '@/components/ui/table';
 import { ListSkeleton } from '@/components/ui/skeleton';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { formatDate } from '@/lib/utils';
 import { ROLE_KEYS, ROLE_LABELS, isRoleKey, type RoleKey } from '@/types/auth';
 import { useUsers } from '../hooks/use-users';
-import { RoleBadge, StatusBadge } from './user-badges';
+import { RoleBadge, StatusBadge, UserAvatar } from './user-badges';
 
 export function UsersPage() {
   const { can } = usePermissions();
@@ -55,7 +56,7 @@ export function UsersPage() {
         }
       />
 
-      <div className="grid gap-3 sm:grid-cols-[1fr_auto_auto]">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto_auto]">
         <label className="relative">
           <span className="sr-only">Search users</span>
           <Search
@@ -132,18 +133,21 @@ export function UsersPage() {
                   <li key={u.id}>
                     <Link
                       href={`/dashboard/users/${u.id}`}
-                      className="hover:bg-surface-muted block px-4 py-4"
+                      className="hover:bg-surface-muted flex items-start gap-3 px-4 py-4"
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <p className="text-fg truncate font-medium">{u.name}</p>
-                          <p className="text-fg-muted truncate text-sm">{u.email}</p>
+                      <UserAvatar name={u.name} role={u.role} />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <p className="text-fg truncate font-medium">{u.name}</p>
+                            <p className="text-fg-muted truncate text-sm">{u.email}</p>
+                          </div>
+                          <StatusBadge user={u} />
                         </div>
-                        <StatusBadge user={u} />
-                      </div>
-                      <div className="text-fg-subtle mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-                        <RoleBadge role={u.role} />
-                        <span>Last sign-in {formatDate(u.lastLoginAt)}</span>
+                        <div className="text-fg-subtle mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+                          <RoleBadge role={u.role} />
+                          <span>Last sign-in {formatDate(u.lastLoginAt)}</span>
+                        </div>
                       </div>
                     </Link>
                   </li>
@@ -151,49 +155,50 @@ export function UsersPage() {
               </ul>
 
               {/* Tablets and up: a table. */}
-              <table className="hidden w-full text-left text-sm md:table">
+              <Table className="hidden md:table">
                 <caption className="sr-only">Users</caption>
-                <thead className="border-border text-fg-muted border-b">
+                <THead>
                   <tr>
-                    <th scope="col" className="px-5 py-3 font-medium">
-                      Name
-                    </th>
-                    <th scope="col" className="px-3 py-3 font-medium">
-                      Role
-                    </th>
-                    <th scope="col" className="px-3 py-3 font-medium">
-                      Status
-                    </th>
-                    <th scope="col" className="px-5 py-3 font-medium">
-                      Last sign-in
-                    </th>
+                    <Th>Name</Th>
+                    <Th>Role</Th>
+                    <Th>Status</Th>
+                    <Th>Last sign-in</Th>
+                    <Th className="hidden xl:table-cell">Created</Th>
                   </tr>
-                </thead>
-                <tbody className="divide-border divide-y">
+                </THead>
+                <TBody>
                   {data.items.map((u) => (
-                    <tr key={u.id} className="hover:bg-surface-muted">
-                      <td className="max-w-80 px-5 py-3.5">
-                        <Link
-                          href={`/dashboard/users/${u.id}`}
-                          className="text-fg hover:text-primary font-medium hover:underline"
-                        >
-                          {u.name}
-                        </Link>
-                        <p className="text-fg-muted truncate">{u.email}</p>
-                      </td>
-                      <td className="px-3 py-3.5">
+                    <Tr key={u.id}>
+                      <Td className="max-w-96">
+                        <div className="flex items-center gap-3">
+                          <UserAvatar name={u.name} role={u.role} />
+                          <div className="min-w-0">
+                            <Link
+                              href={`/dashboard/users/${u.id}`}
+                              className="text-fg hover:text-primary block truncate font-medium hover:underline"
+                            >
+                              {u.name}
+                            </Link>
+                            <p className="text-fg-muted truncate">{u.email}</p>
+                          </div>
+                        </div>
+                      </Td>
+                      <Td>
                         <RoleBadge role={u.role} />
-                      </td>
-                      <td className="px-3 py-3.5">
+                      </Td>
+                      <Td>
                         <StatusBadge user={u} />
-                      </td>
-                      <td className="text-fg-muted px-5 py-3.5 whitespace-nowrap">
+                      </Td>
+                      <Td className="text-fg-muted whitespace-nowrap tabular-nums">
                         {formatDate(u.lastLoginAt)}
-                      </td>
-                    </tr>
+                      </Td>
+                      <Td className="text-fg-muted hidden whitespace-nowrap tabular-nums xl:table-cell">
+                        {formatDate(u.createdAt)}
+                      </Td>
+                    </Tr>
                   ))}
-                </tbody>
-              </table>
+                </TBody>
+              </Table>
             </>
           )}
         </Card>

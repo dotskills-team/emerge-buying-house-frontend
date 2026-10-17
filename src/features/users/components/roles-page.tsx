@@ -72,7 +72,7 @@ function RolePermissions({ role, catalog }: { role: RoleSummary; catalog: Permis
           The Super Admin role always has every permission and cannot be changed.
         </Alert>
       )}
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {groupPermissions(catalog).map(([group, defs]) => (
           <fieldset key={group}>
             <legend className="text-fg text-sm font-semibold">{group}</legend>

@@ -7,7 +7,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert } from '@/components/feedback/alert';
 import { Button, ButtonLink } from '@/components/ui/button';
-import { Field, Input } from '@/components/ui/field';
+import { Field } from '@/components/ui/field';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { applyFieldErrors } from '@/lib/forms';
 import { errorMessage } from '@/lib/http';
@@ -110,10 +111,10 @@ export function ResetPasswordForm() {
         hint="At least 12 characters. A short sentence works well."
         error={errors.password?.message}
       >
-        <Input type="password" autoComplete="new-password" {...register('password')} />
+        <PasswordInput autoComplete="new-password" {...register('password')} />
       </Field>
       <Field label="Confirm new password" error={errors.confirm?.message}>
-        <Input type="password" autoComplete="new-password" {...register('confirm')} />
+        <PasswordInput autoComplete="new-password" {...register('confirm')} />
       </Field>
       <Button type="submit" loading={isSubmitting} className="w-full">
         Change password

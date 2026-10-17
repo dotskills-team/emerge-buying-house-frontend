@@ -18,7 +18,7 @@ const PRINCIPLES = [
 export function About() {
   return (
     <section id="about" className="py-16 sm:py-20 lg:py-28">
-      <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div>
           <p className="text-primary text-sm font-medium">About us</p>
           <h2 className="text-h1 text-fg mt-2">
@@ -33,7 +33,10 @@ export function About() {
 
         <dl className="divide-border border-border bg-surface divide-y rounded-lg border px-5 sm:px-6">
           {PRINCIPLES.map((p) => (
-            <div key={p.title} className="grid gap-2 py-6 sm:grid-cols-[13rem_1fr] sm:gap-8">
+            <div
+              key={p.title}
+              className="grid grid-cols-1 gap-2 py-6 sm:grid-cols-[13rem_1fr] sm:gap-8"
+            >
               <dt className="text-fg font-semibold">{p.title}</dt>
               <dd className="text-fg-muted">{p.body}</dd>
             </div>

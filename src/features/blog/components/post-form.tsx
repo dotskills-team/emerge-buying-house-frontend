@@ -182,7 +182,7 @@ export function PostForm({ post }: { post?: Post }) {
 
       {error && <Alert tone="danger">{error}</Alert>}
 
-      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="min-w-0 space-y-5">
           <Field label="Title" aside={`${form.title.length}/160`}>
             <Input

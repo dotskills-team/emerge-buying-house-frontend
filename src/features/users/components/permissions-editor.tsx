@@ -106,7 +106,7 @@ export function PermissionsEditor({ target, editable }: { target: AdminUser; edi
         )
       }
     >
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {groupPermissions(catalog.data).map(([group, defs]) => (
           <fieldset key={group}>
             <legend className="text-fg text-sm font-semibold">{group}</legend>

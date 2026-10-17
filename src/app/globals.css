@@ -11,10 +11,26 @@
   --color-primary: #1d4ed8;
   --color-primary-hover: #1e40af;
   --color-primary-soft: #eff6ff;
-  --color-secondary: #475569;
+  --color-secondary: #6d28d9;
+  --color-secondary-soft: #f5f3ff;
   --color-accent: #0f766e;
   --color-accent-soft: #f0fdfa;
+  --color-cyan: #0e7490;
+  --color-cyan-soft: #ecfeff;
+  --color-emerald: #047857;
+  --color-emerald-soft: #ecfdf5;
   --color-focus: #2563eb;
+
+  /*
+   * Data-visualisation series, in fixed order (never cycled). Validated with the dataviz
+   * palette checker: lightness band, chroma, colour-blind separation and contrast all pass.
+   */
+  --color-series-1: #1d4ed8;
+  --color-series-2: #0d9488;
+  --color-series-3: #7c3aed;
+
+  /* Navigation on the dark sidebar */
+  --color-nav-active: #93c5fd;
 
   /* Surfaces */
   --color-bg: #f8fafc;
@@ -67,22 +83,29 @@
   --text-h1--line-height: 1.2;
   --text-display: clamp(2.125rem, 1.5rem + 2.8vw, 3.75rem);
   --text-display--line-height: 1.1;
+  /* KPI values: large and readable, proportional figures (see dataviz stat-tile spec). */
+  --text-kpi: clamp(1.75rem, 1.45rem + 1vw, 2.25rem);
+  --text-kpi--line-height: 1.1;
 
   /* Radii */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
 
   /* Elevation */
-  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.06);
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05), 0 1px 1px 0 rgb(15 23 42 / 0.03);
   --shadow-md: 0 4px 12px -2px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
   --shadow-lg: 0 20px 40px -12px rgb(15 23 42 / 0.25);
+  --shadow-glow: 0 8px 24px -8px rgb(29 78 216 / 0.45);
 
   /* Layout */
   --container-content: 72rem;
   --container-narrow: 42rem;
   --container-prose: 46rem;
-  --sidebar-width: 16rem;
+  --container-wide: 120rem;
+  --sidebar-width: 16.5rem;
+  --sidebar-rail: 4.5rem;
   --header-height: 4rem;
 
   /* Motion */
@@ -96,7 +119,12 @@
   --z-drawer: 40;
   --z-modal: 50;
   --z-toast: 60;
-  --page-gutter: clamp(1rem, 0.6rem + 1.6vw, 2rem);
+  --page-gutter: clamp(1rem, 0.6rem + 1.6vw, 2.5rem);
+  /* Gradients: used only for the dashboard hero, active navigation and KPI accents. */
+  --gradient-brand: linear-gradient(135deg, #1d4ed8 0%, #4338ca 55%, #6d28d9 100%);
+  --gradient-sidebar: linear-gradient(180deg, #0f172a 0%, #111b3a 100%);
+  --gradient-active: linear-gradient(90deg, rgb(59 130 246 / 0.28) 0%, rgb(124 58 237 / 0.16) 100%);
+  --gradient-indicator: linear-gradient(180deg, #38bdf8 0%, #a78bfa 100%);
   color-scheme: light;
 }
 

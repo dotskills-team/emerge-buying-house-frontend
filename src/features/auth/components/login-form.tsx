@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert } from '@/components/feedback/alert';
 import { Button } from '@/components/ui/button';
 import { Field, Input } from '@/components/ui/field';
+import { PasswordInput } from '@/components/ui/password-input';
 import { errorMessage } from '@/lib/http';
 import { useAuthStore } from '@/store/auth-store';
 import { useAuthBootstrap } from '../hooks/use-auth-bootstrap';
@@ -72,7 +73,7 @@ export function LoginForm() {
       </Field>
 
       <Field label="Password" error={errors.password?.message}>
-        <Input type="password" autoComplete="current-password" {...register('password')} />
+        <PasswordInput autoComplete="current-password" {...register('password')} />
       </Field>
 
       <div className="flex justify-end">

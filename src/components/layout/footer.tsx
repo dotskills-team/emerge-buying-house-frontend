@@ -7,7 +7,7 @@ import { Logo } from './logo';
 export function Footer() {
   return (
     <footer id="contact" className="bg-surface-inverse text-fg-inverse">
-      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+      <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
         <div className="sm:col-span-2 lg:col-span-1">
           <Logo inverse />
           <p className="text-fg-inverse-muted mt-4 max-w-sm text-sm">

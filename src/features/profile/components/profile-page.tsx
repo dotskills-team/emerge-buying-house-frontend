@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, SectionCard } from '@/components/ui/card';
 import { Field, Input } from '@/components/ui/field';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import {
@@ -67,7 +68,7 @@ function NameForm({ profile }: { profile: Profile }) {
     >
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
         {serverError && <Alert tone="danger">{serverError}</Alert>}
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field label="Full name" error={errors.name?.message}>
             <Input autoComplete="name" {...register('name')} />
           </Field>
@@ -123,18 +124,18 @@ function PasswordForm() {
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
         {serverError && <Alert tone="danger">{serverError}</Alert>}
         <Field label="Current password" error={errors.currentPassword?.message}>
-          <Input type="password" autoComplete="current-password" {...register('currentPassword')} />
+          <PasswordInput autoComplete="current-password" {...register('currentPassword')} />
         </Field>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field
             label="New password"
             hint="At least 12 characters."
             error={errors.newPassword?.message}
           >
-            <Input type="password" autoComplete="new-password" {...register('newPassword')} />
+            <PasswordInput autoComplete="new-password" {...register('newPassword')} />
           </Field>
           <Field label="Confirm new password" error={errors.confirm?.message}>
-            <Input type="password" autoComplete="new-password" {...register('confirm')} />
+            <PasswordInput autoComplete="new-password" {...register('confirm')} />
           </Field>
         </div>
         <div className="flex justify-end">
@@ -160,7 +161,7 @@ export function ProfilePage() {
 
   if (isPending) {
     return (
-      <div className="mx-auto max-w-(--container-narrow) space-y-6">
+      <div className="mx-auto max-w-(--container-content) space-y-6">
         {header}
         <div role="status" aria-label="Loading your profile" className="space-y-4">
           <Skeleton className="h-24" />
@@ -171,7 +172,7 @@ export function ProfilePage() {
   }
   if (isError) {
     return (
-      <div className="mx-auto max-w-(--container-narrow) space-y-6">
+      <div className="mx-auto max-w-(--container-content) space-y-6">
         {header}
         <Card>
           <ErrorState
@@ -185,9 +186,9 @@ export function ProfilePage() {
   }
 
   return (
-    <div className="mx-auto max-w-(--container-narrow) space-y-6">
+    <div className="mx-auto max-w-(--container-content) space-y-6">
       {header}
-      <dl className="border-border bg-surface grid gap-4 rounded-lg border p-5 text-sm sm:grid-cols-3">
+      <dl className="border-border bg-surface grid gap-4 rounded-xl border p-4 text-sm shadow-sm sm:grid-cols-3 sm:p-5">
         <div>
           <dt className="text-fg-muted">Role</dt>
           <dd className="mt-1">
@@ -203,8 +204,10 @@ export function ProfilePage() {
           <dd className="text-fg mt-0.5 font-medium">{formatDateTime(data.createdAt)}</dd>
         </div>
       </dl>
-      {can('profile.update') && <NameForm key={data.name} profile={data} />}
-      {can('auth.password.change') && <PasswordForm />}
+      <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-2">
+        {can('profile.update') && <NameForm key={data.name} profile={data} />}
+        {can('auth.password.change') && <PasswordForm />}
+      </div>
     </div>
   );
 }

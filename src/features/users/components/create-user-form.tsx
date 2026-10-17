@@ -10,6 +10,7 @@ import { PageHeader } from '@/components/layout/page-header';
 import { Button, ButtonLink } from '@/components/ui/button';
 import { SectionCard } from '@/components/ui/card';
 import { Field, Input, Select } from '@/components/ui/field';
+import { PasswordInput } from '@/components/ui/password-input';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { newPassword } from '@/features/auth/schemas/auth.schemas';
 import { applyFieldErrors } from '@/lib/forms';
@@ -93,7 +94,7 @@ export function CreateUserForm() {
               hint="At least 12 characters. Share it privately; they can change it from their profile."
               error={errors.password?.message}
             >
-              <Input type="password" autoComplete="new-password" {...register('password')} />
+              <PasswordInput autoComplete="new-password" {...register('password')} />
             </Field>
             <Field
               label="Role"

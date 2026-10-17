@@ -22,7 +22,7 @@ const rise = (delay: number) => ({
 export function Hero() {
   return (
     <section className="bg-surface-inverse text-fg-inverse">
-      <Container className="grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-28">
+      <Container className="grid grid-cols-1 gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-28">
         <div>
           <motion.p {...rise(0)} className="text-fg-inverse-muted text-sm font-medium">
             Garments sourcing &amp; buying house
@@ -39,11 +39,7 @@ export function Hero() {
             <ButtonLink href="/#contact" variant="inverse" size="lg">
               Request a quote <ArrowRight size={16} aria-hidden />
             </ButtonLink>
-            <ButtonLink
-              href="/#services"
-              size="lg"
-              className="text-fg-inverse border border-white/25 bg-transparent hover:bg-white/10"
-            >
+            <ButtonLink href="/#services" size="lg" variant="glass">
               Our services
             </ButtonLink>
           </motion.div>

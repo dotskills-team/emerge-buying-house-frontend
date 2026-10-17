@@ -64,7 +64,7 @@ function DetailsForm({ target }: { target: AdminUser }) {
     <SectionCard title="Details">
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
         {serverError && <Alert tone="danger">{serverError}</Alert>}
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field label="Full name" error={errors.name?.message}>
             <Input {...register('name')} />
           </Field>
@@ -220,7 +220,7 @@ export function UserDetailPage() {
   const manageable = !isSelf && !protectedTarget;
 
   return (
-    <div className="mx-auto max-w-(--container-narrow) space-y-6">
+    <div className="mx-auto max-w-(--container-content) space-y-6">
       <PageHeader
         title={target.name}
         description={target.email}
@@ -233,7 +233,7 @@ export function UserDetailPage() {
         }
       />
 
-      <dl className="border-border bg-surface grid gap-4 rounded-lg border p-5 text-sm sm:grid-cols-3">
+      <dl className="border-border bg-surface grid gap-4 rounded-xl border p-4 text-sm shadow-sm sm:grid-cols-3 sm:p-5">
         <div>
           <dt className="text-fg-muted">Last sign-in</dt>
           <dd className="text-fg mt-0.5 font-medium">{formatDateTime(target.lastLoginAt)}</dd>
@@ -262,16 +262,23 @@ export function UserDetailPage() {
         </Alert>
       )}
 
-      {manageable && can('users.update') && <DetailsForm key={target.updatedAt} target={target} />}
-      {manageable && can('roles.assign') && (
-        <RoleForm key={`${target.id}-${target.role}`} target={target} />
-      )}
-      {manageable && can('users.status') && <StatusForm target={target} />}
-      <PermissionsEditor
-        key={`${target.role}-${target.grants.join()}-${target.revokes.join()}`}
-        target={target}
-        editable={manageable && can('permissions.assign') && target.role !== 'super_admin'}
-      />
+      {/* Wide screens: account settings on the left, the (long) permission list on the right. */}
+      <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+        {manageable && (can('users.update') || can('roles.assign') || can('users.status')) && (
+          <div className="space-y-6">
+            {can('users.update') && <DetailsForm key={target.updatedAt} target={target} />}
+            {can('roles.assign') && (
+              <RoleForm key={`${target.id}-${target.role}`} target={target} />
+            )}
+            {can('users.status') && <StatusForm target={target} />}
+          </div>
+        )}
+        <PermissionsEditor
+          key={`${target.role}-${target.grants.join()}-${target.revokes.join()}`}
+          target={target}
+          editable={manageable && can('permissions.assign') && target.role !== 'super_admin'}
+        />
+      </div>
     </div>
   );
 }

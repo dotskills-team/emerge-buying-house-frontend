@@ -9,7 +9,7 @@ import {
 import { cn } from '@/lib/utils';
 
 const controlBase =
-  'block w-full rounded-md border border-border-strong bg-surface px-3 text-base text-fg sm:text-sm ' +
+  'block w-full rounded-lg border border-border-strong bg-surface px-3 text-base text-fg sm:text-sm ' +
   'placeholder:text-fg-subtle transition-colors duration-(--duration-fast) ' +
   'focus:border-primary focus:outline-2 focus:outline-offset-0 focus:outline-primary/25 ' +
   'disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-fg-subtle ' +

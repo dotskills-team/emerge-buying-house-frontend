@@ -69,3 +69,29 @@ export function activeHref(pathname: string, hrefs: string[]): string | undefine
     .filter((h) => pathname === h || pathname.startsWith(`${h}/`))
     .sort((a, b) => b.length - a.length)[0];
 }
+
+export interface Crumb {
+  href: string;
+  label: string;
+}
+
+const NAV_LABELS = new Map(DASHBOARD_NAV.flatMap((g) => g.items.map((i) => [i.href, i.label])));
+
+/** Labels for pages that are not in the sidebar: creation pages and record detail pages. */
+function leafLabel(parent: string, segment: string): string {
+  if (segment === 'new') return parent.endsWith('/users') ? 'Add user' : 'New post';
+  return parent.endsWith('/users') ? 'User details' : 'Edit post';
+}
+
+/** Overview › Blog posts › Edit post, built from the URL. */
+export function breadcrumbsFor(pathname: string): Crumb[] {
+  const crumbs: Crumb[] = [{ href: '/dashboard', label: 'Overview' }];
+  const segments = pathname.replace(/\/+$/, '').split('/').slice(2); // drop '', 'dashboard'
+  let href = '/dashboard';
+  for (const segment of segments) {
+    const parent = href;
+    href = `${href}/${segment}`;
+    crumbs.push({ href, label: NAV_LABELS.get(href) ?? leafLabel(parent, segment) });
+  }
+  return crumbs;
+}

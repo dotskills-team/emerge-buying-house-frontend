@@ -8,7 +8,7 @@ test.describe('authentication', () => {
     await expect(page.getByText('Enter your email address.')).toBeVisible();
 
     await page.getByLabel('Email').fill(emailFor('viewer'));
-    await page.getByLabel('Password').fill('definitely not the password');
+    await page.getByLabel('Password', { exact: true }).fill('definitely not the password');
     await page.getByRole('button', { name: 'Sign in' }).click();
     await expect(page.getByText('Invalid email or password.')).toBeVisible();
   });

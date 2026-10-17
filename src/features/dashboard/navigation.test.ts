@@ -1,5 +1,25 @@
 import { describe, expect, it } from 'vitest';
-import { activeHref } from './navigation';
+import { activeHref, breadcrumbsFor } from './navigation';
+
+describe('breadcrumbsFor', () => {
+  it('names sidebar pages, creation pages and detail pages', () => {
+    expect(breadcrumbsFor('/dashboard').map((c) => c.label)).toEqual(['Overview']);
+    expect(breadcrumbsFor('/dashboard/blog/categories').map((c) => c.label)).toEqual([
+      'Overview',
+      'Blog posts',
+      'Categories',
+    ]);
+    expect(breadcrumbsFor('/dashboard/users/new').map((c) => c.label)).toEqual([
+      'Overview',
+      'Users',
+      'Add user',
+    ]);
+    expect(breadcrumbsFor('/dashboard/blog/6ad339ddc220c080ec1faf54').at(-1)).toEqual({
+      href: '/dashboard/blog/6ad339ddc220c080ec1faf54',
+      label: 'Edit post',
+    });
+  });
+});
 
 const hrefs = ['/dashboard', '/dashboard/blog', '/dashboard/blog/categories', '/dashboard/users'];
 
