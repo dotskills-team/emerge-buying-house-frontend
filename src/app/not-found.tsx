@@ -16,8 +16,8 @@ export default function NotFound() {
         <p className="text-fg-muted mt-2">The link may be old, or the page may have moved.</p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <ButtonLink href="/">Go to the homepage</ButtonLink>
-          <ButtonLink href="/blog" variant="secondary">
-            Read our insights
+          <ButtonLink href="/news-events" variant="secondary">
+            News & events
           </ButtonLink>
         </div>
       </div>

@@ -1,24 +1,33 @@
+import { HeroSlider } from '@/components/home/hero-slider';
+import {
+  CertificationStrip,
+  IntroSplit,
+  JourneySection,
+  LatestNews,
+  ProcessTimeline,
+  ProductionTeaser,
+  StatsBand,
+  VisionMission,
+} from '@/components/home/home-sections';
+import { IndustriesShowcase } from '@/components/home/industries-showcase';
+import { MarqueeBand, TestimonialSlider } from '@/components/home/premium-sections';
 import { MarketingShell } from '@/components/layout/marketing-shell';
-import { About } from '@/components/sections/about';
-import { Hero } from '@/components/sections/hero';
-import { Services } from '@/components/sections/services';
 
 export default function HomePage() {
   return (
-    <MarketingShell>
-      <Hero />
-      <About />
-      <Services />
+    <MarketingShell overlayHeader>
+      <HeroSlider />
+      <IntroSplit />
+      <StatsBand />
+      <VisionMission />
+      <IndustriesShowcase />
+      <MarqueeBand />
+      <ProcessTimeline />
+      <ProductionTeaser />
+      <JourneySection />
+      <TestimonialSlider />
+      <LatestNews />
+      <CertificationStrip />
     </MarketingShell>
   );
 }
-// bneFu6mvJEBjvRRaMyTJ
-
-// পাঁচটি অ্যাকাউন্টেরই পাসওয়ার্ড একটাই: bneFu6mvJEBjvRRaMyTJ
-
-// রোল	ইমেইল
-// Super Admin	mahim.dotskills@gmail.com
-// Admin	admin@example.com
-// Content Manager	content@example.com
-// Author	author@example.com
-// Viewer	viewer@example.com

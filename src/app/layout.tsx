@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Noto_Sans_Bengali } from 'next/font/google';
+import { Fraunces, Inter, Noto_Sans_Bengali } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { Providers } from '@/components/providers';
 import { SITE } from '@/config/site';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+// Display serif for website headlines.
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+  axes: ['opsz', 'SOFT'],
+});
 // Only downloaded when a page contains Bangla characters (unicode-range subsetting).
 const bengali = Noto_Sans_Bengali({
   subsets: ['bengali'],
@@ -19,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0f172a',
+  themeColor: '#07130f',
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
@@ -27,7 +34,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${bengali.variable}`}>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable} ${bengali.variable}`}>
       <body>
         <Providers>{children}</Providers>
       </body>

@@ -1,24 +1,29 @@
+import Image from 'next/image';
+import logoDark from '@/assets/brand/logo.png';
+import logoLight from '@/assets/brand/logo-light.png';
 import { SITE } from '@/config/site';
 import { cn } from '@/lib/utils';
 
-/** Wordmark with a monogram tile. `inverse` is for dark backgrounds. */
-export function Logo({ inverse = false }: { inverse?: boolean }) {
+/**
+ * The Emerge Group logo. Both files are derived from public/logo.png: `logo.png` has a transparent
+ * background for light surfaces, `logo-light.png` has white lettering for dark ones.
+ */
+export function Logo({
+  inverse = false,
+  className,
+  priority = false,
+}: {
+  inverse?: boolean;
+  className?: string;
+  priority?: boolean;
+}) {
   return (
-    <span className="flex items-center gap-2.5">
-      <span
-        aria-hidden
-        className="bg-primary text-fg-inverse flex size-8 items-center justify-center rounded-md text-sm font-bold"
-      >
-        E
-      </span>
-      <span
-        className={cn(
-          'text-base font-semibold tracking-tight',
-          inverse ? 'text-fg-inverse' : 'text-fg',
-        )}
-      >
-        {SITE.name}
-      </span>
-    </span>
+    <Image
+      src={inverse ? logoLight : logoDark}
+      alt={SITE.name}
+      priority={priority}
+      sizes="160px"
+      className={cn('h-10 w-auto', className)}
+    />
   );
 }
