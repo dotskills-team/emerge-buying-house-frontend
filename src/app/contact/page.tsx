@@ -37,8 +37,14 @@ function InfoCard({
   );
 }
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ product?: string }>;
+}) {
   const email = SITE.contactEmail ?? CONTACT.email;
+  // Arriving from a product page ("Request a quote") pre-fills the message.
+  const product = (await searchParams).product?.trim().slice(0, 140) || undefined;
   return (
     <MarketingShell>
       <PageHero
@@ -102,7 +108,7 @@ export default function ContactPage() {
               <h2 className="text-h2 text-fg font-semibold">Send us a message</h2>
               <p className="text-fg-muted mt-2 text-sm">Fields marked * are required.</p>
               <div className="mt-8">
-                <ContactForm to={email} />
+                <ContactForm to={email} product={product} />
               </div>
             </div>
           </Reveal>

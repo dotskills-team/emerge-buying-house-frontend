@@ -149,8 +149,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: calc(var(--header-height) + 1rem);
     -webkit-text-size-adjust: 100%;
+  }
+
+  /* Anchor targets clear the fixed header (compact 4.5rem + breathing room). Kept off <html>
+     so route changes still land at the very top of the new page. <main> already starts below
+     the header (and Next scrolls it into view on navigation), so it is left out. */
+  [id]:not(main) {
+    scroll-margin-top: 5.5rem;
   }
 
   body {

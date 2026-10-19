@@ -4,6 +4,8 @@ import {
   KeyRound,
   LayoutDashboard,
   Newspaper,
+  Package,
+  Tags,
   UserCircle,
   Users,
   type LucideIcon,
@@ -36,9 +38,26 @@ export const DASHBOARD_NAV: NavGroup[] = [
       },
       {
         href: '/dashboard/blog/categories',
-        label: 'Categories',
+        label: 'Blog categories',
         icon: FolderTree,
         anyOf: ['categories.manage'],
+      },
+    ],
+  },
+  {
+    label: 'Catalogue',
+    items: [
+      {
+        href: '/dashboard/products',
+        label: 'Products',
+        icon: Package,
+        anyOf: ['products.read', 'products.manage'],
+      },
+      {
+        href: '/dashboard/products/categories',
+        label: 'Product categories',
+        icon: Tags,
+        anyOf: ['products.categories'],
       },
     ],
   },
@@ -78,9 +97,16 @@ export interface Crumb {
 const NAV_LABELS = new Map(DASHBOARD_NAV.flatMap((g) => g.items.map((i) => [i.href, i.label])));
 
 /** Labels for pages that are not in the sidebar: creation pages and record detail pages. */
+const LEAF_LABELS: Record<string, { create: string; detail: string }> = {
+  '/dashboard/users': { create: 'Add user', detail: 'User details' },
+  '/dashboard/products': { create: 'New product', detail: 'Edit product' },
+  '/dashboard/blog': { create: 'New post', detail: 'Edit post' },
+};
+
 function leafLabel(parent: string, segment: string): string {
-  if (segment === 'new') return parent.endsWith('/users') ? 'Add user' : 'New post';
-  return parent.endsWith('/users') ? 'User details' : 'Edit post';
+  if (segment === 'preview') return 'Preview';
+  const labels = LEAF_LABELS[parent] ?? { create: 'New', detail: 'Details' };
+  return segment === 'new' ? labels.create : labels.detail;
 }
 
 /** Overview › Blog posts › Edit post, built from the URL. */

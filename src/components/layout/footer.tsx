@@ -13,6 +13,7 @@ const EXPLORE = [
   { label: 'Employee Welfare', href: '/sustainability/employee-welfare' },
   { label: 'CSR', href: '/csr' },
   { label: 'News & Events', href: '/news-events' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Career', href: '/career' },
 ];
 

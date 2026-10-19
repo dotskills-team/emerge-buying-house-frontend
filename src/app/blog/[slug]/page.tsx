@@ -1,14 +1,11 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
+import { ArticleView } from '@/components/blog/article-view';
 import { MarketingShell } from '@/components/layout/marketing-shell';
-import { Container } from '@/components/ui/container';
-import { PROSE } from '@/features/blog/prose';
+import { SITE } from '@/config/site';
 import { getPublic } from '@/lib/server-api';
-import { formatDate } from '@/lib/utils';
-import type { Post } from '@/types/blog';
+import type { Post, PostSummary } from '@/types/blog';
 
 // Shared by generateMetadata and the page within one request.
 const loadPost = cache((slug: string) =>
@@ -22,75 +19,75 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = await loadPost((await params).slug);
   if (!post) return { title: 'Article not found' };
+  const title = post.seoTitle || post.title;
   const description = post.seoDescription || post.excerpt;
   const image = post.ogImage ?? post.coverImage?.url;
   return {
-    title: post.seoTitle || post.title,
+    title,
     description,
+    alternates: { canonical: post.canonicalUrl || `/blog/${post.slug}` },
+    robots: post.noIndex ? { index: false, follow: true } : undefined,
+    authors: post.author ? [{ name: post.author.name }] : undefined,
+    keywords: post.tags.length ? post.tags : undefined,
     openGraph: {
       type: 'article',
-      title: post.seoTitle || post.title,
+      title,
       description,
+      url: `/blog/${post.slug}`,
+      siteName: SITE.name,
       publishedTime: post.publishedAt ?? undefined,
+      modifiedTime: post.updatedAt,
+      authors: post.author ? [post.author.name] : undefined,
+      section: post.category?.name,
+      tags: post.tags,
+      images: image ? [{ url: image, alt: post.coverImage?.alt || post.title }] : undefined,
+    },
+    twitter: {
+      card: image ? 'summary_large_image' : 'summary',
+      title,
+      description,
       images: image ? [image] : undefined,
     },
   };
 }
 
+/** Article structured data for search engines. `<` is escaped so content cannot close the tag. */
+function jsonLd(post: Post) {
+  const url = `${SITE.url}/blog/${post.slug}`;
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.seoTitle || post.title,
+    description: post.seoDescription || post.excerpt,
+    image: post.coverImage?.url ? [post.coverImage.url] : undefined,
+    datePublished: post.publishedAt ?? undefined,
+    dateModified: post.updatedAt,
+    author: post.author ? { '@type': 'Person', name: post.author.name } : undefined,
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+      logo: { '@type': 'ImageObject', url: `${SITE.url}/logo.png` },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    articleSection: post.category?.name,
+    keywords: post.tags.join(', ') || undefined,
+    timeRequired: `PT${post.readingTime}M`,
+  };
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const post = await loadPost((await params).slug);
+  const { slug } = await params;
+  const [post, related] = await Promise.all([
+    loadPost(slug),
+    getPublic<PostSummary[]>(`/blog/posts/${encodeURIComponent(slug)}/related`),
+  ]);
   if (!post) notFound();
 
   return (
-    <MarketingShell>
-      <article>
-        <header className="border-border bg-surface border-b py-10 sm:py-14">
-          <Container className="max-w-(--container-prose)">
-            <Link href="/blog" className="text-primary text-sm hover:underline">
-              ← All articles
-            </Link>
-            <p className="text-fg-subtle mt-6 text-sm">
-              {post.category?.name ?? 'Article'} · {formatDate(post.publishedAt)} ·{' '}
-              {post.readingTime} min read
-            </p>
-            <h1 className="text-h1 text-fg mt-2">{post.title}</h1>
-            {post.excerpt && <p className="text-fg-muted mt-4 text-lg">{post.excerpt}</p>}
-            {post.author && <p className="text-fg-muted mt-6 text-sm">By {post.author.name}</p>}
-          </Container>
-        </header>
-
-        <Container className="max-w-(--container-prose) py-10 sm:py-14">
-          {post.coverImage && (
-            <div className="bg-surface-muted relative mb-10 aspect-video overflow-hidden rounded-lg">
-              <Image
-                src={post.coverImage.url}
-                alt={post.coverImage.alt}
-                fill
-                priority
-                sizes="(min-width: 768px) 46rem, 100vw"
-                className="object-cover"
-              />
-            </div>
-          )}
-          {/* Sanitized by the backend on save: only allow-listed tags, attributes and https images. */}
-          <div className={PROSE} dangerouslySetInnerHTML={{ __html: post.content }} />
-          {post.tags.length > 0 && (
-            <ul
-              aria-label="Tags"
-              className="border-border mt-10 flex flex-wrap gap-2 border-t pt-6"
-            >
-              {post.tags.map((t) => (
-                <li
-                  key={t}
-                  className="bg-surface-muted text-fg-muted rounded-full px-3 py-1 text-xs"
-                >
-                  {t}
-                </li>
-              ))}
-            </ul>
-          )}
-        </Container>
-      </article>
+    <MarketingShell overlayHeader>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(post) }} />
+      <ArticleView post={post} related={related ?? []} />
     </MarketingShell>
   );
 }

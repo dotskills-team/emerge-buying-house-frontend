@@ -7,6 +7,7 @@ import type {
   PostInput,
   PostListParams,
   PostListResult,
+  PostStats,
 } from '@/types/blog';
 
 const BASE = '/blog/admin';
@@ -29,8 +30,17 @@ export const createPost = (input: PostInput) =>
 export const updatePost = (id: string, input: Partial<PostInput>) =>
   apiFetch<Post>(`${BASE}/posts/${id}`, send('PATCH', input));
 
-export const publishPost = (id: string) =>
-  apiFetch<Post>(`${BASE}/posts/${id}/publish`, send('POST'));
+export const getPostStats = () => apiFetch<PostStats>(`${BASE}/posts/stats`, { auth: true });
+
+export const duplicatePost = (id: string) =>
+  apiFetch<Post>(`${BASE}/posts/${id}/duplicate`, send('POST'));
+
+/** Without a date: publish now. A future date schedules the post; a past date backdates it. */
+export const publishPost = (id: string, publishAt?: string) =>
+  apiFetch<Post>(
+    `${BASE}/posts/${id}/publish`,
+    send('POST', publishAt ? { publishAt } : undefined),
+  );
 export const unpublishPost = (id: string) =>
   apiFetch<Post>(`${BASE}/posts/${id}/unpublish`, send('POST'));
 export const trashPost = (id: string) =>

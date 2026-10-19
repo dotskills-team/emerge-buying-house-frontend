@@ -7,6 +7,13 @@ export const SITE = {
   description:
     'International garments buying house connecting global brands with vetted manufacturers: sourcing, product development, quality assurance and shipment coordination.',
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || null,
+  /** Absolute origin for canonical links, social previews, the sitemap and RSS. */
+  url: (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+      : 'http://localhost:3000')
+  ).replace(/\/+$/, ''),
 } as const;
 
 export interface NavLink {
@@ -88,6 +95,7 @@ export const MAIN_NAV: NavEntry[] = [
   },
   { label: 'CSR', href: '/csr' },
   { label: 'News & Events', href: '/news-events' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Career', href: '/career' },
   { label: 'Contact', href: '/contact' },
 ];

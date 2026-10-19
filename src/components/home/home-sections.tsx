@@ -28,7 +28,6 @@ import {
 } from '@/content/company';
 import { IMG } from '@/content/images';
 import { NEWS_SORTED } from '@/content/news';
-import { PRODUCTS } from '@/content/products';
 
 export function IntroSplit() {
   return (
@@ -218,8 +217,17 @@ export function ProcessTimeline() {
   );
 }
 
+// Showcase tiles for what we produce (photography only; the catalogue lives on /production).
+const SHOWCASE = [
+  { id: 'denim', name: 'Denim', category: 'Wovens', image: IMG.denim },
+  { id: 'jersey', name: 'Embroidered jerseys', category: 'Knitwear', image: IMG.embroidery },
+  { id: 'fabric', name: 'Fabric library', category: 'Fabric & trims', image: IMG.fabricRolls },
+  { id: 'sweaters', name: 'Flat-knit sweaters', category: 'Knitwear', image: IMG.knittingMachine },
+  { id: 'dresses', name: 'Dresses & blouses', category: 'Wovens', image: IMG.sewingDress },
+];
+
 export function ProductionTeaser() {
-  const picks = PRODUCTS.slice(0, 5);
+  const picks = SHOWCASE;
   return (
     <section className="py-20 sm:py-24 lg:py-32">
       <Container>
@@ -233,7 +241,7 @@ export function ProductionTeaser() {
             href="/production"
             className="group text-primary inline-flex shrink-0 items-center gap-2 text-sm font-semibold"
           >
-            View the full gallery
+            View the full catalogue
             <ArrowRight
               size={16}
               aria-hidden
@@ -250,7 +258,7 @@ export function ProductionTeaser() {
               className={i === 0 ? 'col-span-2 row-span-2' : undefined}
             >
               <Link
-                href={`/production?item=${p.id}`}
+                href="/production#catalogue"
                 className="group relative block h-full overflow-hidden rounded-2xl"
               >
                 <Image

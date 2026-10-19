@@ -3,7 +3,7 @@ import { Loader2 } from 'lucide-react';
 import type { ComponentPropsWithoutRef } from 'react';
 import { cn } from '@/lib/utils';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'inverse' | 'glass';
+type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'inverse' | 'glass' | 'gold';
 type Size = 'sm' | 'md' | 'lg';
 
 const VARIANTS: Record<Variant, string> = {
@@ -17,6 +17,8 @@ const VARIANTS: Record<Variant, string> = {
   /** Secondary action on dark or gradient backgrounds. */
   glass:
     'border border-white/30 bg-white/10 text-fg-inverse hover:bg-white/20 active:translate-y-px',
+  /** Premium call to action (gold on dark panels). */
+  gold: 'bg-(image:--gradient-gold) text-ink-deep shadow-gold hover:brightness-105 active:translate-y-px',
 };
 
 // Every size keeps at least a 40px touch target; `md` and up meet the 44px guideline.

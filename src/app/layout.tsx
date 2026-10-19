@@ -21,6 +21,7 @@ const bengali = Noto_Sans_Bengali({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: { default: SITE.name, template: `%s | ${SITE.name}` },
   description: SITE.description,
 };

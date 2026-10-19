@@ -9,17 +9,28 @@ interface UploadSignature {
   signature: string;
 }
 
+export interface UploadedImage {
+  url: string;
+  publicId: string;
+  width: number;
+  height: number;
+}
+
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 const MAX_BYTES = 5 * 1024 * 1024;
 
 /** Uploads straight to Cloudinary using a short-lived signature from our backend. */
-export async function uploadImage(file: File): Promise<{ url: string; publicId: string }> {
+export async function uploadImage(
+  file: File,
+  folder: 'blog' | 'products' = 'blog',
+): Promise<UploadedImage> {
   if (!ALLOWED.includes(file.type)) throw new Error('Use a JPG, PNG, WebP or AVIF image.');
   if (file.size > MAX_BYTES) throw new Error('Image must be 5 MB or smaller.');
 
   const sig = await apiFetch<UploadSignature>('/blog/admin/uploads/signature', {
     auth: true,
     method: 'POST',
+    body: JSON.stringify({ folder }),
   });
 
   // Every signed parameter must be sent exactly as signed.
@@ -42,6 +53,11 @@ export async function uploadImage(file: File): Promise<{ url: string; publicId: 
   }
   if (!res.ok) throw new Error('Image upload failed. Please try again.');
 
-  const data = (await res.json()) as { secure_url: string; public_id: string };
-  return { url: data.secure_url, publicId: data.public_id };
+  const data = (await res.json()) as {
+    secure_url: string;
+    public_id: string;
+    width: number;
+    height: number;
+  };
+  return { url: data.secure_url, publicId: data.public_id, width: data.width, height: data.height };
 }

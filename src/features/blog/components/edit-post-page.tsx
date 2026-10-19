@@ -12,6 +12,7 @@ import type { Post } from '@/types/blog';
 import { usePost } from '../hooks/use-blog';
 import { PROSE } from '../prose';
 import { PostForm } from './post-form';
+import { displayStatus } from '../utils/status';
 import { PostStatusBadge } from './post-status-badge';
 
 /** For people who may see a post but not edit it (viewers, authors once it is published). */
@@ -22,7 +23,7 @@ function PostPreview({ post, reason }: { post: Post; reason: string }) {
         title={post.title}
         description={reason}
         back={{ href: '/dashboard/blog', label: 'Back to posts' }}
-        actions={<PostStatusBadge status={post.status} />}
+        actions={<PostStatusBadge status={displayStatus(post)} />}
       />
       <Card className="p-5 sm:p-8">
         <p className="text-fg-subtle text-sm">

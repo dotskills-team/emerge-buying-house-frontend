@@ -35,6 +35,8 @@ export interface Post {
   seoTitle: string;
   seoDescription: string;
   ogImage: string | null;
+  canonicalUrl: string | null;
+  noIndex: boolean;
   featured: boolean;
   readingTime: number;
   publishedAt: string | null;
@@ -59,12 +61,14 @@ export interface PostInput {
   seoTitle?: string;
   seoDescription?: string;
   ogImage?: string | null;
+  canonicalUrl?: string | null;
+  noIndex?: boolean;
   featured?: boolean;
 }
 
 export interface PostListParams {
   q?: string;
-  status?: PostStatus;
+  status?: PostStatus | 'scheduled';
   category?: string;
   trash?: boolean;
   sort?: 'newest' | 'oldest' | 'title';
@@ -76,4 +80,25 @@ export interface CategoryInput {
   name: string;
   slug?: string;
   description?: string;
+}
+
+/** What editors see: a published post with a future date is "scheduled". */
+export type DisplayStatus = PostStatus | 'scheduled';
+
+export interface PostStats {
+  all: number;
+  draft: number;
+  published: number;
+  scheduled: number;
+  trash: number;
+}
+
+/** Public category list entry, with its number of live posts. */
+export interface CategoryWithCount extends Category {
+  postCount: number;
+}
+
+export interface TagCount {
+  tag: string;
+  count: number;
 }

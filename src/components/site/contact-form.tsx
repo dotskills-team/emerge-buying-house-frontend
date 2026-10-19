@@ -12,7 +12,7 @@ const TOPICS = ['Request a quote', 'Partnership', 'Factory audit', 'Careers', 'O
  * There is no message API yet, so the form composes an email in the visitor's mail app instead of
  * pretending to send. Validation runs in the browser first.
  */
-export function ContactForm({ to }: { to: string }) {
+export function ContactForm({ to, product }: { to: string; product?: string }) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [opened, setOpened] = useState(false);
 
@@ -75,7 +75,15 @@ export function ContactForm({ to }: { to: string }) {
         error={errors.message}
         hint="Styles, quantities and target dates help us reply faster."
       >
-        <Textarea name="message" rows={5} />
+        <Textarea
+          name="message"
+          rows={5}
+          defaultValue={
+            product
+              ? `I would like a quote for: ${product}\nQuantity:\nTarget delivery:\n`
+              : undefined
+          }
+        />
       </Field>
       <Button type="submit" size="lg" className="w-full bg-(image:--gradient-brand) sm:w-auto">
         <Send size={16} aria-hidden /> Send message

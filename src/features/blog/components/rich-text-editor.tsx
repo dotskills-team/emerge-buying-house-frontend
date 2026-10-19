@@ -3,13 +3,13 @@
 import { useRef, useState, type ReactNode } from 'react';
 import { EditorContent, useEditor, type Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import LinkExtension from '@tiptap/extension-link';
 import ImageExtension from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import {
   Bold,
   Heading2,
   Heading3,
+  Heading4,
   Image as ImageIcon,
   Italic,
   Link2,
@@ -19,7 +19,10 @@ import {
   Minus,
   Quote,
   Redo2,
+  RemoveFormatting,
+  SquareCode,
   Strikethrough,
+  Underline,
   Undo2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -119,6 +122,13 @@ function Toolbar({ editor, onError }: { editor: Editor; onError: (m: string) => 
         <Italic size={16} />
       </ToolButton>
       <ToolButton
+        label="Underline"
+        active={editor.isActive('underline')}
+        onClick={() => c().toggleUnderline().run()}
+      >
+        <Underline size={16} />
+      </ToolButton>
+      <ToolButton
         label="Strikethrough"
         active={editor.isActive('strike')}
         onClick={() => c().toggleStrike().run()}
@@ -139,6 +149,13 @@ function Toolbar({ editor, onError }: { editor: Editor; onError: (m: string) => 
         onClick={() => c().toggleHeading({ level: 3 }).run()}
       >
         <Heading3 size={16} />
+      </ToolButton>
+      <ToolButton
+        label="Small heading"
+        active={editor.isActive('heading', { level: 4 })}
+        onClick={() => c().toggleHeading({ level: 4 }).run()}
+      >
+        <Heading4 size={16} />
       </ToolButton>
       <Divider />
       <ToolButton
@@ -162,8 +179,18 @@ function Toolbar({ editor, onError }: { editor: Editor; onError: (m: string) => 
       >
         <Quote size={16} />
       </ToolButton>
+      <ToolButton
+        label="Code block"
+        active={editor.isActive('codeBlock')}
+        onClick={() => c().toggleCodeBlock().run()}
+      >
+        <SquareCode size={16} />
+      </ToolButton>
       <ToolButton label="Divider line" onClick={() => c().setHorizontalRule().run()}>
         <Minus size={16} />
+      </ToolButton>
+      <ToolButton label="Clear formatting" onClick={() => c().unsetAllMarks().clearNodes().run()}>
+        <RemoveFormatting size={16} />
       </ToolButton>
       <Divider />
       <ToolButton label="Link" active={editor.isActive('link')} onClick={setLink}>
@@ -206,8 +233,11 @@ export function RichTextEditor({
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
-      StarterKit.configure({ heading: { levels: [2, 3, 4] } }),
-      LinkExtension.configure({ openOnClick: false, autolink: true }),
+      // StarterKit v3 already bundles Link and Underline; configure them here, not twice.
+      StarterKit.configure({
+        heading: { levels: [2, 3, 4] },
+        link: { openOnClick: false, autolink: true },
+      }),
       ImageExtension,
       Placeholder.configure({ placeholder: 'Start writing your article…' }),
     ],

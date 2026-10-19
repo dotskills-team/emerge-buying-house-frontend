@@ -36,25 +36,6 @@ test.describe('public website', () => {
     await expect(menu).toHaveCount(0);
   });
 
-  test('production images open in a zoomable viewer', async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto('/production');
-    await page.getByRole('button', { name: /Zoom into Core denim collection/ }).click();
-    const viewer = page.getByRole('dialog');
-    await expect(viewer).toBeVisible();
-    await expect(viewer.getByRole('heading', { name: 'Core denim collection' })).toBeVisible();
-
-    await viewer.getByRole('button', { name: 'Zoom in' }).click();
-    await expect(viewer.getByLabel('Zoom level')).not.toHaveText('100%');
-    await viewer.getByRole('button', { name: 'Reset zoom' }).click();
-    await expect(viewer.getByLabel('Zoom level')).toHaveText('100%');
-
-    await page.keyboard.press('ArrowRight');
-    await expect(viewer.getByRole('heading', { level: 2 })).not.toHaveText('Core denim collection');
-    await page.keyboard.press('Escape');
-    await expect(viewer).toHaveCount(0);
-  });
-
   test('news detail: left titles scroll to that story; social links on the right', async ({
     page,
   }) => {

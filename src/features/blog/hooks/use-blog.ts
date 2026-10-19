@@ -3,7 +3,9 @@ import type { PostListParams } from '@/types/blog';
 import {
   createCategory,
   deleteCategory,
+  duplicatePost,
   getPost,
+  getPostStats,
   listCategories,
   listPosts,
   publishPost,
@@ -17,6 +19,7 @@ import {
 export const blogKeys = {
   posts: ['blog', 'posts'] as const,
   list: (params: PostListParams) => ['blog', 'posts', 'list', params] as const,
+  stats: ['blog', 'posts', 'stats'] as const,
   categories: ['blog', 'categories'] as const,
 };
 
@@ -42,7 +45,13 @@ function usePostMutation<TVars>(fn: (vars: TVars) => Promise<unknown>) {
   });
 }
 
-export const usePublishPost = () => usePostMutation(publishPost);
+export function usePostStats() {
+  // Under the posts key, so every post mutation refreshes the tab counts too.
+  return useQuery({ queryKey: blogKeys.stats, queryFn: getPostStats });
+}
+
+export const usePublishPost = () => usePostMutation((id: string) => publishPost(id));
+export const useDuplicatePost = () => usePostMutation(duplicatePost);
 export const useUnpublishPost = () => usePostMutation(unpublishPost);
 export const useTrashPost = () => usePostMutation(trashPost);
 export const useRestorePost = () => usePostMutation(restorePost);
@@ -62,5 +71,7 @@ function useCategoryMutation<TVars>(fn: (vars: TVars) => Promise<unknown>) {
 
 export const useCreateCategory = () => useCategoryMutation(createCategory);
 export const useUpdateCategory = () =>
-  useCategoryMutation(({ id, name }: { id: string; name: string }) => updateCategory(id, { name }));
+  useCategoryMutation(({ id, ...input }: { id: string; name?: string; description?: string }) =>
+    updateCategory(id, input),
+  );
 export const useDeleteCategory = () => useCategoryMutation(deleteCategory);

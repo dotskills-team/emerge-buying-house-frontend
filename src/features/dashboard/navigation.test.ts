@@ -7,7 +7,7 @@ describe('breadcrumbsFor', () => {
     expect(breadcrumbsFor('/dashboard/blog/categories').map((c) => c.label)).toEqual([
       'Overview',
       'Blog posts',
-      'Categories',
+      'Blog categories',
     ]);
     expect(breadcrumbsFor('/dashboard/users/new').map((c) => c.label)).toEqual([
       'Overview',
@@ -18,6 +18,9 @@ describe('breadcrumbsFor', () => {
       href: '/dashboard/blog/6ad339ddc220c080ec1faf54',
       label: 'Edit post',
     });
+    expect(
+      breadcrumbsFor('/dashboard/blog/6ad339ddc220c080ec1faf54/preview').map((c) => c.label),
+    ).toEqual(['Overview', 'Blog posts', 'Edit post', 'Preview']);
   });
 });
 

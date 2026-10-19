@@ -75,7 +75,7 @@ test.describe('role-based access', () => {
     const editor = await browser.newPage();
     await signIn(editor, 'content_manager');
     await editor.goto('/dashboard/blog');
-    const row = editor.getByRole('row', { name: new RegExp(title) });
+    const row = editor.getByRole('listitem').filter({ hasText: title });
     await row.getByRole('button', { name: 'Publish' }).click();
     await expect(editor.getByText('Post published.')).toBeVisible();
     await editor.close();

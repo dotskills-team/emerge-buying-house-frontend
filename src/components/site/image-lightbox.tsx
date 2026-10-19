@@ -1,6 +1,6 @@
 'use client';
 
-import Image, { type StaticImageData } from 'next/image';
+import Image from 'next/image';
 import {
   useCallback,
   useEffect,
@@ -19,7 +19,8 @@ export interface LightboxItem {
   subtitle?: string;
   description?: string;
   specs?: Array<{ label: string; value: string }>;
-  image: StaticImageData;
+  /** A static import or a remote image with its intrinsic size (the original file, for sharp zoom). */
+  image: { src: string; width: number; height: number };
 }
 
 const MIN = 1;
@@ -361,7 +362,7 @@ export function ImageLightbox({
                     i === index ? 'ring-white' : 'opacity-60 ring-transparent hover:opacity-100',
                   )}
                 >
-                  <Image src={it.image} alt="" fill sizes="96px" className="object-cover" />
+                  <Image src={it.image.src} alt="" fill sizes="96px" className="object-cover" />
                 </button>
               </li>
             ))}

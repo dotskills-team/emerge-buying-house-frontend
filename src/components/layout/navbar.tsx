@@ -86,6 +86,7 @@ function DesktopDropdown({
 }) {
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pointerType = useRef<string | null>(null);
   const id = `menu-${entry.label.toLowerCase().replace(/\W+/g, '-')}`;
   const feature = FEATURES[entry.label];
   const children = entry.children ?? [];
@@ -112,7 +113,15 @@ function DesktopDropdown({
         type="button"
         aria-expanded={open}
         aria-controls={id}
-        onClick={() => setOpen((o) => !o)}
+        onPointerDown={(e) => {
+          pointerType.current = e.pointerType;
+        }}
+        onClick={() => {
+          // Hover already opened it for a mouse; a click must not toggle it shut again.
+          if (pointerType.current === 'mouse') show();
+          else setOpen((o) => !o);
+          pointerType.current = null;
+        }}
         className={cn(
           'relative flex h-10 items-center gap-1 rounded-full px-3.5 text-[0.9375rem] font-medium transition-colors',
           light
@@ -405,7 +414,8 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    // Two thresholds so the state cannot flip back and forth around a single scroll position.
+    const onScroll = () => setScrolled((was) => (was ? window.scrollY > 8 : window.scrollY > 64));
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -428,8 +438,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
     <>
       <header
         className={cn(
-          'top-0 z-(--z-header) w-full transition-[background-color,box-shadow,border-color] duration-(--duration-base)',
-          overlay ? 'fixed' : 'sticky',
+          'fixed top-0 z-(--z-header) w-full transition-[background-color,box-shadow,border-color] duration-(--duration-base)',
           light
             ? 'bg-gradient-to-b from-black/55 via-black/25 to-transparent'
             : 'border-border bg-surface/85 border-b shadow-md backdrop-blur-xl',
@@ -556,6 +565,9 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
           </div>
         </Container>
       </header>
+      {/* The header is always fixed; this keeps its full height in the flow so folding the
+          contact bar never shifts the page (which would re-trigger the scroll threshold). */}
+      {!overlay && <div aria-hidden className="h-20 xl:h-32" />}
       <AnimatePresence>
         {mobileMenuOpen && <MobileMenu onClose={closeMobileMenu} />}
       </AnimatePresence>
