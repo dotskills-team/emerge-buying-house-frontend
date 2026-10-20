@@ -25,8 +25,8 @@ export function CoverImageField({
     if (!file) return;
     setUploading(true);
     try {
-      const { url, publicId } = await uploadImage(file);
-      onChange({ url, publicId, alt: value?.alt ?? '' });
+      const { url, publicId, blur } = await uploadImage(file);
+      onChange({ url, publicId, blur, alt: value?.alt ?? '' });
     } catch (e) {
       onError(e instanceof Error ? e.message : 'Image upload failed.');
     } finally {

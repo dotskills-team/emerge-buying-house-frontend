@@ -9,6 +9,7 @@ import {
   FolderTree,
   Globe,
   History,
+  Inbox,
   KeyRound,
   Plus,
   Trash2,
@@ -23,6 +24,7 @@ import { ListSkeleton } from '@/components/ui/skeleton';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { useCategories } from '@/features/blog/hooks/use-blog';
 import { PostStatusBadge } from '@/features/blog/components/post-status-badge';
+import { useInquiryStats } from '@/features/inquiries/hooks/use-inquiries';
 import { listPosts } from '@/features/blog/services/blog.service';
 import { listAudit, listRoles, listUsers } from '@/features/users/services/users.service';
 import { formatDate, formatDateTime } from '@/lib/utils';
@@ -71,6 +73,8 @@ export function DashboardOverview() {
   const { user, can, canAny } = usePermissions();
   const seePosts = canAny(['posts.read', 'posts.create']);
   const seeUsers = can('users.read');
+  const seeInquiries = can('inquiries.read');
+  const inquiries = useInquiryStats(seeInquiries);
 
   const published = useTotal('published', seePosts, () =>
     listPosts({ status: 'published', page: 1, limit: 1 }),
@@ -146,13 +150,25 @@ export function DashboardOverview() {
       </section>
 
       {/* KPI tiles: real counts only. */}
-      {(seePosts || seeUsers) && (
+      {(seePosts || seeUsers || seeInquiries) && (
         <section
           aria-label="Key figures"
           // As many columns as fit (each at least ~9.5rem): two per row on phones, all six in one
           // row on wide screens, and 3 or 6 tiles both fill the row.
           className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,9.5rem),1fr))] gap-3 sm:gap-4"
         >
+          {seeInquiries && (
+            <StatCard
+              label="New inquiries"
+              value={inquiries.data?.new}
+              loading={inquiries.isPending}
+              failed={inquiries.isError}
+              icon={Inbox}
+              tone="amber"
+              href="/dashboard/inquiries"
+              hint="Not opened yet"
+            />
+          )}
           {seePosts && (
             <StatCard
               label="Published posts"

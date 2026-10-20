@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cn, toQuery } from './utils';
+import { cn, formatRelative, toQuery } from './utils';
 
 describe('cn', () => {
   it('lets later classes override conflicting earlier ones', () => {
@@ -21,5 +21,18 @@ describe('toQuery', () => {
       '?page=2&status=draft',
     );
     expect(toQuery({})).toBe('');
+  });
+});
+
+describe('formatRelative', () => {
+  const now = Date.parse('2026-10-20T12:00:00Z');
+  const ago = (ms: number) => new Date(now - ms).toISOString();
+  it('says how long ago, then falls back to the date', () => {
+    expect(formatRelative(ago(20_000), now)).toBe('just now');
+    expect(formatRelative(ago(5 * 60_000), now)).toBe('5 minutes ago');
+    expect(formatRelative(ago(3 * 3_600_000), now)).toBe('3 hours ago');
+    expect(formatRelative(ago(26 * 3_600_000), now)).toBe('yesterday');
+    expect(formatRelative(ago(10 * 86_400_000), now)).toBe('10 Oct 2026');
+    expect(formatRelative(null, now)).toBe('—');
   });
 });

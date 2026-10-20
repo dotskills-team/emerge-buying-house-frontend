@@ -19,8 +19,11 @@ export interface LightboxItem {
   subtitle?: string;
   description?: string;
   specs?: Array<{ label: string; value: string }>;
-  /** A static import or a remote image with its intrinsic size (the original file, for sharp zoom). */
-  image: { src: string; width: number; height: number };
+  /**
+   * A static import or a remote image with its intrinsic size (the original file, for sharp zoom).
+   * `preview` is a lighter copy shown at once while the original downloads.
+   */
+  image: { src: string; width: number; height: number; preview?: string };
 }
 
 const MIN = 1;
@@ -305,11 +308,26 @@ export function ImageLightbox({
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerUp}
           >
-            {!loaded && (
-              <div aria-hidden className="absolute inset-0 flex items-center justify-center">
-                <span className="size-10 animate-spin rounded-full border-2 border-white/20 border-t-white" />
-              </div>
-            )}
+            {!loaded &&
+              (item.image.preview ? (
+                // eslint-disable-next-line @next/next/no-img-element -- same box and transform as the original below
+                <img
+                  key={`${item.id}-preview`}
+                  src={item.image.preview}
+                  width={item.image.width}
+                  height={item.image.height}
+                  alt=""
+                  draggable={false}
+                  className="absolute inset-0 m-auto max-h-full max-w-full object-contain"
+                  style={{
+                    transform: `translate3d(${view.x}px, ${view.y}px, 0) scale(${view.scale})`,
+                  }}
+                />
+              ) : (
+                <div aria-hidden className="absolute inset-0 flex items-center justify-center">
+                  <span className="size-10 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                </div>
+              ))}
             {/* eslint-disable-next-line @next/next/no-img-element -- the original file is needed for sharp zoom */}
             <img
               key={item.id}

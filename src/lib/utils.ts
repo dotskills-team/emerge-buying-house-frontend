@@ -84,3 +84,17 @@ export const formatDate = (iso: string | null | undefined) =>
   iso ? dateFormat.format(new Date(iso)) : '—';
 export const formatDateTime = (iso: string | null | undefined) =>
   iso ? dateTimeFormat.format(new Date(iso)) : '—';
+
+const relativeFormat = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+
+/** "just now", "5 minutes ago", "3 hours ago", "yesterday"; older than a week: the date. */
+export function formatRelative(iso: string | null | undefined, now = Date.now()): string {
+  if (!iso) return '—';
+  const seconds = Math.round((new Date(iso).getTime() - now) / 1000);
+  const abs = Math.abs(seconds);
+  if (abs < 60) return 'just now';
+  if (abs < 3600) return relativeFormat.format(Math.round(seconds / 60), 'minute');
+  if (abs < 86_400) return relativeFormat.format(Math.round(seconds / 3600), 'hour');
+  if (abs < 7 * 86_400) return relativeFormat.format(Math.round(seconds / 86_400), 'day');
+  return formatDate(iso);
+}

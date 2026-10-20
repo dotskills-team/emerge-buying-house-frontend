@@ -1,9 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 import { Maximize2, Shirt, ZoomIn } from 'lucide-react';
 import { ImageLightbox, type LightboxItem } from '@/components/site/image-lightbox';
+import { MediaImage } from '@/components/ui/media-image';
+import { previewUrl, warmImage } from '@/lib/media';
 import { cn } from '@/lib/utils';
 import type { ProductImage } from '@/types/product';
 
@@ -49,6 +50,7 @@ export function ProductGalleryViewer({
     specs,
     image: {
       src: img.url,
+      preview: previewUrl(img.url),
       width: img.width ?? FALLBACK.width,
       height: img.height ?? FALLBACK.height,
     },
@@ -60,12 +62,15 @@ export function ProductGalleryViewer({
       <button
         type="button"
         onClick={() => setOpen(active)}
+        onPointerEnter={() => warmImage(current.url)}
+        onFocus={() => warmImage(current.url)}
         aria-label={`Zoom into ${name}, photo ${active + 1}`}
         className="group bg-surface-muted relative block aspect-[4/5] w-full cursor-zoom-in overflow-hidden rounded-3xl"
       >
-        <Image
+        <MediaImage
           key={current.url}
           src={current.url}
+          blur={current.blur}
           alt={current.alt || name}
           fill
           priority
@@ -94,7 +99,7 @@ export function ProductGalleryViewer({
                   i === active ? 'ring-gold' : 'opacity-70 ring-transparent hover:opacity-100',
                 )}
               >
-                <Image src={img.url} alt="" fill sizes="120px" className="object-cover" />
+                <MediaImage src={img.url} alt="" fill sizes="120px" className="object-cover" />
               </button>
             </li>
           ))}

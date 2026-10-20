@@ -1,9 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'motion/react';
 import { ImageIcon, LayoutGrid, List, type LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { MediaImage } from '@/components/ui/media-image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
@@ -218,7 +218,7 @@ export function Thumb({
   return (
     <div className={cn('bg-surface-muted relative shrink-0 overflow-hidden', className)}>
       {src ? (
-        <Image src={src} alt={alt} fill sizes={sizes} className="object-cover" />
+        <MediaImage src={src} alt={alt} fill sizes={sizes} className="object-cover" />
       ) : (
         <div className="bg-brand-weave absolute inset-0 flex items-center justify-center">
           <ImageIcon aria-hidden className="text-gold-light/70 size-1/3 max-h-8 max-w-8" />

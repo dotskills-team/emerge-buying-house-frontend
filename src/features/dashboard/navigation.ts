@@ -1,6 +1,7 @@
 import {
   FolderTree,
   History,
+  Inbox,
   KeyRound,
   LayoutDashboard,
   Newspaper,
@@ -18,6 +19,8 @@ export interface NavItem {
   icon: LucideIcon;
   /** Shown when the user holds any of these. Omitted: shown to every signed-in user. */
   anyOf?: Permission[];
+  /** Shows a live count next to the label (e.g. unread messages). */
+  badge?: 'newInquiries';
 }
 
 export interface NavGroup {
@@ -30,6 +33,13 @@ export const DASHBOARD_NAV: NavGroup[] = [
     label: 'Workspace',
     items: [
       { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
+      {
+        href: '/dashboard/inquiries',
+        label: 'Inquiries',
+        icon: Inbox,
+        anyOf: ['inquiries.read'],
+        badge: 'newInquiries',
+      },
       {
         href: '/dashboard/blog',
         label: 'Blog posts',
@@ -101,6 +111,7 @@ const LEAF_LABELS: Record<string, { create: string; detail: string }> = {
   '/dashboard/users': { create: 'Add user', detail: 'User details' },
   '/dashboard/products': { create: 'New product', detail: 'Edit product' },
   '/dashboard/blog': { create: 'New post', detail: 'Edit post' },
+  '/dashboard/inquiries': { create: 'New', detail: 'Message' },
 };
 
 function leafLabel(parent: string, segment: string): string {

@@ -34,6 +34,9 @@ export type Permission =
   | 'products.delete'
   | 'products.categories'
   | 'media.upload'
+  | 'inquiries.read'
+  | 'inquiries.manage'
+  | 'inquiries.delete'
   | 'profile.read'
   | 'profile.update'
   | 'auth.password.change';

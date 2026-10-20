@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, Clock, Images, Package, Shirt } from 'lucide-react';
+import { MediaImage } from '@/components/ui/media-image';
 import { cn } from '@/lib/utils';
 import type { ProductSummary } from '@/types/product';
 
@@ -27,8 +27,9 @@ export function ProductCard({
       <div className="bg-surface-muted relative aspect-[4/5] overflow-hidden">
         {cover ? (
           <>
-            <Image
+            <MediaImage
               src={cover.url}
+              blur={cover.blur}
               alt={cover.alt || product.name}
               fill
               priority={priority}
@@ -39,7 +40,7 @@ export function ProductCard({
               )}
             />
             {alt && (
-              <Image
+              <MediaImage
                 src={alt.url}
                 alt=""
                 fill

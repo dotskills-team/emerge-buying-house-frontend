@@ -18,6 +18,8 @@ export interface CoverImage {
   url: string;
   publicId?: string;
   alt: string;
+  /** Tiny inline preview shown blurred while the photo loads. */
+  blur?: string;
 }
 
 export interface Post {

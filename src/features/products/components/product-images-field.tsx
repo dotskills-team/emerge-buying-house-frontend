@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, ImagePlus, Loader2, Star, Trash2 } from 'lucide-react';
+import { MediaImage } from '@/components/ui/media-image';
 import { uploadImage } from '@/features/blog/services/upload.service';
 import { cn } from '@/lib/utils';
 import type { ProductImage } from '@/types/product';
@@ -71,8 +71,9 @@ export function ProductImagesField({
               )}
             >
               <div className="bg-surface-muted relative aspect-square">
-                <Image
+                <MediaImage
                   src={img.url}
+                  blur={img.blur}
                   alt={img.alt}
                   fill
                   sizes="(min-width: 1280px) 12rem, (min-width: 640px) 30vw, 45vw"

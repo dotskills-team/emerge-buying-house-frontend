@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Fraunces, Inter, Noto_Sans_Bengali } from 'next/font/google';
 import type { ReactNode } from 'react';
+import { preconnect } from 'react-dom';
 import { Providers } from '@/components/providers';
 import { SITE } from '@/config/site';
 import './globals.css';
@@ -34,6 +35,8 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  // Blog and product photos come from the image CDN; open the connection before they are needed.
+  preconnect('https://res.cloudinary.com');
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable} ${bengali.variable}`}>
       <body>

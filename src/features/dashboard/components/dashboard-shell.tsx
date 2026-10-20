@@ -18,12 +18,13 @@ import {
 import { SITE } from '@/config/site';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { fetchMe, logout } from '@/features/auth/services/auth.service';
+import { useInquiryStats } from '@/features/inquiries/hooks/use-inquiries';
 import { errorMessage } from '@/lib/http';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth-store';
 import { toast } from '@/store/toast-store';
 import { ROLE_LABELS } from '@/types/auth';
-import { DASHBOARD_NAV, activeHref, breadcrumbsFor } from '../navigation';
+import { DASHBOARD_NAV, activeHref, breadcrumbsFor, type NavItem } from '../navigation';
 
 const COLLAPSE_KEY = 'dashboard.sidebar.collapsed';
 
@@ -75,6 +76,10 @@ function Sidebar({
 }) {
   const pathname = usePathname();
   const { canAny } = usePermissions();
+  const inquiryStats = useInquiryStats(canAny(['inquiries.read']));
+  const badges: Record<NonNullable<NavItem['badge']>, number | undefined> = {
+    newInquiries: inquiryStats.data?.new,
+  };
   const groups = DASHBOARD_NAV.map((g) => ({
     ...g,
     items: g.items.filter((i) => !i.anyOf || canAny(i.anyOf)),
@@ -137,8 +142,9 @@ function Sidebar({
             </p>
             {index > 0 && <hr aria-hidden className={cn('mx-3 mb-3 border-white/10', railShow)} />}
             <ul className="space-y-1">
-              {group.items.map(({ href, label, icon: Icon }) => {
+              {group.items.map(({ href, label, icon: Icon, badge }) => {
                 const active = href === current;
+                const count = badge ? badges[badge] : undefined;
                 return (
                   <li key={href}>
                     <Link
@@ -169,6 +175,26 @@ function Sidebar({
                         )}
                       />
                       <span className={cn('truncate', railHide)}>{label}</span>
+                      {count ? (
+                        <>
+                          <span
+                            className={cn(
+                              'bg-gold-light text-ink-deep ml-auto rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums',
+                              railHide,
+                            )}
+                          >
+                            {count > 99 ? '99+' : count}
+                            <span className="sr-only"> new</span>
+                          </span>
+                          <span
+                            aria-hidden
+                            className={cn(
+                              'bg-gold-light absolute top-2 left-1/2 ml-2 size-2 rounded-full',
+                              railShow,
+                            )}
+                          />
+                        </>
+                      ) : null}
                     </Link>
                   </li>
                 );

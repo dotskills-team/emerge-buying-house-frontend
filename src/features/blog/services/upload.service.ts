@@ -14,10 +14,35 @@ export interface UploadedImage {
   publicId: string;
   width: number;
   height: number;
+  /** Tiny inline preview shown blurred while the photo loads. Absent if the browser could not make it. */
+  blur?: string;
 }
 
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 const MAX_BYTES = 5 * 1024 * 1024;
+
+const BLUR_WIDTH = 16;
+
+/**
+ * Shrinks the photo to a few pixels and returns it as a data URL (a few hundred bytes), which pages
+ * show blurred until the real image arrives. Made here, from the chosen file, so it does not depend
+ * on where images are hosted. Best effort: an image the browser cannot decode just gets none.
+ */
+async function makeBlur(file: File): Promise<string | undefined> {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const canvas = document.createElement('canvas');
+    canvas.width = BLUR_WIDTH;
+    canvas.height = Math.max(1, Math.round((bitmap.height / bitmap.width) * BLUR_WIDTH));
+    canvas.getContext('2d')?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    bitmap.close();
+    const webp = canvas.toDataURL('image/webp', 0.5);
+    // Safari cannot encode WebP and silently returns PNG; JPEG is smaller than that.
+    return webp.startsWith('data:image/webp') ? webp : canvas.toDataURL('image/jpeg', 0.6);
+  } catch {
+    return undefined;
+  }
+}
 
 /** Uploads straight to Cloudinary using a short-lived signature from our backend. */
 export async function uploadImage(
@@ -42,6 +67,7 @@ export async function uploadImage(
   body.append('allowed_formats', sig.allowed_formats);
   body.append('signature', sig.signature);
 
+  const blur = makeBlur(file);
   let res: Response;
   try {
     res = await fetch(`https://api.cloudinary.com/v1_1/${sig.cloudName}/image/upload`, {
@@ -59,5 +85,11 @@ export async function uploadImage(
     width: number;
     height: number;
   };
-  return { url: data.secure_url, publicId: data.public_id, width: data.width, height: data.height };
+  return {
+    url: data.secure_url,
+    publicId: data.public_id,
+    width: data.width,
+    height: data.height,
+    blur: await blur,
+  };
 }

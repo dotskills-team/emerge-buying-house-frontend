@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, Clock, Feather } from 'lucide-react';
+import { MediaImage } from '@/components/ui/media-image';
 import { cn, formatDate } from '@/lib/utils';
 import type { PostSummary } from '@/types/blog';
 
@@ -19,8 +19,9 @@ export function PostCover({
   return (
     <div className={cn('bg-surface-muted relative overflow-hidden', className)}>
       {post.coverImage ? (
-        <Image
+        <MediaImage
           src={post.coverImage.url}
+          blur={post.coverImage.blur}
           alt={post.coverImage.alt}
           fill
           priority={priority}

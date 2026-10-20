@@ -8,6 +8,8 @@ export interface ProductImage {
   alt: string;
   width?: number;
   height?: number;
+  /** Tiny inline preview shown blurred while the photo loads. */
+  blur?: string;
 }
 
 export interface ProductSpec {

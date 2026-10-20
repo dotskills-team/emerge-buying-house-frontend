@@ -5,6 +5,7 @@ import { SplitReveal } from '@/components/site/text-effects';
 import { Container } from '@/components/ui/container';
 import { PROSE } from '@/features/blog/prose';
 import { prepareArticle } from '@/features/blog/utils/article';
+import { optimizeArticleImages } from '@/lib/media';
 import { cn, formatDate } from '@/lib/utils';
 import type { Post, PostSummary } from '@/types/blog';
 import { ArticleToc } from './article-toc';
@@ -26,7 +27,7 @@ export function ArticleView({
   /** Dashboard preview: no space reserved for the floating site header. */
   preview?: boolean;
 }) {
-  const { html, toc } = prepareArticle(post.content);
+  const { html, toc } = prepareArticle(optimizeArticleImages(post.content));
   const path = `/blog/${post.slug}`;
   const published = post.publishedAt ? new Date(post.publishedAt).getTime() : null;
   const updated = new Date(post.updatedAt).getTime();

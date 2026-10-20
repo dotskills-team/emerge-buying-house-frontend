@@ -37,3 +37,11 @@ describe('activeHref', () => {
     expect(activeHref('/dashboard/users-archive', hrefs)).toBe('/dashboard');
   });
 });
+
+describe('inquiry breadcrumbs', () => {
+  it('names the inbox and a single message', () => {
+    expect(
+      breadcrumbsFor('/dashboard/inquiries/6ad339ddc220c080ec1faf54').map((c) => c.label),
+    ).toEqual(['Overview', 'Inquiries', 'Message']);
+  });
+});
