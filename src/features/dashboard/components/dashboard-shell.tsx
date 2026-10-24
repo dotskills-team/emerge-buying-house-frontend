@@ -19,6 +19,7 @@ import { SITE } from '@/config/site';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { fetchMe, logout } from '@/features/auth/services/auth.service';
 import { useInquiryStats } from '@/features/inquiries/hooks/use-inquiries';
+import { ThemeToggle } from '@/features/theme/theme-toggle';
 import { errorMessage } from '@/lib/http';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth-store';
@@ -458,7 +459,8 @@ export function DashboardShell({ children }: { children: ReactNode }) {
               <Menu size={20} aria-hidden />
             </button>
             <Breadcrumbs />
-            <div className="ml-auto shrink-0">
+            <div className="ml-auto flex shrink-0 items-center gap-1">
+              <ThemeToggle />
               <UserMenu onSignOut={() => void handleLogout()} signingOut={signingOut} />
             </div>
           </div>

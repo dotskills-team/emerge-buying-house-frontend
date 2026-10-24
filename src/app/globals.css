@@ -28,6 +28,9 @@
   --color-emerald: #047857;
   --color-emerald-soft: #ecfdf5;
   --color-focus: #14936b;
+  /* The brand emerald in both themes: for overlays on photos and dark panels, which look the
+     same in light and dark (unlike primary, which brightens in the dark theme). */
+  --color-brand: #0f6b4f;
 
   /*
    * Data-visualisation series, in fixed order (never cycled). Validated with the dataviz
@@ -55,6 +58,8 @@
   --color-fg-subtle: #66706c;
   --color-fg-inverse: #ffffff;
   --color-fg-inverse-muted: #c9d3ce;
+  /* Text on a solid brand or status fill (bg-primary, bg-danger…): white here, ink in dark. */
+  --color-on-fill: #ffffff;
 
   /* Borders */
   --color-border: #e6e1d6;
@@ -143,8 +148,72 @@
   --gradient-sidebar: linear-gradient(180deg, #07130f 0%, #0c241b 100%);
   --gradient-active: linear-gradient(90deg, rgb(20 147 108 / 0.32) 0%, rgb(201 162 74 / 0.14) 100%);
   --gradient-indicator: linear-gradient(180deg, #f3dc9b 0%, #c9a24a 100%);
+  /* Brand gradient as text (big numbers): dark emerald on light grounds, lighter in dark. */
+  --gradient-brand-text: var(--gradient-brand);
   color-scheme: light;
 }
+
+/*
+ * Dark theme. <html data-theme="dark"> is set before the first paint by the script in
+ * app/layout.tsx (from the visitor's choice, or their device setting). Only colours change:
+ * every utility reads these variables, so components need no dark-specific classes. Brand and
+ * status colours are brighter here so they stay readable as text on dark surfaces; text on their
+ * solid fills switches to ink (--color-on-fill). Every text pair meets WCAG AA (most > 6:1).
+ * The dark panels that are dark in both themes (hero, sidebar, footer, gradients) keep their
+ * own colours.
+ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-primary: #34c48f;
+  --color-primary-hover: #5ad6a8;
+  --color-primary-soft: #12332a;
+  --color-secondary: #e0b45a;
+  --color-secondary-soft: #2c2414;
+  --color-accent: #3cc9b2;
+  --color-accent-soft: #0f2e2a;
+  --color-cyan: #4cc3e0;
+  --color-cyan-soft: #0e2a33;
+  --color-emerald: #34d399;
+  --color-emerald-soft: #0f2c22;
+  --color-focus: #4ade9f;
+
+  --color-series-1: #34c48f;
+  --color-series-2: #e0b45a;
+  --color-series-3: #7aa7e8;
+
+  --color-bg: #0b1512;
+  --color-surface: #111d19;
+  --color-surface-muted: #182621;
+  --color-surface-inverse: #050b09;
+
+  --color-fg: #e7eeea;
+  --color-fg-muted: #b0bdb7;
+  --color-fg-subtle: #8e9b95;
+  --color-on-fill: #07130f;
+
+  --color-border: #24342e;
+  --color-border-strong: #33463f;
+
+  --color-success: #4ade80;
+  --color-success-soft: #0f2a1b;
+  --color-warning: #fbbf24;
+  --color-warning-soft: #2e2410;
+  --color-danger: #f87171;
+  --color-danger-hover: #fca5a5;
+  --color-danger-soft: #341818;
+  --color-info: #4cc3e0;
+  --color-info-soft: #0e2a33;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 20px 40px -12px rgb(0 0 0 / 0.65);
+  --shadow-glow: 0 10px 28px -10px rgb(52 196 143 / 0.35);
+  --gradient-brand-text: linear-gradient(135deg, #34c48f 0%, #7fe0bb 100%);
+}
+
+/* `dark:` for the rare case a component needs it, following the same attribute. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 @layer base {
   html {

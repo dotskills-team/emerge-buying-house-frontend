@@ -56,7 +56,7 @@ function ToolButton({
       onClick={onClick}
       className={cn(
         'inline-flex size-9 items-center justify-center rounded-sm transition-colors disabled:opacity-40',
-        active ? 'bg-primary text-fg-inverse' : 'text-fg hover:bg-surface-muted',
+        active ? 'bg-primary text-on-fill' : 'text-fg hover:bg-surface-muted',
       )}
     >
       {children}

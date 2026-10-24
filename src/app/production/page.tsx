@@ -181,7 +181,7 @@ export default async function ProductionPage({
               </p>
               <Link
                 href={filtered ? '/production#catalogue' : '/contact'}
-                className="bg-primary hover:bg-primary-hover mt-6 inline-flex min-h-11 items-center rounded-full px-6 text-sm font-semibold text-white"
+                className="bg-primary hover:bg-primary-hover text-on-fill mt-6 inline-flex min-h-11 items-center rounded-full px-6 text-sm font-semibold"
               >
                 {filtered ? 'Show all products' : 'Request options'}
               </Link>

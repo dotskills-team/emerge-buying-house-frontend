@@ -289,7 +289,7 @@ export function ImageLightbox({
                 type="button"
                 onClick={onClose}
                 aria-label="Close viewer"
-                className={cn(control, 'text-fg ml-1 bg-white hover:bg-white/90')}
+                className={cn(control, 'text-ink-deep ml-1 bg-white hover:bg-white/90')}
               >
                 <X size={20} aria-hidden />
               </button>

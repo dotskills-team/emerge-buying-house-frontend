@@ -1,6 +1,7 @@
 import {
   FolderTree,
   History,
+  Bot,
   Inbox,
   KeyRound,
   LayoutDashboard,
@@ -39,6 +40,12 @@ export const DASHBOARD_NAV: NavGroup[] = [
         icon: Inbox,
         anyOf: ['inquiries.read'],
         badge: 'newInquiries',
+      },
+      {
+        href: '/dashboard/chatbot',
+        label: 'Chatbot',
+        icon: Bot,
+        anyOf: ['chatbot.manage'],
       },
       {
         href: '/dashboard/blog',

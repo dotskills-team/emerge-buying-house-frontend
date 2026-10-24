@@ -66,7 +66,7 @@ export function IndustriesShowcase() {
                   className={cn(
                     'relative flex min-h-11 shrink-0 items-center rounded-xl px-4 text-left text-sm font-medium whitespace-nowrap transition-colors lg:min-h-14 lg:rounded-none lg:border-l-2 lg:px-6 lg:text-base',
                     selected
-                      ? 'text-fg lg:border-nav-active bg-white lg:bg-white/10 lg:text-white'
+                      ? 'text-fg lg:border-nav-active bg-surface lg:bg-white/10 lg:text-white'
                       : 'bg-white/5 text-white/70 hover:text-white lg:border-white/15 lg:bg-transparent',
                   )}
                 >
@@ -130,7 +130,7 @@ export function IndustriesShowcase() {
                 <p className="mt-3 text-white/85">{current.summary}</p>
                 <Link
                   href={`/industries/${current.slug}`}
-                  className="group text-primary mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold"
+                  className="group text-ink-deep mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold"
                 >
                   Explore {current.name}
                   <ArrowRight

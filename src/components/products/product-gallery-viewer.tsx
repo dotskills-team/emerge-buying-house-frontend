@@ -77,7 +77,7 @@ export function ProductGalleryViewer({
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <span className="text-primary absolute top-4 right-4 flex size-12 items-center justify-center rounded-full bg-white/95 shadow-lg transition-transform group-hover:scale-110">
+        <span className="text-ink-deep absolute top-4 right-4 flex size-12 items-center justify-center rounded-full bg-white/95 shadow-lg transition-transform group-hover:scale-110">
           <ZoomIn size={20} aria-hidden />
         </span>
         <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-black/55 px-3 py-1.5 text-xs font-medium text-white backdrop-blur">

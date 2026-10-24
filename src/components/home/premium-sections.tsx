@@ -107,7 +107,7 @@ export function TestimonialSlider() {
               type="button"
               onClick={() => go(index + 1)}
               aria-label="Next quote"
-              className="bg-primary hover:bg-primary-hover shadow-glow flex size-12 items-center justify-center rounded-full text-white transition-colors"
+              className="bg-primary hover:bg-primary-hover shadow-glow text-on-fill flex size-12 items-center justify-center rounded-full transition-colors"
             >
               <ChevronRight size={20} aria-hidden />
             </button>

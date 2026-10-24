@@ -52,7 +52,7 @@ export default function HistoryPage() {
                     className={cn(right ? 'lg:col-start-2' : 'lg:col-start-1 lg:text-right')}
                   >
                     <div className="bg-surface border-border hover:border-primary/30 rounded-2xl border p-6 shadow-sm transition-shadow hover:shadow-lg">
-                      <p className="bg-(image:--gradient-brand) bg-clip-text text-3xl font-bold text-transparent">
+                      <p className="bg-(image:--gradient-brand-text) bg-clip-text text-3xl font-bold text-transparent">
                         {h.year}
                       </p>
                       <h3 className="text-fg mt-2 text-lg font-semibold">{h.title}</h3>

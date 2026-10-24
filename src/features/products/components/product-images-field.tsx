@@ -201,7 +201,7 @@ function ImageAction({
       onClick={onClick}
       className={cn(
         'flex size-8 items-center justify-center rounded-lg bg-white/90 shadow-sm backdrop-blur transition-colors disabled:opacity-40',
-        danger ? 'text-danger hover:bg-danger hover:text-white' : 'text-fg hover:bg-white',
+        danger ? 'text-danger hover:bg-danger hover:text-white' : 'text-ink-deep hover:bg-white',
       )}
     >
       {children}

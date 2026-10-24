@@ -105,7 +105,7 @@ export function StatsBand() {
               className="border-border flex flex-col gap-1 border-b px-2 py-8 even:border-l sm:px-6 sm:py-10 lg:border-b-0 lg:border-l lg:first:border-l-0"
             >
               <dt className="text-fg-muted order-2 text-sm">{s.label}</dt>
-              <dd className="order-1 bg-(image:--gradient-brand) bg-clip-text text-[clamp(2.25rem,1.6rem+2.4vw,3.5rem)] leading-none font-bold tracking-tight text-transparent">
+              <dd className="order-1 bg-(image:--gradient-brand-text) bg-clip-text text-[clamp(2.25rem,1.6rem+2.4vw,3.5rem)] leading-none font-bold tracking-tight text-transparent">
                 <Reveal delay={i * 0.08}>
                   <Counter to={s.value} suffix={s.suffix} />
                 </Reveal>
@@ -190,7 +190,7 @@ export function ProcessTimeline() {
       <div aria-hidden className="bg-grain absolute inset-0 -z-10" />
       <div
         aria-hidden
-        className="bg-primary/30 absolute -top-40 right-0 -z-10 size-[36rem] rounded-full blur-3xl"
+        className="bg-brand/30 absolute -top-40 right-0 -z-10 size-[36rem] rounded-full blur-3xl"
       />
       <Container>
         <SectionHeading

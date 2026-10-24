@@ -14,7 +14,7 @@ export function KindBadge({ kind, className }: { kind: NewsItem['kind']; classNa
     <span
       className={cn(
         'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold',
-        kind === 'Event' ? 'bg-secondary text-white' : 'bg-primary text-white',
+        kind === 'Event' ? 'bg-secondary text-on-fill' : 'bg-primary text-on-fill',
         className,
       )}
     >

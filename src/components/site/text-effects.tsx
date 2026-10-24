@@ -1,7 +1,14 @@
 'use client';
 
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'motion/react';
-import { useEffect, useState, type ElementType } from 'react';
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from 'motion/react';
+import { useEffect, useRef, useState, type ElementType } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
@@ -29,8 +36,13 @@ export function SplitReveal({
 }) {
   const words = text.split(' ');
   const play = { y: '0%', opacity: 1 };
+  // Watch the whole heading, not each word: a word starts outside its own clipping box, so the
+  // browser reports it as never visible and a per-word trigger would never fire.
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: '0px 0px -12% 0px' });
+  const show = trigger === 'mount' || inView;
   return (
-    <Tag className={className}>
+    <Tag ref={ref} className={className}>
       <span className="sr-only">{text}</span>
       <span aria-hidden>
         {words.map((word, i) => (
@@ -41,9 +53,7 @@ export function SplitReveal({
             <motion.span
               className={cn('inline-block will-change-transform', wordClassName?.(word, i))}
               initial={{ y: '-105%', opacity: 0 }}
-              {...(trigger === 'mount'
-                ? { animate: play }
-                : { whileInView: play, viewport: { once: true, margin: '0px 0px -12% 0px' } })}
+              animate={show ? play : undefined}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: delay + i * stagger }}
             >
               {word}

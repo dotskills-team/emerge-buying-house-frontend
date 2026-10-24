@@ -130,7 +130,7 @@ export default async function BlogIndexPage({
                     className={cn(
                       'inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-full border px-4 text-sm font-medium transition-colors',
                       active
-                        ? 'border-primary bg-primary text-white'
+                        ? 'border-primary bg-primary text-on-fill'
                         : 'border-border text-fg-muted hover:border-primary/40 hover:text-fg',
                     )}
                   >
@@ -239,7 +239,7 @@ export default async function BlogIndexPage({
                       className={cn(
                         'flex size-11 items-center justify-center rounded-full text-sm font-semibold tabular-nums transition-colors',
                         p === filters.page
-                          ? 'bg-primary shadow-glow text-white'
+                          ? 'bg-primary shadow-glow text-on-fill'
                           : 'text-fg-muted hover:bg-surface-muted hover:text-fg',
                       )}
                     >
@@ -298,7 +298,7 @@ export default async function BlogIndexPage({
                         className={cn(
                           'inline-flex min-h-9 items-center rounded-full border px-3 text-sm transition-colors',
                           filters.tag === t.tag
-                            ? 'border-primary bg-primary text-white'
+                            ? 'border-primary bg-primary text-on-fill'
                             : 'border-border text-fg-muted hover:border-primary/40 hover:text-fg',
                         )}
                       >

@@ -45,6 +45,11 @@ export const MAIN_NAV: NavEntry[] = [
         href: '/company/history',
         description: 'Milestones since our first order',
       },
+      {
+        label: 'Company Profiles',
+        href: '/company/profiles',
+        description: 'Read or download our profile (PDF)',
+      },
     ],
   },
   {
@@ -95,7 +100,8 @@ export const MAIN_NAV: NavEntry[] = [
   },
   { label: 'CSR', href: '/csr' },
   { label: 'News & Events', href: '/news-events' },
-  { label: 'Blog', href: '/blog' },
+  // Hidden for now; uncomment to show Blog in the menu again.
+  // { label: 'Blog', href: '/blog' },
   { label: 'Career', href: '/career' },
   { label: 'Contact', href: '/contact' },
 ];

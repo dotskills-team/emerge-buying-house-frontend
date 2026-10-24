@@ -13,7 +13,7 @@ const EXPLORE = [
   { label: 'Employee Welfare', href: '/sustainability/employee-welfare' },
   { label: 'CSR', href: '/csr' },
   { label: 'News & Events', href: '/news-events' },
-  { label: 'Blog', href: '/blog' },
+  // { label: 'Blog', href: '/blog' }, // hidden for now, like the main menu
   { label: 'Career', href: '/career' },
 ];
 
@@ -86,7 +86,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${SITE.name} on ${s.label}`}
-                    className="text-fg-inverse-muted hover:text-fg flex size-10 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-transparent hover:bg-white"
+                    className="text-fg-inverse-muted hover:text-ink-deep flex size-10 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-transparent hover:bg-white"
                   >
                     <Icon size={16} />
                   </a>

@@ -1,12 +1,18 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MotionConfig } from 'motion/react';
 import { Toaster } from '@/components/feedback/toaster';
+import { getPreference, resolve } from '@/features/theme/theme';
 import { ApiError } from '@/lib/http';
 
 export function Providers({ children }: { children: ReactNode }) {
+  // The head script already set the theme; this restores it if React ever re-created <html>
+  // (e.g. after an error while the page loaded).
+  useEffect(() => {
+    document.documentElement.dataset.theme = resolve(getPreference());
+  }, []);
   const [queryClient] = useState(
     () =>
       new QueryClient({

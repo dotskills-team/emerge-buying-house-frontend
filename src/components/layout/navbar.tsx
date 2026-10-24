@@ -27,6 +27,7 @@ import {
 import { SOCIAL_ICONS } from '@/components/site/social-icons';
 import { Container } from '@/components/ui/container';
 import { CONTACT, MAIN_NAV, SITE, SOCIAL, type NavEntry } from '@/config/site';
+import { ThemeSegmented, ThemeToggle } from '@/features/theme/theme-toggle';
 import { cn } from '@/lib/utils';
 import { useUiStore } from '@/store/ui-store';
 import { Logo } from './logo';
@@ -91,6 +92,24 @@ function DesktopDropdown({
   const feature = FEATURES[entry.label];
   const children = entry.children ?? [];
 
+  // The panel is centred under its item; near a screen edge (e.g. "Company", the first item, on a
+  // laptop) it is shifted just enough to stay fully visible with a small margin.
+  const keepOnScreen = (el: HTMLDivElement | null) => {
+    if (!el) return;
+    el.style.marginLeft = '0px';
+    // Measured from its centre and real width, as the opening animation starts it slightly scaled.
+    const rect = el.getBoundingClientRect();
+    const centre = rect.left + rect.width / 2;
+    const left = centre - el.offsetWidth / 2;
+    const right = centre + el.offsetWidth / 2;
+    const margin = 16;
+    const viewport = document.documentElement.clientWidth;
+    let shift = 0;
+    if (left < margin) shift = margin - left;
+    else if (right > viewport - margin) shift = viewport - margin - right;
+    el.style.marginLeft = `${Math.round(shift)}px`;
+  };
+
   const show = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpen(true);
@@ -123,7 +142,7 @@ function DesktopDropdown({
           pointerType.current = null;
         }}
         className={cn(
-          'relative flex h-10 items-center gap-1 rounded-full px-3.5 text-[0.9375rem] font-medium transition-colors',
+          'relative flex h-10 items-center gap-1 rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors 2xl:px-3.5 2xl:text-[0.9375rem]',
           light
             ? 'text-white/85 hover:bg-white/10 hover:text-white'
             : 'text-fg-muted hover:bg-surface-muted hover:text-fg',
@@ -150,6 +169,7 @@ function DesktopDropdown({
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={keepOnScreen}
             id={id}
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -372,6 +392,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
               <Mail size={16} aria-hidden className="text-primary" /> Email us
             </a>
           </div>
+          <ThemeSegmented />
           <Link
             href="/contact"
             onClick={onClose}
@@ -517,7 +538,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
                       href={entry.href ?? '/'}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'relative flex h-10 items-center rounded-full px-3.5 text-[0.9375rem] font-medium transition-colors',
+                        'relative flex h-10 items-center rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors 2xl:px-3.5 2xl:text-[0.9375rem]',
                         light
                           ? 'text-white/85 hover:bg-white/10 hover:text-white'
                           : 'text-fg-muted hover:bg-surface-muted hover:text-fg',
@@ -539,6 +560,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle onDark={light} />
             <Link
               href="/contact"
               className="group shadow-gold text-ink-deep hidden min-h-11 items-center gap-2 rounded-full bg-(image:--gradient-gold) pr-2 pl-5 text-sm font-semibold transition-transform hover:-translate-y-0.5 sm:inline-flex"

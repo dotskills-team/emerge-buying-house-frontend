@@ -225,7 +225,7 @@ function InquiryRow({
         aria-hidden
         className={cn(
           'flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold',
-          unread ? 'bg-primary text-fg-inverse' : 'bg-surface-muted text-fg-muted',
+          unread ? 'bg-primary text-on-fill' : 'bg-surface-muted text-fg-muted',
         )}
       >
         {initials(item.name)}

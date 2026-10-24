@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { preconnect } from 'react-dom';
 import { Providers } from '@/components/providers';
 import { SITE } from '@/config/site';
+import { THEME_INIT_SCRIPT } from '@/features/theme/theme';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -38,7 +39,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   // Blog and product photos come from the image CDN; open the connection before they are needed.
   preconnect('https://res.cloudinary.com');
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable} ${bengali.variable}`}>
+    // The theme script sets data-theme on <html> before React loads, hence suppressHydrationWarning.
+    <html
+      lang="en"
+      className={`${inter.variable} ${fraunces.variable} ${bengali.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Applies the visitor's light/dark choice before the first paint: no flash. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>

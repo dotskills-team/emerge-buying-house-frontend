@@ -17,13 +17,36 @@ export function Logo({
   className?: string;
   priority?: boolean;
 }) {
+  if (inverse) {
+    return (
+      <Image
+        src={logoLight}
+        alt={SITE.name}
+        priority={priority}
+        sizes="160px"
+        className={cn('h-10 w-auto', className)}
+      />
+    );
+  }
+  // On light surfaces the dark lettering; in the dark theme those surfaces are dark, so the
+  // white-lettered file shows instead. Switched in CSS, so the right one paints first time.
   return (
-    <Image
-      src={inverse ? logoLight : logoDark}
-      alt={SITE.name}
-      priority={priority}
-      sizes="160px"
-      className={cn('h-10 w-auto', className)}
-    />
+    <>
+      <Image
+        src={logoDark}
+        alt={SITE.name}
+        priority={priority}
+        sizes="160px"
+        className={cn('h-10 w-auto dark:hidden', className)}
+      />
+      <Image
+        src={logoLight}
+        alt=""
+        aria-hidden
+        priority={priority}
+        sizes="160px"
+        className={cn('hidden h-10 w-auto dark:block', className)}
+      />
+    </>
   );
 }

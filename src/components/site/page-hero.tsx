@@ -32,16 +32,17 @@ export function PageHero({
           priority
           placeholder="blur"
           sizes="100vw"
-          className="-z-20 object-cover"
+          // On a dark page the banner loses the contrast a light page gives it: lift the photo a little.
+          className="-z-20 object-cover dark:brightness-110 dark:contrast-105 dark:saturate-110"
         />
       ) : (
         <div aria-hidden className="bg-brand-weave absolute inset-0 -z-20" />
       )}
       <div
         aria-hidden
-        className="from-ink-deep/95 via-ink-deep/75 to-primary/35 absolute inset-0 -z-10 bg-gradient-to-r"
+        className="from-ink-deep/95 via-ink-deep/75 to-brand/35 dark:from-ink-deep/90 dark:via-ink-deep/65 absolute inset-0 -z-10 bg-gradient-to-r dark:via-45% dark:to-transparent"
       />
-      <div aria-hidden className="bg-weave absolute inset-0 -z-10 opacity-50" />
+      <div aria-hidden className="bg-weave absolute inset-0 -z-10 opacity-50 dark:opacity-20" />
       <div aria-hidden className="bg-grain absolute inset-0 -z-10" />
       <div
         aria-hidden

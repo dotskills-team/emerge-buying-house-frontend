@@ -94,7 +94,7 @@ export function HeroSlider() {
             priority={index === 0}
             placeholder="blur"
             sizes="100vw"
-            className="object-cover motion-safe:animate-[kenburns_9s_ease-out_forwards]"
+            className="object-cover motion-safe:animate-[kenburns_9s_ease-out_forwards] dark:brightness-110 dark:saturate-110"
           />
         </motion.div>
       </AnimatePresence>

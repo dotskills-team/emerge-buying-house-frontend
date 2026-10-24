@@ -37,6 +37,7 @@ export type Permission =
   | 'inquiries.read'
   | 'inquiries.manage'
   | 'inquiries.delete'
+  | 'chatbot.manage'
   | 'profile.read'
   | 'profile.update'
   | 'auth.password.change';

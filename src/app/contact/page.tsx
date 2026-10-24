@@ -104,10 +104,10 @@ export default async function ContactPage({
             </ul>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="bg-surface border-border rounded-3xl border p-6 shadow-lg sm:p-8 lg:p-10">
+            <div className="bg-surface border-border rounded-3xl border p-6 shadow-lg sm:p-8">
               <h2 className="text-h2 text-fg font-semibold">Send us a message</h2>
               <p className="text-fg-muted mt-2 text-sm">Fields marked * are required.</p>
-              <div className="mt-8">
+              <div className="mt-6">
                 <ContactForm to={email} product={product} />
               </div>
             </div>

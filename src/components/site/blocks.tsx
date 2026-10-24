@@ -56,7 +56,7 @@ export function SplitFeature({
                 reverse ? 'left-5 sm:-left-6' : 'right-5 sm:-right-6',
               )}
             >
-              <p className="bg-(image:--gradient-brand) bg-clip-text text-3xl font-bold text-transparent">
+              <p className="bg-(image:--gradient-brand-text) bg-clip-text text-3xl font-bold text-transparent">
                 {badge.value}
               </p>
               <p className="text-fg-muted text-sm">{badge.label}</p>

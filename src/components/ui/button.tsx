@@ -8,11 +8,11 @@ type Size = 'sm' | 'md' | 'lg';
 
 const VARIANTS: Record<Variant, string> = {
   primary:
-    'bg-primary text-fg-inverse shadow-sm hover:bg-primary-hover hover:shadow-glow active:translate-y-px',
+    'bg-primary text-on-fill shadow-sm hover:bg-primary-hover hover:shadow-glow active:translate-y-px',
   secondary:
     'border border-border-strong bg-surface text-fg shadow-sm hover:border-fg-subtle/40 hover:bg-surface-muted active:translate-y-px',
   ghost: 'text-fg-muted hover:bg-surface-muted hover:text-fg',
-  danger: 'bg-danger text-fg-inverse shadow-sm hover:bg-danger-hover active:translate-y-px',
+  danger: 'bg-danger text-on-fill shadow-sm hover:bg-danger-hover active:translate-y-px',
   inverse: 'bg-surface text-fg shadow-sm hover:bg-primary-soft active:translate-y-px',
   /** Secondary action on dark or gradient backgrounds. */
   glass:

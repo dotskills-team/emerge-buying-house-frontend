@@ -151,7 +151,7 @@ export function SegmentedTabs<K extends string>({
               <span
                 className={cn(
                   'relative rounded-full px-2 py-0.5 text-xs tabular-nums',
-                  active ? 'bg-gold-light/20 text-gold-light' : 'bg-surface-muted text-fg-subtle',
+                  active ? 'bg-gold-light/20 text-gold-light' : 'bg-surface-muted text-fg-muted',
                 )}
               >
                 {t.count}

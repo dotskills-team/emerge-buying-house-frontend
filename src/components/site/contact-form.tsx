@@ -93,7 +93,7 @@ export function ContactForm({ to, product }: { to: string; product?: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5 lg:space-y-4">
       {serverError && (
         <Alert tone="danger" title="Your message was not sent">
           {serverError} You can also write to us at{' '}
@@ -123,7 +123,7 @@ export function ContactForm({ to, product }: { to: string; product?: string }) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
         <Field label="Your name" required error={errors.name?.message}>
           <Input autoComplete="name" maxLength={100} {...register('name')} />
         </Field>
@@ -170,7 +170,7 @@ export function ContactForm({ to, product }: { to: string; product?: string }) {
         aside={`${messageLength.toLocaleString()} / ${MESSAGE_MAX.toLocaleString()}`}
       >
         <Textarea
-          rows={6}
+          rows={4}
           maxLength={MESSAGE_MAX}
           placeholder={
             chosenProduct

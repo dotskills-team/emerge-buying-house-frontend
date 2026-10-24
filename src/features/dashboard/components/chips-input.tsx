@@ -53,7 +53,7 @@ export function ChipsInput({
               type="button"
               aria-label={`Remove ${v}`}
               onClick={() => onChange(value.filter((x) => x !== v))}
-              className="hover:bg-primary rounded-sm p-0.5 hover:text-white"
+              className="hover:bg-primary hover:text-on-fill rounded-sm p-0.5"
             >
               <X size={12} aria-hidden />
             </button>
