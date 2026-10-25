@@ -19,29 +19,37 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('theme', () => {
-  it('follows the device until a choice is made, then remembers it', async () => {
+  it('is light until the visitor chooses, even on a dark device, then remembers the choice', async () => {
     mockSystem(true);
     const theme = await import('./theme');
-    expect(theme.getPreference()).toBe('system');
-    expect(theme.resolve('system')).toBe('dark');
+    expect(theme.getPreference()).toBe('light');
+    expect(theme.resolve(theme.getPreference())).toBe('light');
 
-    theme.setPreference('light');
-    expect(document.documentElement.dataset.theme).toBe('light');
-    expect(localStorage.getItem('theme')).toBe('light');
+    theme.setPreference('dark');
+    expect(document.documentElement.dataset.theme).toBe('dark');
+    expect(localStorage.getItem('theme')).toBe('dark');
 
+    // "System" is an explicit choice: it follows the device and is remembered.
     theme.setPreference('system');
     expect(document.documentElement.dataset.theme).toBe('dark');
-    expect(localStorage.getItem('theme')).toBeNull();
+    expect(localStorage.getItem('theme')).toBe('system');
   });
 
-  it('the head script applies the stored choice before paint', async () => {
-    mockSystem(false);
+  it('the head script applies the stored choice before paint, and light by default', async () => {
+    mockSystem(true);
     const { THEME_INIT_SCRIPT } = await import('./theme');
+    const run = () => new Function(THEME_INIT_SCRIPT)();
+
+    run();
+    expect(document.documentElement.dataset.theme).toBe('light');
     localStorage.setItem('theme', 'dark');
-    new Function(THEME_INIT_SCRIPT)();
+    run();
     expect(document.documentElement.dataset.theme).toBe('dark');
-    localStorage.removeItem('theme');
-    new Function(THEME_INIT_SCRIPT)();
+    localStorage.setItem('theme', 'system');
+    run();
+    expect(document.documentElement.dataset.theme).toBe('dark');
+    localStorage.setItem('theme', 'light');
+    run();
     expect(document.documentElement.dataset.theme).toBe('light');
   });
 });

@@ -3,11 +3,14 @@ export type Theme = 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'theme';
 
+/** Without a choice of their own, visitors see the light theme (not their device setting). */
+export const DEFAULT_PREFERENCE: ThemePreference = 'light';
+
 /**
  * Runs in <head> before the page paints (see app/layout.tsx), so a dark-theme visitor never sees
  * a flash of the light page. Kept tiny and dependency-free; mirrors resolve() below.
  */
-export const THEME_INIT_SCRIPT = `(function(){try{var p=localStorage.getItem('${THEME_STORAGE_KEY}');var d=p==='dark'||(p!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light';}catch(e){}})();`;
+export const THEME_INIT_SCRIPT = `(function(){try{var p=localStorage.getItem('${THEME_STORAGE_KEY}');var d=p==='dark'||(p==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light';}catch(e){}})();`;
 
 const isPreference = (v: unknown): v is ThemePreference =>
   v === 'light' || v === 'dark' || v === 'system';
@@ -15,9 +18,9 @@ const isPreference = (v: unknown): v is ThemePreference =>
 export function readPreference(): ThemePreference {
   try {
     const stored = localStorage.getItem(THEME_STORAGE_KEY);
-    return isPreference(stored) ? stored : 'system';
+    return isPreference(stored) ? stored : DEFAULT_PREFERENCE;
   } catch {
-    return 'system';
+    return DEFAULT_PREFERENCE;
   }
 }
 
@@ -35,8 +38,7 @@ const notify = () => listeners.forEach((l) => l());
 
 export function setPreference(pref: ThemePreference) {
   try {
-    if (pref === 'system') localStorage.removeItem(THEME_STORAGE_KEY);
-    else localStorage.setItem(THEME_STORAGE_KEY, pref);
+    localStorage.setItem(THEME_STORAGE_KEY, pref);
   } catch {
     // Storage blocked: the choice still applies to this page view.
   }
@@ -84,5 +86,5 @@ export function getPreference(): ThemePreference {
   return current;
 }
 
-/** The server cannot know the choice; the toggle shows "system" until it hydrates. */
-export const getServerPreference = (): ThemePreference => 'system';
+/** The server cannot know the choice; the toggle shows the default until it hydrates. */
+export const getServerPreference = (): ThemePreference => DEFAULT_PREFERENCE;

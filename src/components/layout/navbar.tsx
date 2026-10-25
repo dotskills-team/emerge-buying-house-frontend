@@ -11,7 +11,6 @@ import {
   Building2,
   ChevronDown,
   FileText,
-  Clock,
   Cpu,
   HeartHandshake,
   History,
@@ -483,50 +482,6 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
             : 'border-border bg-surface/85 border-b shadow-md backdrop-blur-xl',
         )}
       >
-        {/* Contact bar (desktop), folds away on scroll. */}
-        <div
-          className={cn(
-            'hidden overflow-hidden transition-[max-height,opacity] duration-(--duration-base) xl:block',
-            scrolled ? 'max-h-0 opacity-0' : 'max-h-12 opacity-100',
-            light ? 'border-b border-white/10' : 'bg-ink-deep',
-          )}
-        >
-          <Container className="flex h-10 items-center justify-between gap-6 text-xs text-white/80">
-            <div className="flex items-center gap-6">
-              <a
-                href={`mailto:${contactEmail}`}
-                className="inline-flex items-center gap-2 hover:text-white"
-              >
-                <Mail size={14} aria-hidden /> {contactEmail}
-              </a>
-              <a href={telHref} className="inline-flex items-center gap-2 hover:text-white">
-                <Phone size={14} aria-hidden /> {CONTACT.phone}
-              </a>
-              <span className="inline-flex items-center gap-2">
-                <Clock size={14} aria-hidden /> {CONTACT.hours}
-              </span>
-            </div>
-            <ul className="flex items-center gap-1" aria-label="Social media">
-              {SOCIAL.map((s) => {
-                const Icon = SOCIAL_ICONS[s.label];
-                return (
-                  <li key={s.label}>
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${SITE.name} on ${s.label}`}
-                      className="flex size-8 items-center justify-center rounded-full hover:bg-white/10 hover:text-white"
-                    >
-                      <Icon size={14} />
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </Container>
-        </div>
-
         <Container
           className={cn(
             'flex items-center justify-between gap-6 transition-[height] duration-(--duration-base)',
@@ -607,7 +562,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
       </header>
       {/* The header is always fixed; this keeps its full height in the flow so folding the
           contact bar never shifts the page (which would re-trigger the scroll threshold). */}
-      {!overlay && <div aria-hidden className="h-20 xl:h-32" />}
+      {!overlay && <div aria-hidden className="h-20 xl:h-[5.5rem]" />}
       <AnimatePresence>
         {mobileMenuOpen && <MobileMenu onClose={closeMobileMenu} />}
       </AnimatePresence>

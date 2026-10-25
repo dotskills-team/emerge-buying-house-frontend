@@ -4,11 +4,10 @@ import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { ArrowRight, Pause, Play } from 'lucide-react';
 import { SplitReveal } from '@/components/site/text-effects';
 import { Container } from '@/components/ui/container';
 import { IMG } from '@/content/images';
-import { cn } from '@/lib/utils';
 
 interface Slide {
   image: StaticImageData;
@@ -42,13 +41,16 @@ const SLIDES: Slide[] = [
   },
 ];
 
-const DURATION = 7000;
+/** Time each slide stays before the next one fades in. */
+const DURATION = 4500;
 
 export function HeroSlider() {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [held, setHeld] = useState(false); // hover or focus inside
+  // Paused while keyboard focus is inside (not on mouse hover: the slider fills the screen, so a
+  // hover pause would stop it for nearly every desktop visitor).
+  const [held, setHeld] = useState(false);
   const playing = !paused && !held && !reduce;
 
   const go = useCallback((next: number) => setIndex((next + SLIDES.length) % SLIDES.length), []);
@@ -65,34 +67,38 @@ export function HeroSlider() {
     <section
       aria-roledescription="carousel"
       aria-label="Highlights"
-      className="bg-ink-deep relative isolate flex min-h-[max(36rem,100svh)] items-end overflow-hidden text-white"
-      onMouseEnter={() => setHeld(true)}
-      onMouseLeave={() => setHeld(false)}
+      className="bg-ink-deep relative isolate flex min-h-[max(36rem,100svh)] items-center overflow-hidden text-white"
       onFocus={() => setHeld(true)}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHeld(false);
       }}
     >
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={index}
-          className="absolute inset-0 -z-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.1 }}
+      {/* Every slide's photo is in the page from the start (the first with priority, the rest
+          loaded straight after), so a change is an instant cross-fade with nothing to download. */}
+      {SLIDES.map((s, i) => (
+        <div
+          key={s.title}
+          aria-hidden={i !== index}
+          className={`absolute inset-0 -z-20 transition-opacity duration-700 ease-out ${
+            i === index ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <Image
-            src={slide.image}
+            // Re-mounted when shown, so the slow zoom starts again with each slide.
+            key={i === index ? `active-${index}` : 'idle'}
+            src={s.image}
             alt=""
             fill
-            priority={index === 0}
+            priority={i === 0}
+            loading={i === 0 ? undefined : 'eager'}
             placeholder="blur"
             sizes="100vw"
-            className="object-cover motion-safe:animate-[kenburns_9s_ease-out_forwards] dark:brightness-110 dark:saturate-110"
+            className={`object-cover dark:brightness-110 dark:saturate-110 ${
+              i === index ? 'motion-safe:animate-[kenburns_9s_ease-out_forwards]' : ''
+            }`}
           />
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      ))}
       <div
         aria-hidden
         className="from-ink-deep via-ink-deep/70 absolute inset-0 -z-10 bg-gradient-to-t to-transparent"
@@ -102,7 +108,8 @@ export function HeroSlider() {
         className="from-ink-deep/80 absolute inset-0 -z-10 bg-gradient-to-r via-transparent to-transparent"
       />
 
-      <Container className="relative pt-32 pb-20 sm:pb-24 lg:pb-16 2xl:pb-28">
+      {/* Vertically centred in the space below the header (header height on top, a little less below). */}
+      <Container className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 xl:pt-[7.5rem] xl:pb-12">
         <div
           role="group"
           aria-roledescription="slide"
@@ -115,7 +122,7 @@ export function HeroSlider() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
               <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.22em] uppercase">
                 <span aria-hidden className="h-px w-8 bg-current" />
@@ -154,65 +161,18 @@ export function HeroSlider() {
           </AnimatePresence>
         </div>
 
-        {/* Controls: quiet, in one line. Pause stays (an automatic slideshow must be stoppable). */}
-        <div className="mt-12 flex items-center gap-5 2xl:mt-16">
-          <span className="text-sm text-white/70 tabular-nums" aria-hidden>
-            {String(index + 1).padStart(2, '0')}
-            <span className="text-white/40"> / {String(SLIDES.length).padStart(2, '0')}</span>
-          </span>
-          <div className="flex items-center gap-1.5">
-            {SLIDES.map((s, i) => (
-              <button
-                key={s.title}
-                type="button"
-                onClick={() => go(i)}
-                aria-label={`Show slide ${i + 1}: ${s.eyebrow}`}
-                aria-current={i === index}
-                className="group relative h-11 w-8 sm:w-12"
-              >
-                <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 overflow-hidden rounded-full bg-white/25">
-                  <span
-                    key={`${index}-${playing}`}
-                    className={cn(
-                      'block h-full rounded-full bg-white',
-                      i < index && 'w-full',
-                      i > index && 'w-0',
-                      i === index && (playing ? 'w-0 animate-[grow_7s_linear_forwards]' : 'w-full'),
-                    )}
-                  />
-                </span>
-              </button>
-            ))}
-          </div>
-          <div className="-ml-2 flex items-center text-white/70">
-            <button
-              type="button"
-              onClick={() => go(index - 1)}
-              aria-label="Previous slide"
-              className="hidden size-10 sm:flex items-center justify-center rounded-md transition-colors hover:text-white"
-            >
-              <ChevronLeft size={20} aria-hidden />
-            </button>
-            <button
-              type="button"
-              onClick={() => go(index + 1)}
-              aria-label="Next slide"
-              className="hidden size-10 sm:flex items-center justify-center rounded-md transition-colors hover:text-white"
-            >
-              <ChevronRight size={20} aria-hidden />
-            </button>
-            {!reduce && (
-              <button
-                type="button"
-                onClick={() => setPaused((p) => !p)}
-                aria-label={paused ? 'Play slideshow' : 'Pause slideshow'}
-                className="flex size-10 items-center justify-center rounded-md transition-colors hover:text-white"
-              >
-                {paused ? <Play size={15} aria-hidden /> : <Pause size={15} aria-hidden />}
-              </button>
-            )}
-          </div>
-        </div>
+        {/* No visible controls. The slideshow still pauses on hover and keyboard focus, never moves
+            for reduced-motion users, and keyboard users get a pause button when they Tab to it. */}
+        {!reduce && (
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            className="sr-only mt-8 inline-flex items-center gap-2 rounded-md bg-white/15 px-3 py-2 text-sm font-medium focus:not-sr-only"
+          >
+            {paused ? <Play size={15} aria-hidden /> : <Pause size={15} aria-hidden />}
+            {paused ? 'Play slideshow' : 'Pause slideshow'}
+          </button>
+        )}
       </Container>
     </section>
   );
