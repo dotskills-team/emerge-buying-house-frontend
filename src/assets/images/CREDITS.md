@@ -30,3 +30,4 @@ Development placeholders from Wikimedia Commons. Replace them with the company's
 | production-line.jpg    | K. Kendall from Portland, OR, USA                        | CC BY 2.0     | https://commons.wikimedia.org/w/index.php?curid=57468417                                               |
 | skilled-operator.jpg   | Greg Walters                                             | CC BY 2.0     | https://commons.wikimedia.org/wiki/File:Garment_Factory_Workers_in_Thailand.jpg                        |
 | sourcing-fabric-library.jpg | rawpixel                                         | CC0           | https://www.rawpixel.com/image/6038451/textile-rolls-free-public-domain-cc0-photo |
+| story-qa-floor.jpg     | Fahad Faisal | CC BY-SA 4.0  | https://commons.wikimedia.org/w/index.php?curid=38295272 |

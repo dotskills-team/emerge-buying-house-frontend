@@ -23,8 +23,8 @@ export default function AboutPage() {
       <SplitFeature
         eyebrow="Our story"
         title="The brand’s eyes and hands in Bangladesh."
-        image={IMG.factoryFloor}
-        imageAlt="Garment workers on a production floor"
+        image={IMG.storyQaFloor}
+        imageAlt="Quality checks on a modern garment factory floor"
         badge={{ value: '15+', label: 'Years of sourcing' }}
       >
         <p>
