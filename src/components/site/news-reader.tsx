@@ -13,7 +13,7 @@ import { SOCIAL_ICONS } from './social-icons';
 
 function ArticleBody({ paragraphs }: { paragraphs: string[] }) {
   return (
-    <div className="text-fg-muted space-y-4 text-base leading-8 sm:text-lg">
+    <div className="text-fg-muted space-y-4 text-base leading-8 sm:text-lg lg:text-base 2xl:text-lg">
       {paragraphs.map((p) =>
         p.startsWith('## ') ? (
           <h3 key={p} className="text-fg pt-4 text-xl font-semibold sm:text-2xl">
@@ -181,7 +181,7 @@ export function NewsReader({ items, initialSlug }: { items: NewsItem[]; initialS
             className="scroll-mt-28"
             aria-labelledby={`${n.slug}-title`}
           >
-            <div className="relative aspect-[16/9] overflow-hidden rounded-3xl shadow-md">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-md">
               <Image
                 src={n.image}
                 alt=""
@@ -211,7 +211,9 @@ export function NewsReader({ items, initialSlug }: { items: NewsItem[]; initialS
             >
               {n.title}
             </h2>
-            <p className="text-fg mt-4 text-lg font-medium sm:text-xl">{n.excerpt}</p>
+            <p className="text-fg mt-4 text-lg font-medium sm:text-xl lg:text-lg 2xl:text-xl">
+              {n.excerpt}
+            </p>
             <div className="mt-6">
               <ArticleBody paragraphs={n.body} />
             </div>

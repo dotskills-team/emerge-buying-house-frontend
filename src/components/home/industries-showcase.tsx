@@ -35,7 +35,7 @@ export function IndustriesShowcase() {
   return (
     <section className="bg-ink-deep relative isolate overflow-hidden bg-(image:--gradient-ink) text-white">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] xl:grid-cols-[minmax(0,30rem)_minmax(0,1fr)]">
-        <div className="bg-weave relative px-(--page-gutter) py-14 sm:py-16 lg:py-24 lg:pl-[max(var(--page-gutter),calc((100vw-var(--container-site))/2+var(--page-gutter)))]">
+        <div className="bg-weave relative px-(--page-gutter) py-14 sm:py-16 lg:py-20 lg:pl-[max(var(--page-gutter),calc((100vw-var(--container-site))/2+var(--page-gutter)))] 2xl:py-24">
           <p className="text-nav-active text-xs font-semibold tracking-[0.22em] uppercase">
             What we do
           </p>

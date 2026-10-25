@@ -5,7 +5,7 @@ import { SITE } from '@/config/site';
 import { cn } from '@/lib/utils';
 
 /**
- * The Emerge Group logo. Both files are derived from public/logo.png: `logo.png` has a transparent
+ * The Emerge Group logo (charcoal "iEmerge group" mark). `logo.png` is charcoal on a transparent
  * background for light surfaces, `logo-light.png` has white lettering for dark ones.
  */
 export function Logo({

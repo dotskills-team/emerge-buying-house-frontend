@@ -33,7 +33,7 @@ export function ProductGalleryViewer({
 
   if (images.length === 0) {
     return (
-      <div className="bg-brand-weave flex aspect-[4/5] items-center justify-center rounded-3xl">
+      <div className="bg-brand-weave flex aspect-[4/5] items-center justify-center rounded-2xl">
         <Shirt aria-hidden className="text-gold-light/60 size-20" strokeWidth={1} />
       </div>
     );
@@ -65,7 +65,7 @@ export function ProductGalleryViewer({
         onPointerEnter={() => warmImage(current.url)}
         onFocus={() => warmImage(current.url)}
         aria-label={`Zoom into ${name}, photo ${active + 1}`}
-        className="group bg-surface-muted relative block aspect-[4/5] w-full cursor-zoom-in overflow-hidden rounded-3xl"
+        className="group bg-surface-muted relative block aspect-[4/5] w-full cursor-zoom-in overflow-hidden rounded-2xl"
       >
         <MediaImage
           key={current.url}

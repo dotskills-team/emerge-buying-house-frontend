@@ -14,7 +14,7 @@ const EXPLORE = [
   { label: 'CSR', href: '/csr' },
   { label: 'News & Events', href: '/news-events' },
   // { label: 'Blog', href: '/blog' }, // hidden for now, like the main menu
-  { label: 'Career', href: '/career' },
+  // { label: 'Career', href: '/career' }, // off, like the main menu
 ];
 
 function FooterColumn({
@@ -60,7 +60,7 @@ export function Footer() {
           </div>
           <Link
             href="/contact"
-            className="group text-ink-deep shadow-gold inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+            className="group text-ink-deep shadow-gold inline-flex min-h-12 shrink-0 items-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform"
           >
             Request a quote
             <ArrowRight
@@ -74,7 +74,7 @@ export function Footer() {
 
       <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 sm:py-16 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.3fr]">
         <div className="sm:col-span-2 lg:col-span-1">
-          <Logo inverse className="h-12" />
+          <Logo inverse className="h-16" />
           <p className="text-fg-inverse-muted mt-3 max-w-sm text-sm">{SITE.description}</p>
           <ul className="mt-6 flex gap-2" aria-label="Social media">
             {SOCIAL.map((s) => {

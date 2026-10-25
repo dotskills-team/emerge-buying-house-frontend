@@ -262,7 +262,7 @@ export default async function BlogIndexPage({
 
           <aside className="space-y-8 lg:sticky lg:top-40 lg:self-start">
             {visibleCategories.length > 0 && (
-              <div className="border-border bg-surface rounded-3xl border p-6 shadow-sm">
+              <div className="border-border bg-surface rounded-2xl border p-6 shadow-sm">
                 <h2 className="font-display text-fg text-lg font-semibold">Categories</h2>
                 <ul className="mt-4 space-y-1">
                   {visibleCategories.map((c) => (
@@ -287,7 +287,7 @@ export default async function BlogIndexPage({
             )}
 
             {tags && tags.length > 0 && (
-              <div className="border-border bg-surface rounded-3xl border p-6 shadow-sm">
+              <div className="border-border bg-surface rounded-2xl border p-6 shadow-sm">
                 <h2 className="font-display text-fg text-lg font-semibold">Popular tags</h2>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {tags.map((t) => (
@@ -310,7 +310,7 @@ export default async function BlogIndexPage({
               </div>
             )}
 
-            <div className="bg-brand-weave relative overflow-hidden rounded-3xl p-6 text-white shadow-lg">
+            <div className="bg-brand-weave relative overflow-hidden rounded-2xl p-6 text-white shadow-lg">
               <div aria-hidden className="bg-grain absolute inset-0" />
               <div className="relative">
                 <Rss size={22} aria-hidden className="text-gold-light" />
@@ -320,7 +320,7 @@ export default async function BlogIndexPage({
                 </p>
                 <a
                   href="/blog/rss.xml"
-                  className="text-ink-deep shadow-gold mt-5 inline-flex min-h-10 items-center gap-2 rounded-full bg-(image:--gradient-gold) px-5 text-sm font-semibold"
+                  className="text-ink-deep shadow-gold mt-5 inline-flex min-h-10 items-center gap-2 rounded-lg bg-(image:--gradient-gold) px-5 text-sm font-semibold"
                 >
                   <Rss size={15} aria-hidden /> RSS feed
                 </a>

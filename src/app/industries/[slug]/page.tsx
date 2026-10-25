@@ -40,18 +40,18 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         crumbs={[{ label: 'Industries' }, { label: industry.name }]}
       />
 
-      <section className="py-16 sm:py-20 lg:py-28">
+      <section className="py-16 sm:py-20 lg:py-20 2xl:py-28">
         <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
           <Reveal>
             <SectionHeading eyebrow="Overview" title={industry.summary} />
-            <div className="text-fg-muted mt-6 space-y-4 sm:text-lg">
+            <div className="text-fg-muted mt-6 space-y-4 sm:text-lg lg:text-base 2xl:text-lg">
               {industry.body.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
             <Link
               href="/contact"
-              className="group mt-8 inline-flex min-h-12 items-center gap-2 rounded-xl bg-(image:--gradient-brand) px-6 text-sm font-semibold text-white shadow-md transition-transform hover:-translate-y-0.5"
+              className="group mt-8 inline-flex min-h-12 items-center gap-2 rounded-xl bg-(image:--gradient-brand) px-6 text-sm font-semibold text-white shadow-md transition-transform"
             >
               Talk to our team
               <ArrowRight
@@ -62,7 +62,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             </Link>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-lg sm:aspect-[4/3] lg:aspect-[4/5]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg sm:aspect-[4/3] lg:aspect-[4/5]">
               {industry.image ? (
                 <Image
                   src={industry.image}
@@ -84,7 +84,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
 
       <MetricsBand items={industry.highlights} />
 
-      <section className="py-16 sm:py-20 lg:py-28">
+      <section className="py-16 sm:py-20 lg:py-20 2xl:py-28">
         <Container>
           <SectionHeading
             eyebrow="Capabilities"
@@ -93,7 +93,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {industry.capabilities.map((c, i) => (
               <Reveal as="li" key={c.title} delay={i * 0.06}>
-                <div className="bg-surface border-border hover:border-primary/30 flex h-full gap-4 rounded-2xl border p-6 shadow-sm transition-shadow hover:shadow-lg">
+                <div className="bg-surface border-border hover:border-primary/30 flex h-full gap-4 rounded-2xl border p-6 shadow-sm transition-shadow hover:shadow-md">
                   <CheckCircle2 size={24} aria-hidden className="text-primary mt-0.5 shrink-0" />
                   <div>
                     <h3 className="text-fg text-lg font-semibold">{c.title}</h3>

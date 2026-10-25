@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import {
   Briefcase,
   ChevronDown,
@@ -15,7 +16,7 @@ import { PageHero } from '@/components/site/page-hero';
 import { Reveal } from '@/components/site/reveal';
 import { SectionHeading } from '@/components/site/section-heading';
 import { Container } from '@/components/ui/container';
-import { CONTACT, SITE } from '@/config/site';
+import { CAREER_PAGE_ENABLED, CONTACT, SITE } from '@/config/site';
 import { CAREERS } from '@/content/company';
 import { IMG } from '@/content/images';
 
@@ -25,6 +26,8 @@ export const metadata: Metadata = {
 };
 
 export default function CareerPage() {
+  // Switched off in config/site.ts: the page answers "not found" until it is turned back on.
+  if (!CAREER_PAGE_ENABLED) notFound();
   const email = SITE.contactEmail ?? CONTACT.email;
   return (
     <MarketingShell>
@@ -62,7 +65,10 @@ export default function CareerPage() {
         ]}
       />
 
-      <section id="openings" className="bg-surface border-border border-y py-16 sm:py-20 lg:py-28">
+      <section
+        id="openings"
+        className="bg-surface border-border border-y py-16 sm:py-20 lg:py-20 2xl:py-28"
+      >
         <Container>
           <SectionHeading
             eyebrow="Open positions"

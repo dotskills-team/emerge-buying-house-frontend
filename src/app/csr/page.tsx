@@ -74,13 +74,13 @@ export default function CsrPage() {
           { value: '3,500', label: 'Health check-ups provided' },
         ]}
       />
-      <section className="py-16 sm:py-20 lg:py-28">
+      <section className="py-16 sm:py-20 lg:py-20 2xl:py-28">
         <Container>
           <SectionHeading eyebrow="Initiatives" title="Programmes in action." />
           <ul className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             {INITIATIVES.map((it, i) => (
               <Reveal as="li" key={it.title} delay={i * 0.08}>
-                <article className="group bg-surface border-border h-full overflow-hidden rounded-3xl border shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+                <article className="group bg-surface border-border h-full overflow-hidden rounded-2xl border shadow-sm transition-all hover:shadow-md">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image
                       src={it.image}

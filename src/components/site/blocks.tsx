@@ -28,11 +28,14 @@ export function SplitFeature({
 }) {
   return (
     <section
-      className={cn('py-16 sm:py-20 lg:py-28', tinted && 'bg-surface border-border border-y')}
+      className={cn(
+        'py-16 sm:py-20 lg:py-20 2xl:py-28',
+        tinted && 'bg-surface border-border border-y',
+      )}
     >
       <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal className={cn('relative', reverse && 'lg:order-2')}>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-lg">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
             <Image
               src={image}
               alt={imageAlt}
@@ -45,7 +48,7 @@ export function SplitFeature({
           <span
             aria-hidden
             className={cn(
-              'bg-brand-weave absolute -z-10 hidden size-40 rounded-3xl sm:block',
+              'bg-brand-weave absolute -z-10 hidden size-40 rounded-2xl sm:block',
               reverse ? '-top-5 -right-5' : '-bottom-5 -left-5',
             )}
           />
@@ -65,7 +68,9 @@ export function SplitFeature({
         </Reveal>
         <Reveal delay={0.1}>
           <SectionHeading eyebrow={eyebrow} title={title} />
-          <div className="text-fg-muted mt-5 space-y-4 sm:text-lg">{children}</div>
+          <div className="text-fg-muted mt-5 space-y-4 sm:text-lg lg:text-base 2xl:text-lg">
+            {children}
+          </div>
         </Reveal>
       </Container>
     </section>
@@ -93,7 +98,7 @@ export function FeatureGrid({
   columns?: 2 | 3 | 4;
 }) {
   return (
-    <section className="py-16 sm:py-20 lg:py-28">
+    <section className="py-16 sm:py-20 lg:py-20 2xl:py-28">
       <Container>
         <SectionHeading eyebrow={eyebrow} title={title} lead={lead} />
         <ul
@@ -105,7 +110,7 @@ export function FeatureGrid({
         >
           {items.map(({ icon: Icon, title: t, body }, i) => (
             <Reveal as="li" key={t} delay={i * 0.06}>
-              <div className="group bg-surface border-border hover:border-primary/30 h-full rounded-2xl border p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg sm:p-7">
+              <div className="group bg-surface border-border hover:border-primary/30 h-full rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md sm:p-7">
                 <span className="bg-primary-soft text-primary group-hover:bg-brand-weave flex size-12 items-center justify-center rounded-xl transition-colors group-hover:text-white">
                   <Icon size={22} aria-hidden />
                 </span>

@@ -24,7 +24,7 @@ export default function NewsEventsPage() {
         image={IMG.textileFactory}
         crumbs={[{ label: 'News & Events' }]}
       />
-      <section className="py-16 sm:py-20 lg:py-24">
+      <section className="py-16 sm:py-20 lg:py-20 2xl:py-24">
         <Container>
           {featured && (
             <Reveal>
@@ -34,7 +34,7 @@ export default function NewsEventsPage() {
               <NewsCard item={featured} featured />
             </Reveal>
           )}
-          <div className="mt-16 sm:mt-20">
+          <div className="mt-12 sm:mt-14 2xl:mt-16 2xl:mt-20">
             <SectionHeading eyebrow="Archive" title="More stories." />
             <div className="mt-8">
               <NewsGrid items={rest} />

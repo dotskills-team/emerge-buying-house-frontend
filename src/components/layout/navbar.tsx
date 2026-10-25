@@ -1,5 +1,6 @@
 'use client';
 
+import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -9,6 +10,7 @@ import {
   BookOpenText,
   Building2,
   ChevronDown,
+  FileText,
   Clock,
   Cpu,
   HeartHandshake,
@@ -27,6 +29,7 @@ import {
 import { SOCIAL_ICONS } from '@/components/site/social-icons';
 import { Container } from '@/components/ui/container';
 import { CONTACT, MAIN_NAV, SITE, SOCIAL, type NavEntry } from '@/config/site';
+import { IMG } from '@/content/images';
 import { ThemeSegmented, ThemeToggle } from '@/features/theme/theme-toggle';
 import { cn } from '@/lib/utils';
 import { useUiStore } from '@/store/ui-store';
@@ -36,6 +39,7 @@ const ICONS: Record<string, LucideIcon> = {
   '/company/about-us': BookOpenText,
   '/company/management': Users,
   '/company/history': History,
+  '/company/profiles': FileText,
   '/industries/textile': Shirt,
   '/industries/retail': ShoppingBag,
   '/industries/pharmaceuticals': Pill,
@@ -45,25 +49,31 @@ const ICONS: Record<string, LucideIcon> = {
   '/sustainability/employee-welfare': HeartHandshake,
 };
 
-/** The highlight card shown beside each dropdown's links. */
-const FEATURES: Record<string, { title: string; body: string; href: string; cta: string }> = {
+/** The highlight shown beside each dropdown's links: a photo, a line of text and one link. */
+const FEATURES: Record<
+  string,
+  { title: string; body: string; href: string; cta: string; image: StaticImageData }
+> = {
   Company: {
     title: '15 years of accountable sourcing',
     body: 'One team that owns every order, from first sketch to loaded container.',
     href: '/company/history',
     cta: 'Our journey',
+    image: IMG.garmentLine,
   },
   Industries: {
     title: 'See what we make',
     body: 'Zoom into our knitwear, woven, denim and fabric programmes.',
     href: '/products',
     cta: 'Explore products',
+    image: IMG.textileFactory,
   },
   Sustainability: {
     title: 'Responsible by design',
     body: 'Audited factories, cleaner energy and traceable fibres.',
     href: '/csr',
     cta: 'Our CSR work',
+    image: IMG.cottonField,
   },
 };
 
@@ -142,12 +152,10 @@ function DesktopDropdown({
           pointerType.current = null;
         }}
         className={cn(
-          'relative flex h-10 items-center gap-1 rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors 2xl:px-3.5 2xl:text-[0.9375rem]',
-          light
-            ? 'text-white/85 hover:bg-white/10 hover:text-white'
-            : 'text-fg-muted hover:bg-surface-muted hover:text-fg',
+          'relative flex h-10 items-center gap-1 rounded-md px-2.5 text-sm font-medium whitespace-nowrap transition-colors 2xl:px-3.5 2xl:text-[0.9375rem]',
+          light ? 'text-white/85 hover:text-white' : 'text-fg-muted hover:text-fg',
           active && (light ? 'text-white' : 'text-primary'),
-          open && (light ? 'bg-white/10 text-white' : 'bg-surface-muted text-fg'),
+          open && (light ? 'text-white' : 'text-fg'),
         )}
       >
         {entry.label}
@@ -171,70 +179,80 @@ function DesktopDropdown({
           <motion.div
             ref={keepOnScreen}
             id={id}
-            initial={{ opacity: 0, y: 10, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.98 }}
-            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-full left-1/2 z-(--z-drawer) w-[min(44rem,calc(100vw-4rem))] -translate-x-1/2 pt-4"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-full left-1/2 z-(--z-drawer) w-[min(40rem,calc(100vw-4rem))] -translate-x-1/2 pt-3"
           >
-            <div className="border-border bg-surface grid grid-cols-[minmax(0,1fr)_15rem] overflow-hidden rounded-3xl border shadow-lg">
-              <ul className="p-3">
-                {children.map((c) => {
-                  const Icon = ICONS[c.href] ?? ArrowRight;
-                  return (
-                    <li key={c.href}>
-                      <Link
-                        href={c.href}
-                        onClick={() => setOpen(false)}
-                        className="group/item hover:bg-primary-soft/70 flex items-center gap-4 rounded-2xl p-3 transition-colors"
-                      >
-                        <span className="border-border bg-surface text-primary group-hover/item:bg-brand-weave flex size-11 shrink-0 items-center justify-center rounded-xl border shadow-sm transition-colors group-hover/item:border-transparent group-hover/item:text-white">
-                          <Icon size={19} aria-hidden />
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="text-fg group-hover/item:text-primary block text-sm font-semibold">
-                            {c.label}
-                          </span>
-                          {c.description && (
-                            <span className="text-fg-subtle mt-0.5 block truncate text-xs">
-                              {c.description}
+            <div className="border-border bg-surface grid grid-cols-[minmax(0,1fr)_13.5rem] overflow-hidden rounded-xl border shadow-[0_18px_40px_-16px_rgb(15_23_42/0.22)]">
+              <div className="p-2.5">
+                <p className="text-fg-subtle px-3 pt-2 pb-1.5 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase">
+                  {entry.label}
+                </p>
+                <ul>
+                  {children.map((c) => {
+                    const Icon = ICONS[c.href] ?? ArrowRight;
+                    return (
+                      <li key={c.href}>
+                        <Link
+                          href={c.href}
+                          onClick={() => setOpen(false)}
+                          className="group/item hover:bg-surface-muted flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors"
+                        >
+                          <Icon
+                            size={17}
+                            aria-hidden
+                            strokeWidth={1.6}
+                            className="text-fg-subtle group-hover/item:text-primary mt-0.5 shrink-0 transition-colors"
+                          />
+                          <span className="min-w-0 flex-1">
+                            <span className="text-fg group-hover/item:text-primary block text-sm font-medium transition-colors">
+                              {c.label}
                             </span>
-                          )}
-                        </span>
-                        <ArrowRight
-                          size={16}
-                          aria-hidden
-                          className="text-primary -translate-x-1 opacity-0 transition-all group-hover/item:translate-x-0 group-hover/item:opacity-100"
-                        />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+                            {c.description && (
+                              <span className="text-fg-subtle mt-0.5 block truncate text-xs">
+                                {c.description}
+                              </span>
+                            )}
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
               {feature && (
-                <div className="bg-brand-weave relative flex flex-col justify-end overflow-hidden p-6 text-white">
-                  <span
-                    aria-hidden
-                    className="absolute -top-10 -right-10 size-40 rounded-full bg-white/10 blur-2xl"
-                  />
-                  <p className="text-xs font-semibold tracking-[0.18em] text-white/70 uppercase">
-                    {entry.label}
-                  </p>
-                  <p className="mt-2 text-lg leading-snug font-semibold">{feature.title}</p>
-                  <p className="mt-2 text-sm text-white/80">{feature.body}</p>
-                  <Link
-                    href={feature.href}
-                    onClick={() => setOpen(false)}
-                    className="group/cta mt-5 inline-flex items-center gap-1.5 text-sm font-semibold"
-                  >
+                <Link
+                  href={feature.href}
+                  onClick={() => setOpen(false)}
+                  className="group/cta bg-surface-muted border-border flex flex-col border-l p-4"
+                >
+                  <span className="relative block aspect-[4/3] overflow-hidden rounded-md">
+                    <Image
+                      src={feature.image}
+                      alt=""
+                      fill
+                      placeholder="blur"
+                      sizes="13rem"
+                      className="object-cover transition-transform duration-500 group-hover/cta:scale-[1.04]"
+                    />
+                  </span>
+                  <span className="text-fg mt-3.5 block text-sm leading-snug font-semibold">
+                    {feature.title}
+                  </span>
+                  <span className="text-fg-muted mt-1 block text-xs leading-relaxed">
+                    {feature.body}
+                  </span>
+                  <span className="text-primary mt-3 inline-flex items-center gap-1 text-xs font-semibold">
                     {feature.cta}
                     <ArrowRight
-                      size={15}
+                      size={13}
                       aria-hidden
                       className="transition-transform group-hover/cta:translate-x-0.5"
                     />
-                  </Link>
-                </div>
+                  </span>
+                </Link>
               )}
             </div>
           </motion.div>
@@ -276,7 +294,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       >
         <div className="border-border flex h-20 shrink-0 items-center justify-between border-b px-5">
           <Link href="/" onClick={onClose} aria-label={`${SITE.name} home`}>
-            <Logo className="h-9" />
+            <Logo className="h-11" />
           </Link>
           <button
             type="button"
@@ -521,7 +539,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
               priority
               className={cn(
                 'transition-[height] duration-(--duration-base)',
-                scrolled ? 'h-9' : 'h-10 xl:h-11',
+                scrolled ? 'h-11' : 'h-12 xl:h-14',
               )}
             />
           </Link>
@@ -563,7 +581,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
             <ThemeToggle onDark={light} />
             <Link
               href="/contact"
-              className="group shadow-gold text-ink-deep hidden min-h-11 items-center gap-2 rounded-full bg-(image:--gradient-gold) pr-2 pl-5 text-sm font-semibold transition-transform hover:-translate-y-0.5 sm:inline-flex"
+              className="group shadow-gold text-ink-deep hidden min-h-11 items-center gap-2 rounded-lg bg-(image:--gradient-gold) pr-2 pl-5 text-sm font-semibold transition-transform sm:inline-flex"
             >
               Get a quote
               <span className="bg-ink-deep/10 flex size-7 items-center justify-center rounded-full transition-transform group-hover:translate-x-0.5">

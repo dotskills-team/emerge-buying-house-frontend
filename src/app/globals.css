@@ -81,8 +81,10 @@
     var(--font-inter), var(--font-bengali), ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
     Roboto, Arial, sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
-  /* Display serif for website headlines only (the dashboard stays in the sans). */
-  --font-display: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  /* Headlines: Inter Tight, the display cut of the body font (one clean family, Swiss style). */
+  --font-display:
+    var(--font-inter-tight), var(--font-inter), var(--font-bengali), ui-sans-serif, system-ui,
+    sans-serif;
 
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.125rem;
@@ -115,8 +117,8 @@
   --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05), 0 1px 1px 0 rgb(15 23 42 / 0.03);
   --shadow-md: 0 4px 12px -2px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
   --shadow-lg: 0 20px 40px -12px rgb(15 23 42 / 0.25);
-  --shadow-glow: 0 10px 28px -10px rgb(15 107 79 / 0.55);
-  --shadow-gold: 0 10px 28px -10px rgb(201 162 74 / 0.6);
+  --shadow-glow: 0 6px 16px -8px rgb(15 23 42 / 0.25);
+  --shadow-gold: 0 6px 16px -8px rgb(15 23 42 / 0.25);
 
   /* Layout */
   --container-content: 72rem;
@@ -142,12 +144,13 @@
   --z-toast: 60;
   --page-gutter: clamp(1rem, 0.6rem + 1.6vw, 2.5rem);
   /* Gradients: used only for the dashboard hero, active navigation and KPI accents. */
-  --gradient-brand: linear-gradient(135deg, #0a3b2c 0%, #0f6b4f 52%, #16936c 100%);
-  --gradient-gold: linear-gradient(135deg, #f3dc9b 0%, #d4ad5a 45%, #a87e27 100%);
+  /* Flat brand colours (Swiss style): kept as gradients so every usage keeps working. */
+  --gradient-brand: linear-gradient(135deg, #0b3d2e 0%, #0e4f3c 100%);
+  --gradient-gold: linear-gradient(#d6b46a, #d6b46a);
   --gradient-ink: radial-gradient(120% 120% at 15% 0%, #123a2c 0%, #0a1a14 45%, #050d0a 100%);
   --gradient-sidebar: linear-gradient(180deg, #07130f 0%, #0c241b 100%);
   --gradient-active: linear-gradient(90deg, rgb(20 147 108 / 0.32) 0%, rgb(201 162 74 / 0.14) 100%);
-  --gradient-indicator: linear-gradient(180deg, #f3dc9b 0%, #c9a24a 100%);
+  --gradient-indicator: linear-gradient(#d6b46a, #d6b46a);
   /* Brand gradient as text (big numbers): dark emerald on light grounds, lighter in dark. */
   --gradient-brand-text: var(--gradient-brand);
   color-scheme: light;
@@ -208,8 +211,23 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
   --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
   --shadow-lg: 0 20px 40px -12px rgb(0 0 0 / 0.65);
-  --shadow-glow: 0 10px 28px -10px rgb(52 196 143 / 0.35);
+  --shadow-glow: 0 6px 16px -8px rgb(0 0 0 / 0.5);
   --gradient-brand-text: linear-gradient(135deg, #34c48f 0%, #7fe0bb 100%);
+}
+
+/*
+ * Laptops (1024–1535px wide, usually only ~650–750px tall): a tighter type scale, so a page
+ * headline and its first content fit on screen and sections do not feel oversized. Phones,
+ * tablets and large desktop screens keep the scale above.
+ */
+@media (min-width: 64rem) and (max-width: 95.99rem) {
+  :root {
+    --text-display: clamp(2rem, 0.9rem + 2.3vw, 2.875rem);
+    --text-h1: clamp(1.5rem, 1rem + 1vw, 1.875rem);
+    --text-h2: clamp(1.25rem, 0.95rem + 0.6vw, 1.5rem);
+    --text-h3: 1.125rem;
+    --text-kpi: clamp(1.5rem, 1.2rem + 0.6vw, 1.875rem);
+  }
 }
 
 /* `dark:` for the rare case a component needs it, following the same attribute. */
@@ -244,7 +262,7 @@
   h3,
   h4 {
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
@@ -296,19 +314,15 @@
 }
 
 /*
- * The site's signature texture: a fine diagonal weave, like the twill of a fabric. Used on the
- * brand gradient panels of the public website. `bg-weave-dark` is the variant for light grounds.
+ * Surface textures. The design is deliberately flat (Swiss / Scandinavian): these utilities stay
+ * so markup does not change, but draw nothing. To bring a texture back, give it a background here.
  */
 @utility bg-weave {
-  background-image:
-    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.07) 0 1px, transparent 1px 12px),
-    repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 12px);
+  background-image: none;
 }
 
 @utility bg-weave-dark {
-  background-image:
-    repeating-linear-gradient(45deg, rgb(15 107 79 / 0.06) 0 1px, transparent 1px 12px),
-    repeating-linear-gradient(-45deg, rgb(201 162 74 / 0.07) 0 1px, transparent 1px 12px);
+  background-image: none;
 }
 
 /* Infinite horizontal scroll for the certification strip (paused for reduced motion). */
@@ -341,17 +355,14 @@
   }
 }
 
-/* Brand gradient with the weave on top, in one declaration (two utilities would overwrite each other). */
+/* The brand colour panel (flat; see bg-weave). */
 @utility bg-brand-weave {
-  background-image:
-    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.07) 0 1px, transparent 1px 12px),
-    repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 12px),
-    var(--gradient-brand);
+  background-image: var(--gradient-brand);
 }
 
-/* Film grain for dark, photographic sections: barely visible, adds depth. */
+/* Formerly film grain on photographic sections; flat now (see bg-weave). */
 @utility bg-grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: none;
 }
 
 /* Gold text (headline accents). */

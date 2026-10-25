@@ -44,11 +44,7 @@ export function PageHero({
       />
       <div aria-hidden className="bg-weave absolute inset-0 -z-10 opacity-50 dark:opacity-20" />
       <div aria-hidden className="bg-grain absolute inset-0 -z-10" />
-      <div
-        aria-hidden
-        className="bg-gold/10 absolute -right-32 -bottom-40 -z-10 size-[30rem] rounded-full blur-3xl"
-      />
-      <Container className="flex min-h-[clamp(17rem,46vh,28rem)] flex-col justify-end pt-24 pb-10 sm:pb-14">
+      <Container className="flex min-h-[clamp(17rem,46vh,28rem)] flex-col justify-end pt-24 pb-10 sm:pb-14 lg:min-h-[clamp(14rem,36vh,20rem)] lg:pt-16 lg:pb-10 2xl:min-h-[clamp(17rem,46vh,28rem)] 2xl:pt-24 2xl:pb-14">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1.5 text-sm text-white/70">
             <li>
@@ -83,7 +79,7 @@ export function PageHero({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-4 max-w-2xl text-base text-white/80 sm:text-lg"
+            className="mt-4 max-w-2xl text-base text-white/80 sm:text-lg lg:text-base 2xl:text-lg"
           >
             {lead}
           </motion.p>

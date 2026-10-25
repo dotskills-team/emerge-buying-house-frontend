@@ -210,7 +210,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
         // A class, not the `hidden` attribute: `flex` would override that and keep it visible.
         open ? 'flex' : 'hidden',
         // Phones: full screen. Larger screens: a panel above the chat button.
-        'inset-0 sm:inset-auto sm:right-5 sm:bottom-24 sm:h-[min(38rem,calc(100dvh-8rem))] sm:w-[24rem] sm:rounded-3xl sm:border sm:border-black/5',
+        'inset-0 sm:inset-auto sm:right-5 sm:bottom-24 sm:h-[min(38rem,calc(100dvh-8rem))] sm:w-[24rem] sm:rounded-2xl sm:border sm:border-black/5',
       )}
     >
       <header className="text-fg-inverse flex shrink-0 items-center gap-3 bg-(image:--gradient-sidebar) px-4 py-3.5 pt-[max(0.875rem,env(safe-area-inset-top))]">

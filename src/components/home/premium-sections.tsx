@@ -74,7 +74,7 @@ export function TestimonialSlider() {
     <section
       aria-roledescription="carousel"
       aria-label="What buyers say"
-      className="bg-weave-dark relative overflow-hidden py-20 sm:py-24 lg:py-32"
+      className="bg-weave-dark relative overflow-hidden py-20 sm:py-24 lg:py-20 2xl:py-32"
       onMouseEnter={() => setHeld(true)}
       onMouseLeave={() => setHeld(false)}
       onFocus={() => setHeld(true)}
@@ -91,7 +91,7 @@ export function TestimonialSlider() {
           <h2 className="font-display text-h1 text-fg mt-3 font-semibold tracking-tight">
             In their words.
           </h2>
-          <p className="text-fg-muted mt-4 sm:text-lg">
+          <p className="text-fg-muted mt-4 sm:text-lg lg:text-base 2xl:text-lg">
             Brands in 22 countries rely on us to turn designs into delivered orders.
           </p>
           <div className="mt-8 flex items-center gap-3">

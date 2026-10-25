@@ -194,7 +194,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href={quoteHref}
-                className="group text-ink-deep shadow-gold inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+                className="group text-ink-deep shadow-gold inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform"
               >
                 Request a quote
                 <ArrowRight
@@ -335,8 +335,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 View all products
               </Link>
             </div>
-            <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-              {related.map((p) => (
+            <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {related.slice(0, 3).map((p) => (
                 <li key={p.id}>
                   <ProductCard product={p} />
                 </li>

@@ -4,7 +4,7 @@ import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { SplitReveal } from '@/components/site/text-effects';
 import { Container } from '@/components/ui/container';
 import { IMG } from '@/content/images';
@@ -14,8 +14,6 @@ interface Slide {
   image: StaticImageData;
   eyebrow: string;
   title: string;
-  /** Index of the word shown in gold italics. */
-  highlight: number;
   lead: string;
   cta: { label: string; href: string };
 }
@@ -25,7 +23,6 @@ const SLIDES: Slide[] = [
     image: IMG.heroFactory,
     eyebrow: 'Garments buying house · Bangladesh',
     title: 'From first sketch to loaded container, one accountable team.',
-    highlight: 7,
     lead: 'We connect international brands with audited manufacturers and manage every step in between.',
     cta: { label: 'Discover our company', href: '/company/about-us' },
   },
@@ -33,7 +30,6 @@ const SLIDES: Slide[] = [
     image: IMG.heroSewing,
     eyebrow: 'Production you can see',
     title: 'Quality built on the line, not checked at the port.',
-    highlight: 0,
     lead: 'Inline inspections, digital QC reports and merchandisers who live next to the factories.',
     cta: { label: 'Explore products', href: '/products' },
   },
@@ -41,7 +37,6 @@ const SLIDES: Slide[] = [
     image: IMG.factoryFloor,
     eyebrow: 'Responsible by design',
     title: 'Sustainable production, passion-driven and made for the future.',
-    highlight: 7,
     lead: 'Safe factories, fair work and lower-impact materials across our partner network.',
     cta: { label: 'Our sustainability', href: '/sustainability/environmental-sustainability' },
   },
@@ -107,7 +102,7 @@ export function HeroSlider() {
         className="from-ink-deep/80 absolute inset-0 -z-10 bg-gradient-to-r via-transparent to-transparent"
       />
 
-      <Container className="relative pt-32 pb-24 sm:pb-28 lg:pb-32">
+      <Container className="relative pt-32 pb-20 sm:pb-24 lg:pb-16 2xl:pb-28">
         <div
           role="group"
           aria-roledescription="slide"
@@ -122,8 +117,8 @@ export function HeroSlider() {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.18em] uppercase backdrop-blur-sm">
-                <span aria-hidden className="bg-nav-active size-1.5 rounded-full" />
+              <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.22em] uppercase">
+                <span aria-hidden className="h-px w-8 bg-current" />
                 {slide.eyebrow}
               </p>
               <SplitReveal
@@ -131,16 +126,15 @@ export function HeroSlider() {
                 trigger="mount"
                 delay={0.15}
                 text={slide.title}
-                className="font-display text-display mt-6 font-semibold tracking-tight text-balance"
-                wordClassName={(_w, i) =>
-                  i === slide.highlight ? 'text-gold-gradient italic' : undefined
-                }
+                className="font-display text-display 2xl:text-display mt-5 max-w-3xl font-semibold tracking-tight text-balance lg:text-[clamp(2.25rem,1.2rem+1.9vw,2.6rem)]"
               />
-              <p className="mt-6 max-w-2xl text-base text-white/80 sm:text-xl">{slide.lead}</p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg lg:text-base 2xl:text-lg">
+                {slide.lead}
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href={slide.cta.href}
-                  className="group text-ink-deep shadow-gold inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+                  className="group text-ink-deep shadow-gold inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform"
                 >
                   {slide.cta.label}
                   <ArrowRight
@@ -151,7 +145,7 @@ export function HeroSlider() {
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 text-sm font-semibold backdrop-blur-sm transition-colors hover:bg-white/20"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/40 px-6 text-sm font-semibold transition-colors hover:bg-white/10"
                 >
                   Request a quote
                 </Link>
@@ -160,9 +154,13 @@ export function HeroSlider() {
           </AnimatePresence>
         </div>
 
-        {/* Controls */}
-        <div className="mt-12 flex flex-wrap items-center gap-4 sm:mt-16">
-          <div className="flex items-center gap-2">
+        {/* Controls: quiet, in one line. Pause stays (an automatic slideshow must be stoppable). */}
+        <div className="mt-12 flex items-center gap-5 2xl:mt-16">
+          <span className="text-sm text-white/70 tabular-nums" aria-hidden>
+            {String(index + 1).padStart(2, '0')}
+            <span className="text-white/40"> / {String(SLIDES.length).padStart(2, '0')}</span>
+          </span>
+          <div className="flex items-center gap-1.5">
             {SLIDES.map((s, i) => (
               <button
                 key={s.title}
@@ -170,9 +168,9 @@ export function HeroSlider() {
                 onClick={() => go(i)}
                 aria-label={`Show slide ${i + 1}: ${s.eyebrow}`}
                 aria-current={i === index}
-                className="group relative h-11 w-10 sm:w-16"
+                className="group relative h-11 w-8 sm:w-12"
               >
-                <span className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 overflow-hidden rounded-full bg-white/25">
+                <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 overflow-hidden rounded-full bg-white/25">
                   <span
                     key={`${index}-${playing}`}
                     className={cn(
@@ -186,12 +184,12 @@ export function HeroSlider() {
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="-ml-2 flex items-center text-white/70">
             <button
               type="button"
               onClick={() => go(index - 1)}
               aria-label="Previous slide"
-              className="flex size-11 items-center justify-center rounded-full border border-white/25 bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+              className="hidden size-10 sm:flex items-center justify-center rounded-md transition-colors hover:text-white"
             >
               <ChevronLeft size={20} aria-hidden />
             </button>
@@ -199,7 +197,7 @@ export function HeroSlider() {
               type="button"
               onClick={() => go(index + 1)}
               aria-label="Next slide"
-              className="flex size-11 items-center justify-center rounded-full border border-white/25 bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+              className="hidden size-10 sm:flex items-center justify-center rounded-md transition-colors hover:text-white"
             >
               <ChevronRight size={20} aria-hidden />
             </button>
@@ -208,25 +206,14 @@ export function HeroSlider() {
                 type="button"
                 onClick={() => setPaused((p) => !p)}
                 aria-label={paused ? 'Play slideshow' : 'Pause slideshow'}
-                className="flex size-11 items-center justify-center rounded-full border border-white/25 bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+                className="flex size-10 items-center justify-center rounded-md transition-colors hover:text-white"
               >
-                {paused ? <Play size={16} aria-hidden /> : <Pause size={16} aria-hidden />}
+                {paused ? <Play size={15} aria-hidden /> : <Pause size={15} aria-hidden />}
               </button>
             )}
           </div>
-          <p className="ml-auto hidden text-sm text-white/60 tabular-nums sm:block" aria-hidden>
-            {String(index + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
-          </p>
         </div>
       </Container>
-
-      <a
-        href="#intro"
-        aria-label="Scroll to content"
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-white/70 hover:text-white lg:block"
-      >
-        <ChevronDown size={26} aria-hidden className="motion-safe:animate-bounce" />
-      </a>
     </section>
   );
 }

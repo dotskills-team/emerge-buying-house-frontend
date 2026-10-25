@@ -103,7 +103,7 @@ function ProfileCard({
       onPointerEnter={warm}
       onFocus={warm}
       className={cn(
-        'group bg-surface border-border hover:border-primary/30 flex h-full overflow-hidden rounded-3xl border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+        'group bg-surface border-border hover:border-primary/30 flex h-full overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:shadow-md',
         wide ? 'flex-col md:flex-row' : 'flex-col',
       )}
     >

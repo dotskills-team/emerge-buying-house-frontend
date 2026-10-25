@@ -28,7 +28,7 @@ export default function CompanyProfilesPage() {
         image={IMG.textileFactory}
         crumbs={[{ label: 'Company' }, { label: 'Company Profiles' }]}
       />
-      <section className="py-16 sm:py-20 lg:py-28">
+      <section className="py-16 sm:py-20 lg:py-20 2xl:py-28">
         <Container>
           <SectionHeading
             align="center"
@@ -36,11 +36,11 @@ export default function CompanyProfilesPage() {
             title={profiles.length > 1 ? 'Choose a profile' : 'Our company profile'}
             lead="Opens right here on any device. Use the download button to keep a copy."
           />
-          <div className="mt-12 sm:mt-16">
+          <div className="mt-12 sm:mt-12 2xl:mt-16">
             {profiles.length > 0 ? (
               <ProfileLibrary profiles={profiles} />
             ) : (
-              <div className="border-border bg-surface mx-auto flex max-w-lg flex-col items-center rounded-3xl border p-10 text-center">
+              <div className="border-border bg-surface mx-auto flex max-w-lg flex-col items-center rounded-2xl border p-10 text-center">
                 <FileText aria-hidden className="text-fg-subtle size-10" />
                 <p className="text-fg mt-4 font-semibold">Our profile is being updated.</p>
                 <p className="text-fg-muted mt-1 text-sm">
@@ -49,7 +49,7 @@ export default function CompanyProfilesPage() {
               </div>
             )}
           </div>
-          <Reveal className="mt-16 text-center">
+          <Reveal className="mt-12 text-center 2xl:mt-16">
             <p className="text-fg-muted">
               Need a printed copy, a profile in another language, or details for a specific
               category?

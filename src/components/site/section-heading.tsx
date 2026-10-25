@@ -49,7 +49,12 @@ export function SectionHeading({
         <h2 className={titleClass}>{title}</h2>
       )}
       {lead && (
-        <p className={cn('mt-4 text-base sm:text-lg', inverse ? 'text-white/80' : 'text-fg-muted')}>
+        <p
+          className={cn(
+            'mt-4 text-base sm:text-lg lg:text-base 2xl:text-lg',
+            inverse ? 'text-white/80' : 'text-fg-muted',
+          )}
+        >
           {lead}
         </p>
       )}

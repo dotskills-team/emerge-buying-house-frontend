@@ -22,7 +22,7 @@ export default function HistoryPage() {
         image={IMG.garmentFinishing}
         crumbs={[{ label: 'Company' }, { label: 'History' }]}
       />
-      <section className="bg-weave-dark py-16 sm:py-20 lg:py-28">
+      <section className="bg-weave-dark py-16 sm:py-20 lg:py-20 2xl:py-28">
         <Container>
           <SectionHeading
             align="center"
@@ -31,7 +31,7 @@ export default function HistoryPage() {
             lead="Each step added a capability our buyers asked for."
           />
           {/* Mobile: line on the left. Desktop: line in the centre, cards alternate sides. */}
-          <ol className="relative mx-auto mt-16 max-w-5xl">
+          <ol className="relative mx-auto mt-12 max-w-5xl 2xl:mt-16">
             <span
               aria-hidden
               className="from-primary via-secondary to-primary/10 absolute top-0 bottom-0 left-4 w-0.5 bg-gradient-to-b lg:left-1/2 lg:-translate-x-1/2"
@@ -51,7 +51,7 @@ export default function HistoryPage() {
                     delay={0.05}
                     className={cn(right ? 'lg:col-start-2' : 'lg:col-start-1 lg:text-right')}
                   >
-                    <div className="bg-surface border-border hover:border-primary/30 rounded-2xl border p-6 shadow-sm transition-shadow hover:shadow-lg">
+                    <div className="bg-surface border-border hover:border-primary/30 rounded-2xl border p-6 shadow-sm transition-shadow hover:shadow-md">
                       <p className="bg-(image:--gradient-brand-text) bg-clip-text text-3xl font-bold text-transparent">
                         {h.year}
                       </p>

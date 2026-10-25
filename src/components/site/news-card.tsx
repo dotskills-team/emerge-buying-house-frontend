@@ -27,7 +27,7 @@ export function NewsCard({ item, featured = false }: { item: NewsItem; featured?
   return (
     <article
       className={cn(
-        'group bg-surface border-border hover:border-primary/30 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg',
+        'group bg-surface border-border hover:border-primary/30 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-sm transition-all hover:shadow-md',
         featured && 'lg:flex-row',
       )}
     >
@@ -82,7 +82,7 @@ export function NewsCard({ item, featured = false }: { item: NewsItem; featured?
           <ArrowUpRight
             size={16}
             aria-hidden
-            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            className="group- transition-transform group-hover:translate-x-0.5"
           />
         </span>
       </div>

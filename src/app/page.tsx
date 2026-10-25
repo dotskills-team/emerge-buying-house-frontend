@@ -1,33 +1,41 @@
+import {
+  Clients,
+  GroupCompanies,
+  ManufacturingPartners,
+  ManufacturingStrength,
+  Services,
+  SourcingStrength,
+} from '@/components/home/group-sections';
 import { HeroSlider } from '@/components/home/hero-slider';
 import {
   CertificationStrip,
   IntroSplit,
-  JourneySection,
-  LatestNews,
-  ProcessTimeline,
   ProductionTeaser,
   StatsBand,
-  VisionMission,
 } from '@/components/home/home-sections';
-import { IndustriesShowcase } from '@/components/home/industries-showcase';
-import { MarqueeBand, TestimonialSlider } from '@/components/home/premium-sections';
+import { TestimonialSlider } from '@/components/home/premium-sections';
 import { MarketingShell } from '@/components/layout/marketing-shell';
 
+/**
+ * In the order of the client's brief: slider, about, manufacturing strength, sourcing strength,
+ * services, manufacturing partners, products, clients, group companies. Vision, industries,
+ * history and news live on their own pages.
+ */
 export default function HomePage() {
   return (
     <MarketingShell overlayHeader>
       <HeroSlider />
       <IntroSplit />
       <StatsBand />
-      <VisionMission />
-      <IndustriesShowcase />
-      <MarqueeBand />
-      <ProcessTimeline />
-      <ProductionTeaser />
-      <JourneySection />
-      <TestimonialSlider />
-      <LatestNews />
+      <ManufacturingStrength />
+      <SourcingStrength />
+      <Services />
+      <ManufacturingPartners />
       <CertificationStrip />
+      <ProductionTeaser />
+      <Clients />
+      <TestimonialSlider />
+      <GroupCompanies />
     </MarketingShell>
   );
 }

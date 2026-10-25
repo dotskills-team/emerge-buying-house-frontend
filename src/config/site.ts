@@ -102,7 +102,8 @@ export const MAIN_NAV: NavEntry[] = [
   { label: 'News & Events', href: '/news-events' },
   // Hidden for now; uncomment to show Blog in the menu again.
   // { label: 'Blog', href: '/blog' },
-  { label: 'Career', href: '/career' },
+  // Hidden while the Career page is off (see CAREER_PAGE_ENABLED below).
+  // { label: 'Career', href: '/career' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -120,3 +121,10 @@ export const SOCIAL = [
   { label: 'Instagram', href: 'https://www.instagram.com/' },
   { label: 'YouTube', href: 'https://www.youtube.com/' },
 ] as const;
+
+/**
+ * The Career page is switched off for now: /career answers "page not found" and it is left out of
+ * the menus and the sitemap. To bring it back, set this to true and uncomment the Career links in
+ * MAIN_NAV above and in components/layout/footer.tsx.
+ */
+export const CAREER_PAGE_ENABLED = false;

@@ -53,7 +53,7 @@ export default async function ContactPage({
         image={IMG.heroSkyline}
         crumbs={[{ label: 'Contact' }]}
       />
-      <section className="py-16 sm:py-20 lg:py-28">
+      <section className="py-16 sm:py-20 lg:py-20 2xl:py-28">
         <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
           <Reveal className="space-y-4">
             <SectionHeading eyebrow="Get in touch" title="We would love to hear from you." />
@@ -104,7 +104,7 @@ export default async function ContactPage({
             </ul>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="bg-surface border-border rounded-3xl border p-6 shadow-lg sm:p-8">
+            <div className="bg-surface border-border rounded-2xl border p-6 shadow-lg sm:p-8">
               <h2 className="text-h2 text-fg font-semibold">Send us a message</h2>
               <p className="text-fg-muted mt-2 text-sm">Fields marked * are required.</p>
               <div className="mt-6">

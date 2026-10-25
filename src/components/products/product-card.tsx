@@ -15,16 +15,15 @@ export function ProductCard({
   className?: string;
 }) {
   const [cover, alt] = product.images;
-  const sizes =
-    '(min-width: 1536px) 22rem, (min-width: 1280px) 28vw, (min-width: 640px) 45vw, 100vw';
+  const sizes = '(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw';
   return (
     <article
       className={cn(
-        'group bg-surface border-border hover:border-primary/30 relative flex h-full flex-col overflow-hidden rounded-3xl border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+        'group bg-surface border-border hover:border-primary/30 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:shadow-md',
         className,
       )}
     >
-      <div className="bg-surface-muted relative aspect-[4/5] overflow-hidden">
+      <div className="bg-surface-muted relative aspect-[4/3] overflow-hidden">
         {cover ? (
           <>
             <MediaImage
@@ -107,7 +106,7 @@ export function ProductCard({
             <ArrowUpRight
               size={16}
               aria-hidden
-              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              className="group- transition-transform group-hover:translate-x-0.5"
             />
           </span>
         </div>

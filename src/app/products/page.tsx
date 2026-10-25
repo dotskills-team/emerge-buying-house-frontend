@@ -85,7 +85,7 @@ export default async function ProductsPage({
         crumbs={[{ label: 'Products' }]}
       />
 
-      <section id="catalogue" className="py-16 sm:py-20 lg:py-24">
+      <section id="catalogue" className="py-16 sm:py-20 lg:py-20 2xl:py-24">
         <Container>
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <SectionHeading
@@ -167,7 +167,7 @@ export default async function ProductsPage({
           )}
 
           {!products || products.items.length === 0 ? (
-            <div className="border-border bg-surface mt-10 flex flex-col items-center rounded-3xl border border-dashed px-6 py-16 text-center">
+            <div className="border-border bg-surface mt-10 flex flex-col items-center rounded-2xl border border-dashed px-6 py-16 text-center">
               <span className="bg-primary-soft text-primary flex size-14 items-center justify-center rounded-2xl">
                 <Shirt size={26} aria-hidden />
               </span>
@@ -187,7 +187,7 @@ export default async function ProductsPage({
               </Link>
             </div>
           ) : (
-            <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {products.items.map((p, i) => (
                 <li key={p.id}>
                   <ProductCard product={p} priority={i < 3} />

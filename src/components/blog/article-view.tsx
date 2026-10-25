@@ -44,10 +44,6 @@ export function ArticleView({
         >
           <div aria-hidden className="bg-weave absolute inset-0 -z-10 opacity-40" />
           <div aria-hidden className="bg-grain absolute inset-0 -z-10" />
-          <div
-            aria-hidden
-            className="bg-gold/10 absolute -top-40 -right-40 -z-10 size-[32rem] rounded-full blur-3xl"
-          />
           <Container className="max-w-4xl text-center">
             <nav aria-label="Breadcrumb" className="flex justify-center">
               <ol className="flex flex-wrap items-center justify-center gap-1.5 text-sm text-white/65">
@@ -83,7 +79,7 @@ export function ArticleView({
               className="font-display text-display mt-6 font-semibold tracking-tight text-balance"
             />
             {post.excerpt && (
-              <p className="mx-auto mt-6 max-w-2xl text-base text-white/80 sm:text-xl">
+              <p className="mx-auto mt-6 max-w-2xl text-base text-white/80 sm:text-xl lg:text-lg 2xl:text-xl">
                 {post.excerpt}
               </p>
             )}
@@ -122,7 +118,7 @@ export function ArticleView({
             post={post}
             priority
             sizes="(min-width: 1152px) 72rem, 100vw"
-            className="border-surface aspect-[16/9] rounded-3xl border-4 shadow-2xl sm:border-8"
+            className="border-surface aspect-[16/9] rounded-2xl border-4 shadow-2xl sm:border-8"
           />
         </Container>
 
@@ -167,7 +163,7 @@ export function ArticleView({
               </div>
 
               {post.author && (
-                <div className="border-border bg-surface mt-12 flex flex-col gap-5 rounded-3xl border p-6 shadow-sm sm:flex-row sm:items-center sm:p-8">
+                <div className="border-border bg-surface mt-12 flex flex-col gap-5 rounded-2xl border p-6 shadow-sm sm:flex-row sm:items-center sm:p-8">
                   <AuthorAvatar name={post.author.name} size="lg" />
                   <div>
                     <p className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase">

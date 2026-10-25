@@ -42,7 +42,7 @@ export function IntroSplit() {
           <path d="M0 400 L200 200 L400 400 Z" fill="currentColor" />
           <path d="M80 400 L200 280 L320 400 Z" fill="currentColor" />
         </svg>
-        <div className="w-full px-(--page-gutter) py-16 sm:py-20 lg:max-w-[46rem] lg:py-28 lg:pl-[max(var(--page-gutter),calc((100vw-var(--container-site))/2+var(--page-gutter)))]">
+        <div className="w-full px-(--page-gutter) py-16 sm:py-20 lg:max-w-[46rem] lg:py-20 lg:pl-[max(var(--page-gutter),calc((100vw-var(--container-site))/2+var(--page-gutter)))] 2xl:py-28">
           <Reveal>
             <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.24em] uppercase">
               <span aria-hidden className="h-px w-10 bg-(image:--gradient-gold)" />
@@ -61,14 +61,14 @@ export function IntroSplit() {
                 ]}
               />
             </h2>
-            <p className="mt-5 text-white/85 sm:text-lg">
+            <p className="mt-5 text-white/85 sm:text-lg lg:text-base 2xl:text-lg">
               We are an international garments buying house working across knitwear, woven and
               denim. Our teams act as the brand’s eyes and hands in Bangladesh: finding the right
               factory, protecting quality and keeping delivery dates realistic.
             </p>
             <Link
               href="/company/about-us"
-              className="group text-ink-deep shadow-gold mt-8 inline-flex min-h-12 items-center gap-2 rounded-full bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+              className="group text-ink-deep shadow-gold mt-8 inline-flex min-h-12 items-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform"
             >
               View details
               <ArrowRight
@@ -122,7 +122,7 @@ const VALUE_ICONS: LucideIcon[] = [Target, Gem, Eye, HeartHandshake];
 
 export function VisionMission() {
   return (
-    <section className="bg-weave-dark relative py-20 sm:py-24 lg:py-32">
+    <section className="bg-weave-dark relative py-20 sm:py-24 lg:py-20 2xl:py-32">
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
           <Reveal>
@@ -158,12 +158,12 @@ export function VisionMission() {
           </Reveal>
         </div>
 
-        <ul className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 2xl:mt-16">
           {VALUES.map((v, i) => {
             const Icon = VALUE_ICONS[i] ?? BadgeCheck;
             return (
               <Reveal as="li" key={v.title} delay={i * 0.08}>
-                <div className="group bg-surface border-border hover:border-primary/30 relative h-full overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+                <div className="group bg-surface border-border hover:border-primary/30 relative h-full overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
                   <span
                     aria-hidden
                     className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-(image:--gradient-brand) transition-transform duration-(--duration-base) group-hover:scale-x-100"
@@ -185,13 +185,9 @@ export function VisionMission() {
 
 export function ProcessTimeline() {
   return (
-    <section className="bg-ink-deep relative isolate overflow-hidden bg-(image:--gradient-ink) py-20 text-white sm:py-24 lg:py-32">
+    <section className="bg-ink-deep relative isolate overflow-hidden bg-(image:--gradient-ink) py-20 text-white sm:py-24 lg:py-20 2xl:py-32">
       <div aria-hidden className="bg-weave absolute inset-0 -z-10 opacity-50" />
       <div aria-hidden className="bg-grain absolute inset-0 -z-10" />
-      <div
-        aria-hidden
-        className="bg-brand/30 absolute -top-40 right-0 -z-10 size-[36rem] rounded-full blur-3xl"
-      />
       <Container>
         <SectionHeading
           tone="inverse"
@@ -229,7 +225,7 @@ const SHOWCASE = [
 export function ProductionTeaser() {
   const picks = SHOWCASE;
   return (
-    <section className="py-20 sm:py-24 lg:py-32">
+    <section className="py-20 sm:py-24 lg:py-20 2xl:py-32">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading
@@ -279,7 +275,9 @@ export function ProductionTeaser() {
                   <span className="text-xs font-semibold tracking-wider text-white/70 uppercase">
                     {p.category}
                   </span>
-                  <span className="mt-1 block font-semibold sm:text-lg">{p.name}</span>
+                  <span className="mt-1 block font-semibold sm:text-lg lg:text-base 2xl:text-lg">
+                    {p.name}
+                  </span>
                 </span>
               </Link>
             </Reveal>
@@ -293,10 +291,10 @@ export function ProductionTeaser() {
 export function JourneySection() {
   return (
     <section className="bg-surface border-border grid grid-cols-1 border-y lg:grid-cols-2">
-      <div className="flex items-center px-(--page-gutter) py-16 sm:py-20 lg:py-28 lg:pl-[max(var(--page-gutter),calc((100vw-var(--container-site))/2+var(--page-gutter)))]">
+      <div className="flex items-center px-(--page-gutter) py-16 sm:py-20 lg:py-20 lg:pl-[max(var(--page-gutter),calc((100vw-var(--container-site))/2+var(--page-gutter)))] 2xl:py-28">
         <Reveal className="max-w-xl">
           <SectionHeading eyebrow="The journey" title="Emerge’s evolution." />
-          <p className="text-fg-muted mt-5 sm:text-lg">
+          <p className="text-fg-muted mt-5 sm:text-lg lg:text-base 2xl:text-lg">
             Since our first order in 2011, Emerge has grown from three people to a team of
             merchandisers, inspectors and engineers who follow millions of garments every year.
           </p>
@@ -361,7 +359,7 @@ export function JourneySection() {
 
 export function LatestNews() {
   return (
-    <section className="py-20 sm:py-24 lg:py-32">
+    <section className="py-20 sm:py-24 lg:py-20 2xl:py-32">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading eyebrow="News & events" title="What is happening at Emerge." />

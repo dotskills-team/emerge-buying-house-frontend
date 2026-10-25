@@ -86,7 +86,7 @@ export function PostCard({
   return (
     <article
       className={cn(
-        'group bg-surface border-border hover:border-primary/30 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
+        'group bg-surface border-border hover:border-primary/30 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:shadow-md',
         featured && 'lg:grid lg:grid-cols-[1.15fr_1fr]',
       )}
     >
@@ -128,7 +128,9 @@ export function PostCard({
           <p
             className={cn(
               'text-fg-muted mt-3',
-              featured ? 'line-clamp-4 sm:text-lg' : 'line-clamp-3 text-sm',
+              featured
+                ? 'line-clamp-4 sm:text-lg lg:text-base 2xl:text-lg'
+                : 'line-clamp-3 text-sm',
             )}
           >
             {post.excerpt}
@@ -146,7 +148,7 @@ export function PostCard({
             <ArrowUpRight
               size={16}
               aria-hidden
-              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              className="group- transition-transform group-hover:translate-x-0.5"
             />
           </span>
         </div>
