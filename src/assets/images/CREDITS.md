@@ -24,3 +24,9 @@ Development placeholders from Wikimedia Commons. Replace them with the company's
 | cotton-boll.jpg        | Michael Bass-Deschenes(Commons User Mike Bass-Deschênes) | CC BY 2.0     | https://commons.wikimedia.org/wiki/File:Cotton_boll_nearly_ready_for_harvest.jpg                       |
 | operator.jpg           | Elkagye                                                  | CC BY-SA 4.0  | https://commons.wikimedia.org/wiki/File:Sewing_machine_operator.JPG                                    |
 | recycled-thread.jpg    | Syced                                                    | CC0           | https://commons.wikimedia.org/wiki/File:Recycled_thread_made_from_old_jeans,_on_display_in_Hikarie.jpg |
+| hero-modern-floor.jpg  | Fahad Faisal                                             | CC BY-SA 4.0  | https://commons.wikimedia.org/wiki/File:Remi_Holdings_LEED_certified_factories_in_Bangladesh.jpg       |
+| hero-worker.jpg        | Solidarity Center                                        | CC BY 2.0     | https://commons.wikimedia.org/w/index.php?curid=112731934                                              |
+| hero-clean-line.jpg    | Press Service of the President of Azerbaijan             | CC BY 4.0     | https://commons.wikimedia.org/w/index.php?curid=160544685                                              |
+| production-line.jpg    | K. Kendall from Portland, OR, USA                        | CC BY 2.0     | https://commons.wikimedia.org/w/index.php?curid=57468417                                               |
+| skilled-operator.jpg   | Greg Walters                                             | CC BY 2.0     | https://commons.wikimedia.org/wiki/File:Garment_Factory_Workers_in_Thailand.jpg                        |
+| sourcing-fabric-library.jpg | rawpixel                                         | CC0           | https://www.rawpixel.com/image/6038451/textile-rolls-free-public-domain-cc0-photo |

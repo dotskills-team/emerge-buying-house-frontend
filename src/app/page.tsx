@@ -23,7 +23,7 @@ import { MarketingShell } from '@/components/layout/marketing-shell';
  */
 export default function HomePage() {
   return (
-    <MarketingShell overlayHeader>
+    <MarketingShell>
       <HeroSlider />
       <IntroSplit />
       <StatsBand />

@@ -29,67 +29,89 @@ import {
 import { IMG } from '@/content/images';
 import { NEWS_SORTED } from '@/content/news';
 
+const INTRO_POINTS = [
+  { title: 'Knitwear, woven & denim', text: 'One team across every category.' },
+  { title: 'Audited factories only', text: 'Compliance checked before an order.' },
+  { title: 'On-the-ground QC', text: 'Inline and final inspection, reported openly.' },
+];
+
+/** Who we are: a calm, light section with clear air between it and the dark hero. */
 export function IntroSplit() {
   return (
-    <section id="intro" className="grid grid-cols-1 lg:grid-cols-2">
-      <div className="bg-brand-weave relative isolate flex items-center overflow-hidden text-white">
-        {/* Brand motif: stacked chevrons that echo the "E" of the wordmark. */}
-        <svg
-          aria-hidden
-          viewBox="0 0 400 400"
-          className="absolute -bottom-24 -left-24 -z-10 size-[28rem] text-white/10"
-        >
-          <path d="M0 400 L200 200 L400 400 Z" fill="currentColor" />
-          <path d="M80 400 L200 280 L320 400 Z" fill="currentColor" />
-        </svg>
-        <div className="w-full px-(--page-gutter) py-16 sm:py-20 lg:max-w-[46rem] lg:py-20 lg:pl-[max(var(--page-gutter),calc((100vw-var(--container-site))/2+var(--page-gutter)))] 2xl:py-28">
-          <Reveal>
-            <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.24em] uppercase">
-              <span aria-hidden className="h-px w-10 bg-(image:--gradient-gold)" />
-              Who we are
-            </p>
-            <h2 className="font-display text-h1 mt-3 font-semibold tracking-tight">
-              A sourcing partner that is{' '}
-              <RotatingWords
-                className="text-gold-light grid italic"
-                words={[
-                  'accountable.',
-                  'transparent.',
-                  'sustainable.',
-                  'on time.',
-                  'close to the line.',
-                ]}
-              />
-            </h2>
-            <p className="mt-5 text-white/85 sm:text-lg lg:text-base 2xl:text-lg">
-              We are an international garments buying house working across knitwear, woven and
-              denim. Our teams act as the brand’s eyes and hands in Bangladesh: finding the right
-              factory, protecting quality and keeping delivery dates realistic.
-            </p>
-            <Link
-              href="/company/about-us"
-              className="group text-ink-deep shadow-gold mt-8 inline-flex min-h-12 items-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform"
-            >
-              View details
-              <ArrowRight
-                size={16}
-                aria-hidden
-                className="transition-transform group-hover:translate-x-0.5"
-              />
-            </Link>
-          </Reveal>
-        </div>
-      </div>
-      <div className="relative min-h-[22rem] sm:min-h-[28rem]">
-        <Image
-          src={IMG.garmentLine}
-          alt="A worker folding fabric on a garment production line"
-          fill
-          placeholder="blur"
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          className="object-cover"
-        />
-      </div>
+    <section id="intro" className="bg-surface isolate py-20 sm:py-24 lg:py-24 2xl:py-32">
+      <Container className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="relative lg:col-span-6">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+            <Image
+              src={IMG.skilledOperator}
+              alt="Skilled operators at work on a clean garment line"
+              fill
+              placeholder="blur"
+              sizes="(min-width: 1024px) 46vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+          {/* Thin gold frame offset behind the photo: a quiet, classic accent. */}
+          <div
+            aria-hidden
+            className="border-gold/60 absolute -right-4 -bottom-4 -z-10 hidden h-full w-full rounded-2xl border sm:block"
+          />
+          <div className="bg-surface border-border absolute -bottom-8 left-6 flex items-center gap-4 rounded-xl border px-6 py-4 shadow-lg sm:left-8">
+            <span className="font-display text-primary text-4xl leading-none font-semibold">
+              {STATS[0]!.value}
+              {STATS[0]!.suffix}
+            </span>
+            <span className="text-fg-muted max-w-[8rem] text-sm leading-snug">
+              {STATS[0]!.label}
+            </span>
+          </div>
+        </Reveal>
+
+        <Reveal className="lg:col-span-6">
+          <p className="text-primary inline-flex items-center gap-3 text-xs font-semibold tracking-[0.24em] uppercase">
+            <span aria-hidden className="h-px w-10 bg-(image:--gradient-gold)" />
+            Who we are
+          </p>
+          <h2 className="font-display text-h1 text-fg mt-4 font-semibold tracking-tight">
+            A sourcing partner that is{' '}
+            <RotatingWords
+              className="text-primary grid italic"
+              words={[
+                'accountable.',
+                'transparent.',
+                'sustainable.',
+                'on time.',
+                'close to the line.',
+              ]}
+            />
+          </h2>
+          <p className="text-fg-muted mt-6 text-base sm:text-lg lg:text-base 2xl:text-lg">
+            We are an international garments buying house working across knitwear, woven and denim.
+            Our teams act as the brand’s eyes and hands in Bangladesh: finding the right factory,
+            protecting quality and keeping delivery dates realistic.
+          </p>
+          <ul className="border-border mt-8 grid gap-5 border-t pt-8 sm:grid-cols-3">
+            {INTRO_POINTS.map((p) => (
+              <li key={p.title}>
+                <BadgeCheck size={20} aria-hidden className="text-gold" />
+                <p className="text-fg mt-2 text-sm font-semibold">{p.title}</p>
+                <p className="text-fg-subtle mt-1 text-sm leading-snug">{p.text}</p>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href="/company/about-us"
+            className="group text-primary mt-9 inline-flex items-center gap-2 text-sm font-semibold"
+          >
+            <span className="border-b border-current pb-0.5">Discover our story</span>
+            <ArrowRight
+              size={16}
+              aria-hidden
+              className="transition-transform group-hover:translate-x-1"
+            />
+          </Link>
+        </Reveal>
+      </Container>
     </section>
   );
 }

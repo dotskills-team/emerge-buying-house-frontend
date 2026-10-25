@@ -37,8 +37,8 @@ export function ManufacturingStrength() {
       <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl">
           <Image
-            src={IMG.factoryFloor}
-            alt="Sewing lines in a partner factory"
+            src={IMG.productionLine}
+            alt="A modern, well-lit garment production line"
             fill
             placeholder="blur"
             sizes="(min-width: 1024px) 45vw, 100vw"
@@ -94,7 +94,7 @@ export function SourcingStrength() {
           />
           <Reveal className="relative mt-8 hidden aspect-[16/10] overflow-hidden rounded-2xl lg:block">
             <Image
-              src={IMG.fabricRolls}
+              src={IMG.sourcingFabricLibrary}
               alt="Fabric in many colours ready for cutting"
               fill
               placeholder="blur"

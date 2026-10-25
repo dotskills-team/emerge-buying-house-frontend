@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ArrowRight, Pause, Play } from 'lucide-react';
-import { SplitReveal } from '@/components/site/text-effects';
 import { Container } from '@/components/ui/container';
 import { IMG } from '@/content/images';
 
@@ -19,21 +18,21 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    image: IMG.heroFactory,
+    image: IMG.heroModernFloor,
     eyebrow: 'Garments buying house · Bangladesh',
     title: 'From first sketch to loaded container, one accountable team.',
     lead: 'We connect international brands with audited manufacturers and manage every step in between.',
     cta: { label: 'Discover our company', href: '/company/about-us' },
   },
   {
-    image: IMG.heroSewing,
+    image: IMG.heroWorker,
     eyebrow: 'Production you can see',
     title: 'Quality built on the line, not checked at the port.',
     lead: 'Inline inspections, digital QC reports and merchandisers who live next to the factories.',
     cta: { label: 'Explore products', href: '/products' },
   },
   {
-    image: IMG.factoryFloor,
+    image: IMG.heroCleanLine,
     eyebrow: 'Responsible by design',
     title: 'Sustainable production, passion-driven and made for the future.',
     lead: 'Safe factories, fair work and lower-impact materials across our partner network.',
@@ -67,7 +66,7 @@ export function HeroSlider() {
     <section
       aria-roledescription="carousel"
       aria-label="Highlights"
-      className="bg-ink-deep relative isolate flex min-h-[max(36rem,100svh)] items-center overflow-hidden text-white"
+      className="bg-ink-deep relative isolate flex min-h-[max(32rem,calc(100svh-4rem))] items-center overflow-hidden text-white lg:min-h-[max(32rem,calc(100svh-3.75rem))] 2xl:min-h-[max(34rem,calc(100svh-4.5rem))]"
       onFocus={() => setHeld(true)}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHeld(false);
@@ -79,13 +78,11 @@ export function HeroSlider() {
         <div
           key={s.title}
           aria-hidden={i !== index}
-          className={`absolute inset-0 -z-20 transition-opacity duration-700 ease-out ${
+          className={`absolute inset-0 -z-20 transition-opacity duration-[1600ms] ease-in-out ${
             i === index ? 'opacity-100' : 'opacity-0'
           }`}
         >
           <Image
-            // Re-mounted when shown, so the slow zoom starts again with each slide.
-            key={i === index ? `active-${index}` : 'idle'}
             src={s.image}
             alt=""
             fill
@@ -93,9 +90,8 @@ export function HeroSlider() {
             loading={i === 0 ? undefined : 'eager'}
             placeholder="blur"
             sizes="100vw"
-            className={`object-cover dark:brightness-110 dark:saturate-110 ${
-              i === index ? 'motion-safe:animate-[kenburns_9s_ease-out_forwards]' : ''
-            }`}
+            // One slow, endless zoom on every photo: nothing restarts or snaps when slides change.
+            className="object-cover motion-safe:animate-[kenburns_24s_ease-in-out_infinite_alternate] dark:brightness-110 dark:saturate-110"
           />
         </div>
       ))}
@@ -108,8 +104,8 @@ export function HeroSlider() {
         className="from-ink-deep/80 absolute inset-0 -z-10 bg-gradient-to-r via-transparent to-transparent"
       />
 
-      {/* Vertically centred in the space below the header (header height on top, a little less below). */}
-      <Container className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 xl:pt-[7.5rem] xl:pb-12">
+      {/* Vertically centred in the banner, which now starts below the header. */}
+      <Container className="relative py-14 sm:py-16 xl:py-12">
         <div
           role="group"
           aria-roledescription="slide"
@@ -119,22 +115,18 @@ export function HeroSlider() {
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }}
+              transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
             >
               <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.22em] uppercase">
                 <span aria-hidden className="h-px w-8 bg-current" />
                 {slide.eyebrow}
               </p>
-              <SplitReveal
-                as="h1"
-                trigger="mount"
-                delay={0.15}
-                text={slide.title}
-                className="font-display text-display 2xl:text-display mt-5 max-w-3xl font-semibold tracking-tight text-balance lg:text-[clamp(2.25rem,1.2rem+1.9vw,2.6rem)]"
-              />
+              <h1 className="font-display text-display 2xl:text-display mt-5 max-w-3xl font-semibold tracking-tight text-balance lg:text-[clamp(2.25rem,1.2rem+1.9vw,2.6rem)]">
+                {slide.title}
+              </h1>
               <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg lg:text-base 2xl:text-lg">
                 {slide.lead}
               </p>

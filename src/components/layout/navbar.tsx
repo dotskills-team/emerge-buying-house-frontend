@@ -479,13 +479,13 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
           'fixed top-0 z-(--z-header) w-full transition-[background-color,box-shadow,border-color] duration-(--duration-base)',
           light
             ? 'bg-gradient-to-b from-black/55 via-black/25 to-transparent'
-            : 'border-border bg-surface/85 border-b shadow-md backdrop-blur-xl',
+            : 'border-border bg-surface border-b shadow-sm',
         )}
       >
         <Container
           className={cn(
             'flex items-center justify-between gap-6 transition-[height] duration-(--duration-base)',
-            scrolled ? 'h-[4.5rem]' : 'h-20 xl:h-[5.5rem]',
+            'h-16 lg:h-[3.75rem] 2xl:h-[4.5rem]',
           )}
         >
           <Link href="/" aria-label={`${SITE.name} home`} className="shrink-0">
@@ -494,7 +494,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
               priority
               className={cn(
                 'transition-[height] duration-(--duration-base)',
-                scrolled ? 'h-11' : 'h-12 xl:h-14',
+                'h-10 lg:h-9 2xl:h-11',
               )}
             />
           </Link>
@@ -562,7 +562,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
       </header>
       {/* The header is always fixed; this keeps its full height in the flow so folding the
           contact bar never shifts the page (which would re-trigger the scroll threshold). */}
-      {!overlay && <div aria-hidden className="h-20 xl:h-[5.5rem]" />}
+      {!overlay && <div aria-hidden className="h-16 lg:h-[3.75rem] 2xl:h-[4.5rem]" />}
       <AnimatePresence>
         {mobileMenuOpen && <MobileMenu onClose={closeMobileMenu} />}
       </AnimatePresence>

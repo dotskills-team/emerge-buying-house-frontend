@@ -11,6 +11,12 @@ import garmentFinishing from '@/assets/images/garment-finishing.jpg';
 import garmentLine from '@/assets/images/garment-line.jpg';
 import heroFactory from '@/assets/images/hero-factory.jpg';
 import heroSewing from '@/assets/images/hero-sewing.jpg';
+import heroCleanLine from '@/assets/images/hero-clean-line.jpg';
+import heroModernFloor from '@/assets/images/hero-modern-floor.jpg';
+import heroWorker from '@/assets/images/hero-worker.jpg';
+import productionLine from '@/assets/images/production-line.jpg';
+import skilledOperator from '@/assets/images/skilled-operator.jpg';
+import sourcingFabricLibrary from '@/assets/images/sourcing-fabric-library.jpg';
 import heroSkyline from '@/assets/images/hero-skyline.jpg';
 import itDatacenter from '@/assets/images/it-datacenter.jpg';
 import knittingMachine from '@/assets/images/knitting-machine.jpg';
@@ -33,6 +39,12 @@ export const IMG = {
   garmentLine,
   heroFactory,
   heroSewing,
+  heroCleanLine,
+  heroModernFloor,
+  heroWorker,
+  productionLine,
+  skilledOperator,
+  sourcingFabricLibrary,
   heroSkyline,
   itDatacenter,
   knittingMachine,
