@@ -25,10 +25,10 @@ import { cn } from '@/lib/utils';
 import type { ProductCategory, ProductListResult } from '@/types/product';
 
 export const metadata: Metadata = {
-  title: 'Production',
+  title: 'Products',
   description:
     'Products and production capabilities of Emerge Buying House: knitwear, woven, denim, fabrics and finishing.',
-  alternates: { canonical: '/production' },
+  alternates: { canonical: '/products' },
 };
 
 const PAGE_SIZE = 12;
@@ -46,10 +46,10 @@ function href(current: Filters, change: Filters) {
   if (next.q) qs.set('q', next.q);
   if (next.page && next.page > 1) qs.set('page', String(next.page));
   const s = qs.toString();
-  return s ? `/production?${s}#catalogue` : '/production#catalogue';
+  return s ? `/products?${s}#catalogue` : '/products#catalogue';
 }
 
-export default async function ProductionPage({
+export default async function ProductsPage({
   searchParams,
 }: {
   searchParams: Promise<{ category?: string; q?: string; page?: string }>;
@@ -79,10 +79,10 @@ export default async function ProductionPage({
   return (
     <MarketingShell>
       <PageHero
-        title="Production"
+        title="Products"
         lead="Explore what we make. Open any product to see every angle, zoom into the fabric and check the specifications."
         image={IMG.heroSewing}
-        crumbs={[{ label: 'Production' }]}
+        crumbs={[{ label: 'Products' }]}
       />
 
       <section id="catalogue" className="py-16 sm:py-20 lg:py-24">
@@ -96,7 +96,7 @@ export default async function ProductionPage({
                 'Filter by category, then open a product for its photos, specifications and minimum order.'
               }
             />
-            <form action="/production#catalogue" role="search" className="relative w-full lg:w-80">
+            <form action="/products#catalogue" role="search" className="relative w-full lg:w-80">
               {filters.category && <input type="hidden" name="category" value={filters.category} />}
               <label htmlFor="product-search" className="sr-only">
                 Search products
@@ -158,7 +158,7 @@ export default async function ProductionPage({
               {filters.q && <> for “{filters.q}”</>}
               {active && <> in {active.name}</>}
               <Link
-                href="/production#catalogue"
+                href="/products#catalogue"
                 className="text-primary inline-flex items-center gap-1 font-medium hover:underline"
               >
                 <X size={14} aria-hidden /> Clear
@@ -180,7 +180,7 @@ export default async function ProductionPage({
                   : 'New products are on their way. Tell us what you are looking for and we will send options.'}
               </p>
               <Link
-                href={filtered ? '/production#catalogue' : '/contact'}
+                href={filtered ? '/products#catalogue' : '/contact'}
                 className="bg-primary hover:bg-primary-hover text-on-fill mt-6 inline-flex min-h-11 items-center rounded-full px-6 text-sm font-semibold"
               >
                 {filtered ? 'Show all products' : 'Request options'}

@@ -11,6 +11,11 @@ describe('describeFileName', () => {
       title: 'Emerge Knitwear Capabilities',
       language: 'German',
     });
+    // A copy number from the download folder is not part of the name.
+    expect(describeFileName('Professional-Company-Profile (1).pdf')).toEqual({
+      title: 'Professional Company Profile',
+      language: undefined,
+    });
     expect(describeFileName('2026.pdf')).toEqual({ title: 'Company Profile', language: undefined });
   });
 });

@@ -167,7 +167,7 @@ export function ProductsPage() {
       <>
         {p.status === 'published' && (
           <a
-            href={`/production/${p.slug}`}
+            href={`/products/${p.slug}`}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`View ${p.name} on the website`}

@@ -41,13 +41,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { canonical: `/production/${product.slug}` },
+    alternates: { canonical: `/products/${product.slug}` },
     keywords: product.tags.length ? product.tags : undefined,
     openGraph: {
       type: 'website',
       title,
       description,
-      url: `/production/${product.slug}`,
+      url: `/products/${product.slug}`,
       siteName: SITE.name,
       images: image ? [{ url: image.url, alt: image.alt || product.name }] : undefined,
     },
@@ -69,7 +69,7 @@ function jsonLd(p: Product) {
     color: p.colors.join(', ') || undefined,
     size: p.sizes.join(', ') || undefined,
     brand: { '@type': 'Brand', name: SITE.name },
-    url: `${SITE.url}/production/${p.slug}`,
+    url: `${SITE.url}/products/${p.slug}`,
   };
   return JSON.stringify(data).replace(/</g, '\\u003c');
 }
@@ -130,15 +130,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </li>
               <li className="flex items-center gap-1.5">
                 <ChevronRight size={14} aria-hidden />
-                <Link href="/production" className="hover:text-fg">
-                  Production
+                <Link href="/products" className="hover:text-fg">
+                  Products
                 </Link>
               </li>
               {product.category && (
                 <li className="flex items-center gap-1.5">
                   <ChevronRight size={14} aria-hidden />
                   <Link
-                    href={`/production?category=${product.category.slug}#catalogue`}
+                    href={`/products?category=${product.category.slug}#catalogue`}
                     className="hover:text-fg"
                   >
                     {product.category.name}
@@ -204,7 +204,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 />
               </Link>
               <Link
-                href="/production#catalogue"
+                href="/products#catalogue"
                 className="border-border-strong text-fg hover:border-primary hover:text-primary inline-flex min-h-12 items-center justify-center rounded-full border px-6 text-sm font-semibold"
               >
                 Back to catalogue
@@ -306,7 +306,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <p className="text-fg-subtle text-xs font-semibold tracking-[0.2em] uppercase">
                 Share
               </p>
-              <ShareButtons path={`/production/${product.slug}`} title={product.name} />
+              <ShareButtons path={`/products/${product.slug}`} title={product.name} />
             </div>
           </div>
         </Container>
@@ -329,7 +329,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </h2>
               </div>
               <Link
-                href="/production#catalogue"
+                href="/products#catalogue"
                 className="text-primary text-sm font-semibold hover:underline"
               >
                 View all products

@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }],
   },
+  // The catalogue moved from /production to /products: old links and search results still work.
+  async redirects() {
+    return [
+      { source: '/production', destination: '/products', permanent: true },
+      { source: '/production/:slug', destination: '/products/:slug', permanent: true },
+    ];
+  },
   async rewrites() {
     return [{ source: '/api/:path*', destination: `${API_PROXY_TARGET}/api/:path*` }];
   },

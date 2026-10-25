@@ -35,7 +35,7 @@ const SLIDES: Slide[] = [
     title: 'Quality built on the line, not checked at the port.',
     highlight: 0,
     lead: 'Inline inspections, digital QC reports and merchandisers who live next to the factories.',
-    cta: { label: 'Explore production', href: '/production' },
+    cta: { label: 'Explore products', href: '/products' },
   },
   {
     image: IMG.factoryFloor,

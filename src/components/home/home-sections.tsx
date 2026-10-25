@@ -217,7 +217,7 @@ export function ProcessTimeline() {
   );
 }
 
-// Showcase tiles for what we produce (photography only; the catalogue lives on /production).
+// Showcase tiles for what we produce (photography only; the catalogue lives on /products).
 const SHOWCASE = [
   { id: 'denim', name: 'Denim', category: 'Wovens', image: IMG.denim },
   { id: 'jersey', name: 'Embroidered jerseys', category: 'Knitwear', image: IMG.embroidery },
@@ -233,12 +233,12 @@ export function ProductionTeaser() {
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading
-            eyebrow="Production"
+            eyebrow="Products"
             title="Products made with care, at scale."
             lead="A look at the categories we source and the lines that make them."
           />
           <Link
-            href="/production"
+            href="/products"
             className="group text-primary inline-flex shrink-0 items-center gap-2 text-sm font-semibold"
           >
             View the full catalogue
@@ -258,7 +258,7 @@ export function ProductionTeaser() {
               className={i === 0 ? 'col-span-2 row-span-2' : undefined}
             >
               <Link
-                href="/production#catalogue"
+                href="/products#catalogue"
                 className="group relative block h-full overflow-hidden rounded-2xl"
               >
                 <Image

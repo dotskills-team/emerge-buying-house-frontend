@@ -93,7 +93,7 @@ function ProfileCard({
   const warm = () => void loadPdf(profile.url).catch(() => undefined);
   const facts = [
     'PDF',
-    pages ? `${pages} pages` : null,
+    pages ? `${pages} ${pages === 1 ? 'page' : 'pages'}` : null,
     formatSize(profile.bytes),
     profile.language ?? null,
   ].filter(Boolean);

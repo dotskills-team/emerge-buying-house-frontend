@@ -32,8 +32,6 @@ export default function HomePage() {
   );
 }
 
-
-
 // Super Admin->	mahim.dotskills@gmail.com	bneFu6mvJEBjvRRaMyTJ
 // Admin->	admin@example.com	bneFu6mvJEBjvRRaMyTJ
 // Content Manager->	content@example.com	bneFu6mvJEBjvRRaMyTJ

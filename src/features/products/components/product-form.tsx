@@ -256,7 +256,7 @@ export function ProductForm({ product }: { product?: Product }) {
               />
             </Field>
             <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_12rem]">
-              <Field label="Web address" hint={`yourwebsite.com/production/${slugValue || '…'}`}>
+              <Field label="Web address" hint={`yourwebsite.com/products/${slugValue || '…'}`}>
                 <Input
                   value={slugValue}
                   onChange={(e) =>
@@ -490,7 +490,7 @@ export function ProductForm({ product }: { product?: Product }) {
             </div>
             {current && isPublished && (
               <a
-                href={`/production/${current.slug}`}
+                href={`/products/${current.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={secondaryLink}
@@ -551,7 +551,7 @@ export function ProductForm({ product }: { product?: Product }) {
                 {form.seoTitle || form.name || 'Product name'}
               </p>
               <p className="text-success truncate text-xs">
-                yourwebsite.com/production/{slugValue || '…'}
+                yourwebsite.com/products/{slugValue || '…'}
               </p>
               <p className="text-fg-muted line-clamp-2 text-xs">
                 {form.seoDescription || form.summary || 'Your summary will appear here.'}

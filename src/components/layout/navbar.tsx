@@ -56,8 +56,8 @@ const FEATURES: Record<string, { title: string; body: string; href: string; cta:
   Industries: {
     title: 'See what we make',
     body: 'Zoom into our knitwear, woven, denim and fabric programmes.',
-    href: '/production',
-    cta: 'Explore production',
+    href: '/products',
+    cta: 'Explore products',
   },
   Sustainability: {
     title: 'Responsible by design',

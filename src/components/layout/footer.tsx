@@ -8,7 +8,7 @@ import { Logo } from './logo';
 const group = (label: string) => MAIN_NAV.find((e) => e.label === label)?.children ?? [];
 
 const EXPLORE = [
-  { label: 'Production', href: '/production' },
+  { label: 'Products', href: '/products' },
   { label: 'Environmental Sustainability', href: '/sustainability/environmental-sustainability' },
   { label: 'Employee Welfare', href: '/sustainability/employee-welfare' },
   { label: 'CSR', href: '/csr' },

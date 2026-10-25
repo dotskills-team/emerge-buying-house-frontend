@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: p === '/' ? 1 : 0.7,
     })),
     ...products.map((p) => ({
-      url: `${SITE.url}/production/${p.slug}`,
+      url: `${SITE.url}/products/${p.slug}`,
       lastModified: p.updatedAt,
       priority: 0.7,
     })),

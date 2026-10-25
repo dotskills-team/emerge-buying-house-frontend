@@ -84,7 +84,7 @@ export function ProductCard({
           </p>
         )}
         <h3 className="font-display text-fg group-hover:text-primary mt-1 text-xl leading-snug font-semibold tracking-tight transition-colors">
-          <Link href={`/production/${product.slug}`} className="after:absolute after:inset-0">
+          <Link href={`/products/${product.slug}`} className="after:absolute after:inset-0">
             {product.name}
           </Link>
         </h3>

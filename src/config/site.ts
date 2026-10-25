@@ -29,7 +29,7 @@ export interface NavEntry {
   children?: NavLink[];
 }
 
-/** Same structure as the reference site's menu, plus Production. */
+/** Same structure as the reference site's menu, plus Products. */
 export const MAIN_NAV: NavEntry[] = [
   {
     label: 'Company',
@@ -82,7 +82,7 @@ export const MAIN_NAV: NavEntry[] = [
       },
     ],
   },
-  { label: 'Production', href: '/production' },
+  { label: 'Products', href: '/products' },
   {
     label: 'Sustainability',
     children: [

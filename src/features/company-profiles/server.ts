@@ -29,7 +29,8 @@ export function describeFileName(fileName: string): CompanyProfileDetails {
     .split(/[\s_.-]+/)
     .filter(Boolean);
   const languageWord = words.find((w) => LANGUAGES[w.toLowerCase()]);
-  const titleWords = words.filter((w) => w !== languageWord && !/^\d+$/.test(w));
+  // Numbers and download copy markers ("0806", "(1)") are not part of the name.
+  const titleWords = words.filter((w) => w !== languageWord && !/^\(?\d+\)?$/.test(w));
   const title = titleWords.map((w) => w[0]!.toUpperCase() + w.slice(1).toLowerCase()).join(' ');
   return {
     title: title || 'Company Profile',
