@@ -18,6 +18,7 @@ import productionLine from '@/assets/images/production-line.jpg';
 import skilledOperator from '@/assets/images/skilled-operator.jpg';
 import sourcingFabricLibrary from '@/assets/images/sourcing-fabric-library.jpg';
 import storyQaFloor from '@/assets/images/story-qa-floor.jpg';
+import textileKnitFloor from '@/assets/images/textile-knit-floor.jpg';
 import heroSkyline from '@/assets/images/hero-skyline.jpg';
 import itDatacenter from '@/assets/images/it-datacenter.jpg';
 import knittingMachine from '@/assets/images/knitting-machine.jpg';
@@ -47,6 +48,7 @@ export const IMG = {
   skilledOperator,
   sourcingFabricLibrary,
   storyQaFloor,
+  textileKnitFloor,
   heroSkyline,
   itDatacenter,
   knittingMachine,

@@ -20,7 +20,7 @@ export const INDUSTRIES: Industry[] = [
     tagline: 'Knit, woven and denim apparel for international brands.',
     summary:
       'Our core business: we source, develop and follow up apparel orders across a network of audited mills and factories in Bangladesh.',
-    image: IMG.factoryFloor,
+    image: IMG.textileKnitFloor,
     highlights: [
       { value: '40+', label: 'Partner factories' },
       { value: '18M', label: 'Pieces shipped a year' },
