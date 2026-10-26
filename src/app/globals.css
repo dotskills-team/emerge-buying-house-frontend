@@ -227,14 +227,14 @@
     font-size: 87.5%;
   }
   :root {
-    /* Headings about a quarter smaller than before, on top of the smaller base. */
-    --text-display: clamp(1.75rem, 0.9rem + 1.6vw, 2.25rem);
-    --text-h1: clamp(1.375rem, 0.95rem + 0.8vw, 1.625rem);
-    --text-h2: clamp(1.125rem, 0.9rem + 0.45vw, 1.3rem);
-    --text-h3: 1.05rem;
-    --text-kpi: clamp(1.375rem, 1.1rem + 0.5vw, 1.625rem);
+    /* Headings sized for laptop screens: clear and confident without crowding the content. */
+    --text-display: clamp(2rem, 1rem + 1.9vw, 2.625rem);
+    --text-h1: clamp(1.625rem, 1.05rem + 1vw, 1.95rem);
+    --text-h2: clamp(1.3rem, 1rem + 0.55vw, 1.5rem);
+    --text-h3: 1.2rem;
+    --text-kpi: clamp(1.6rem, 1.25rem + 0.6vw, 1.875rem);
     /* Narrower content column with calm margins either side (about 1090px). */
-    --container-site: 78rem;
+    --container-site: 84rem;
   }
 }
 

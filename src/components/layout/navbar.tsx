@@ -151,8 +151,8 @@ function DesktopDropdown({
           pointerType.current = null;
         }}
         className={cn(
-          'relative flex h-10 items-center gap-1 rounded-md px-2.5 text-sm font-medium whitespace-nowrap transition-colors 2xl:px-3.5 2xl:text-[0.9375rem]',
-          light ? 'text-white/85 hover:text-white' : 'text-fg-muted hover:text-fg',
+          'relative flex h-10 items-center gap-1 rounded-md px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-2.5 lg:text-[0.98rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
+          light ? 'text-white/85 hover:text-white' : 'text-fg/80 hover:text-primary',
           active && (light ? 'text-white' : 'text-primary'),
           open && (light ? 'text-white' : 'text-fg'),
         )}
@@ -484,8 +484,8 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
       >
         <Container
           className={cn(
-            'flex items-center justify-between gap-6 transition-[height] duration-(--duration-base)',
-            'h-16 lg:h-[3.75rem] 2xl:h-[4.5rem]',
+            'flex items-center justify-between gap-6 transition-[height] duration-(--duration-base) lg:gap-10',
+            'h-16 lg:h-[4.25rem] 2xl:h-[4.5rem]',
           )}
         >
           <Link href="/" aria-label={`${SITE.name} home`} className="shrink-0">
@@ -494,13 +494,13 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
               priority
               className={cn(
                 'transition-[height] duration-(--duration-base)',
-                'h-10 lg:h-9 2xl:h-11',
+                'h-10 lg:h-11 2xl:h-11',
               )}
             />
           </Link>
 
           <nav aria-label="Primary" className="hidden xl:block">
-            <ul className="flex items-center gap-0.5">
+            <ul className="flex items-center gap-0.5 lg:gap-2">
               {MAIN_NAV.map((entry) => {
                 const active = isActive(pathname, entry);
                 return entry.children ? (
@@ -511,10 +511,10 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
                       href={entry.href ?? '/'}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'relative flex h-10 items-center rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors 2xl:px-3.5 2xl:text-[0.9375rem]',
+                        'relative flex h-10 items-center rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-2.5 lg:text-[0.98rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
                         light
                           ? 'text-white/85 hover:bg-white/10 hover:text-white'
-                          : 'text-fg-muted hover:bg-surface-muted hover:text-fg',
+                          : 'text-fg/80 hover:text-primary',
                         active && (light ? 'text-white' : 'text-primary'),
                       )}
                     >
@@ -532,11 +532,11 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2 lg:gap-3">
             <ThemeToggle onDark={light} />
             <Link
               href="/contact"
-              className="group shadow-gold text-ink-deep hidden min-h-11 items-center gap-2 rounded-lg bg-(image:--gradient-gold) pr-2 pl-5 text-sm font-semibold transition-transform sm:inline-flex"
+              className="group shadow-gold text-ink-deep hidden min-h-11 shrink-0 items-center gap-2 rounded-lg bg-(image:--gradient-gold) pr-2 pl-5 text-sm font-semibold whitespace-nowrap transition-transform sm:inline-flex lg:min-h-12 lg:pl-5 lg:text-[0.95rem]"
             >
               Get a quote
               <span className="bg-ink-deep/10 flex size-7 items-center justify-center rounded-full transition-transform group-hover:translate-x-0.5">
@@ -562,7 +562,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
       </header>
       {/* The header is always fixed; this keeps its full height in the flow so folding the
           contact bar never shifts the page (which would re-trigger the scroll threshold). */}
-      {!overlay && <div aria-hidden className="h-16 lg:h-[3.75rem] 2xl:h-[4.5rem]" />}
+      {!overlay && <div aria-hidden className="h-16 lg:h-[4.25rem] 2xl:h-[4.5rem]" />}
       <AnimatePresence>
         {mobileMenuOpen && <MobileMenu onClose={closeMobileMenu} />}
       </AnimatePresence>

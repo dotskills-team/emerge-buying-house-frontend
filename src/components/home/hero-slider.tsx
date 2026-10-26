@@ -66,7 +66,7 @@ export function HeroSlider() {
     <section
       aria-roledescription="carousel"
       aria-label="Highlights"
-      className="bg-ink-deep relative isolate flex min-h-[max(32rem,calc(100svh-4rem))] items-center overflow-hidden text-white lg:min-h-[max(32rem,calc(100svh-3.75rem))] 2xl:min-h-[max(34rem,calc(100svh-4.5rem))]"
+      className="bg-ink-deep relative isolate flex min-h-[max(32rem,calc(100svh-4rem))] items-center overflow-hidden text-white lg:min-h-[max(32rem,calc(100svh-4.25rem))] 2xl:min-h-[max(34rem,calc(100svh-4.5rem))]"
       onFocus={() => setHeld(true)}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHeld(false);
