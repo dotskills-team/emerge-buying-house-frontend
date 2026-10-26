@@ -22,6 +22,7 @@ export default function AboutPage() {
       />
       <SplitFeature
         eyebrow="Our story"
+        accent="trio"
         title="The brand’s eyes and hands in Bangladesh."
         image={IMG.storyQaFloor}
         imageAlt="Quality checks on a modern garment factory floor"

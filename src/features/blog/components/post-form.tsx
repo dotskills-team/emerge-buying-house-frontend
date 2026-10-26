@@ -24,7 +24,8 @@ import { EditorHeader } from '@/features/dashboard/components/editor-header';
 import { FormPanel } from '@/features/dashboard/components/content-ui';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
-import { Checkbox, Field, Input, Select, Textarea } from '@/components/ui/field';
+import { Checkbox, Field, FieldError, Input, Select, Textarea } from '@/components/ui/field';
+import { focusFirstInvalid, serverFieldErrors } from '@/lib/forms';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { errorMessage } from '@/lib/http';
 import { formatDateTime } from '@/lib/utils';
@@ -158,6 +159,7 @@ export function PostForm({ post }: { post?: Post }) {
   const [form, setForm] = useState<FormState>(initial);
   const [busy, setBusy] = useState<null | 'save' | 'publish' | 'unpublish'>(null);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [leaveOpen, setLeaveOpen] = useState(false);
   const now = useNow();
 
@@ -171,8 +173,16 @@ export function PostForm({ post }: { post?: Post }) {
   const publishDate = form.publishAt ? new Date(form.publishAt) : null;
   const schedulesLater = publishDate !== null && publishDate.getTime() > now;
 
-  const set = <K extends keyof FormState>(key: K, value: FormState[K]) =>
+  const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
+    // The message under a field goes away as soon as it is edited.
+    setFieldErrors((e) => {
+      if (!(key in e)) return e;
+      const rest = { ...e };
+      delete rest[key];
+      return rest;
+    });
+  };
 
   // Warn on tab close or refresh while there are unsaved changes.
   useEffect(() => {
@@ -211,22 +221,31 @@ export function PostForm({ post }: { post?: Post }) {
     queryClient.setQueryData(postKey(saved.id), saved);
   }
 
-  function validate(publish: boolean): string | null {
-    if (form.title.trim().length < 3) return 'Add a title of at least 3 characters.';
-    if (publish && !hasText(form.content)) return 'Add some content before publishing.';
+  /** Problems keyed by field, shown under each one. */
+  function validate(publish: boolean): Record<string, string> {
+    const e: Record<string, string> = {};
+    if (form.title.trim().length < 3) e.title = 'Add a title of at least 3 characters.';
+    if (publish && !hasText(form.content)) e.content = 'Add some content before publishing.';
     if (form.canonicalUrl.trim() && !/^https?:\/\/\S+$/i.test(form.canonicalUrl.trim())) {
-      return 'The canonical URL must be a full address starting with https://';
+      e.canonicalUrl = 'Enter a full address starting with https://';
     }
     if (form.publishAt && Number.isNaN(new Date(form.publishAt).getTime())) {
-      return 'Enter a valid publish date.';
+      e.publishAt = 'Enter a valid publish date.';
     }
-    return null;
+    return e;
+  }
+
+  function showFieldErrors(e: Record<string, string>) {
+    setFieldErrors(e);
+    setError('Some details need your attention. Check the highlighted fields below.');
+    focusFirstInvalid();
   }
 
   async function save(publish: boolean) {
     setError(null);
-    const problem = validate(publish);
-    if (problem) return setError(problem);
+    setFieldErrors({});
+    const problems = validate(publish);
+    if (Object.keys(problems).length) return showFieldErrors(problems);
 
     const when = publishDate ? publishDate.toISOString() : undefined;
     // A changed date on a post that is already live (or scheduled) is applied on save.
@@ -252,7 +271,9 @@ export function PostForm({ post }: { post?: Post }) {
       );
       if (!current) router.replace(`/dashboard/blog/${saved.id}`);
     } catch (e) {
-      setError(errorMessage(e));
+      const fromServer = serverFieldErrors(e);
+      if (Object.keys(fromServer).length) showFieldErrors(fromServer);
+      else setError(errorMessage(e));
     } finally {
       setBusy(null);
     }
@@ -299,7 +320,12 @@ export function PostForm({ post }: { post?: Post }) {
 
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <div className="border-border bg-surface min-w-0 space-y-5 rounded-2xl border p-4 shadow-sm sm:p-6">
-          <Field label="Title" aside={`${form.title.length}/160`}>
+          <Field
+            label="Title"
+            required
+            error={fieldErrors.title}
+            aside={`${form.title.length}/160`}
+          >
             <Input
               value={form.title}
               onChange={(e) => set('title', e.target.value)}
@@ -335,6 +361,7 @@ export function PostForm({ post }: { post?: Post }) {
               {words.toLocaleString()} {words === 1 ? 'word' : 'words'} · about{' '}
               {Math.max(1, Math.ceil(words / WORDS_PER_MINUTE))} min read
             </p>
+            {fieldErrors.content && <FieldError>{fieldErrors.content}</FieldError>}
           </div>
 
           <Field
@@ -367,6 +394,7 @@ export function PostForm({ post }: { post?: Post }) {
             {canPublish && (
               <Field
                 label="Publish date"
+                error={fieldErrors.publishAt}
                 hint={
                   isPublished
                     ? 'Change it and save to reschedule or backdate.'
@@ -533,6 +561,7 @@ export function PostForm({ post }: { post?: Post }) {
             </Field>
             <Field
               label="Canonical URL"
+              error={fieldErrors.canonicalUrl}
               hint="Only if this article was first published on another website."
             >
               <Input

@@ -1,3 +1,5 @@
+import { IconBadge, toneAt } from '@/components/site/icon-badge';
+import { ImageAccents, type AccentPreset } from '@/components/site/image-accent';
 import Image, { type StaticImageData } from 'next/image';
 import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
@@ -16,6 +18,7 @@ export function SplitFeature({
   reverse = false,
   badge,
   tinted = false,
+  accent,
 }: {
   eyebrow?: string;
   title: ReactNode;
@@ -25,6 +28,8 @@ export function SplitFeature({
   reverse?: boolean;
   badge?: { value: string; label: string };
   tinted?: boolean;
+  /** Corner and colour of the block behind the photo, so neighbouring sections differ. */
+  accent?: AccentPreset;
 }) {
   return (
     <section
@@ -34,7 +39,7 @@ export function SplitFeature({
       )}
     >
       <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        <Reveal className={cn('relative', reverse && 'lg:order-2')}>
+        <Reveal className={cn('relative isolate', reverse && 'lg:order-2')}>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
             <Image
               src={image}
@@ -45,13 +50,7 @@ export function SplitFeature({
               className="object-cover"
             />
           </div>
-          <span
-            aria-hidden
-            className={cn(
-              'bg-brand-weave absolute -z-10 hidden size-40 rounded-2xl sm:block',
-              reverse ? '-top-5 -right-5' : '-bottom-5 -left-5',
-            )}
-          />
+          <ImageAccents preset={accent ?? (reverse ? 'grid' : 'classic')} />
           {badge && (
             <div
               className={cn(
@@ -111,9 +110,7 @@ export function FeatureGrid({
           {items.map(({ icon: Icon, title: t, body }, i) => (
             <Reveal as="li" key={t} delay={i * 0.06}>
               <div className="group bg-surface border-border hover:border-primary/30 h-full rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md sm:p-7">
-                <span className="bg-primary-soft text-primary group-hover:bg-brand-weave flex size-12 items-center justify-center rounded-xl transition-colors group-hover:text-white">
-                  <Icon size={22} aria-hidden />
-                </span>
+                <IconBadge icon={Icon} tone={toneAt(i)} />
                 <h3 className="text-fg mt-5 text-lg font-semibold">{t}</h3>
                 <p className="text-fg-muted mt-2 text-sm">{body}</p>
               </div>

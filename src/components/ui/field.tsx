@@ -6,17 +6,19 @@ import {
   type ReactElement,
   type Ref,
 } from 'react';
+import { ChevronDown, CircleAlert } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const controlBase =
-  'block w-full rounded-lg border border-border-strong bg-surface px-3 text-base text-fg sm:text-sm ' +
-  'placeholder:text-fg-subtle transition-colors duration-(--duration-fast) ' +
-  'focus:border-primary focus:outline-2 focus:outline-offset-0 focus:outline-primary/25 ' +
-  'disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-fg-subtle ' +
-  'aria-[invalid=true]:border-danger aria-[invalid=true]:focus:outline-danger/25';
+  'block w-full rounded-xl border border-border-strong bg-surface px-3.5 text-base text-fg shadow-xs sm:text-sm ' +
+  'placeholder:text-fg-subtle transition-[border-color,box-shadow,background-color] duration-(--duration-fast) ' +
+  'hover:border-fg-subtle/60 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/15 ' +
+  'disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-fg-subtle disabled:shadow-none ' +
+  'aria-[invalid=true]:border-danger aria-[invalid=true]:bg-danger-soft/40 ' +
+  'aria-[invalid=true]:focus:ring-danger/15';
 
 // 16px text on phones stops iOS from zooming into the field; 14px from the `sm` breakpoint.
-export const inputClasses = (className?: string) => cn(controlBase, 'min-h-11 py-2', className);
+export const inputClasses = (className?: string) => cn(controlBase, 'min-h-12 py-2.5', className);
 
 export function Input({
   className,
@@ -31,7 +33,9 @@ export function Textarea({
   ref,
   ...props
 }: ComponentPropsWithoutRef<'textarea'> & { ref?: Ref<HTMLTextAreaElement> }) {
-  return <textarea ref={ref} className={cn(controlBase, 'py-2.5', className)} {...props} />;
+  return (
+    <textarea ref={ref} className={cn(controlBase, 'py-3 leading-relaxed', className)} {...props} />
+  );
 }
 
 export function Select({
@@ -39,8 +43,37 @@ export function Select({
   ref,
   ...props
 }: ComponentPropsWithoutRef<'select'> & { ref?: Ref<HTMLSelectElement> }) {
+  // Native select (best on phones) with our own arrow in place of the browser's.
   return (
-    <select ref={ref} className={cn(controlBase, 'min-h-11 py-2 pr-8', className)} {...props} />
+    <div className="relative">
+      <select
+        ref={ref}
+        className={cn(
+          controlBase,
+          'min-h-12 cursor-pointer appearance-none py-2.5 pr-10',
+          className,
+        )}
+        {...props}
+      />
+      <ChevronDown
+        size={16}
+        aria-hidden
+        className="text-fg-subtle pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2"
+      />
+    </div>
+  );
+}
+
+/** A validation message with its icon, under the control it is about. */
+export function FieldError({ id, children }: { id?: string; children: string }) {
+  return (
+    <p
+      id={id}
+      className="text-danger flex animate-[field-error_180ms_ease-out] items-start gap-1.5 text-sm font-medium"
+    >
+      <CircleAlert size={15} aria-hidden className="mt-0.5 shrink-0" />
+      <span>{children}</span>
+    </p>
   );
 }
 
@@ -72,7 +105,7 @@ export function Field({ label, children, hint, error, aside, required, className
     : children;
 
   return (
-    <div className={cn('space-y-1.5', className)}>
+    <div className={cn('space-y-2', className)}>
       <div className="flex items-baseline justify-between gap-3">
         <label htmlFor={id} className="text-fg text-sm font-medium">
           {label}
@@ -86,11 +119,7 @@ export function Field({ label, children, hint, error, aside, required, className
         {aside && <span className="text-fg-subtle text-xs">{aside}</span>}
       </div>
       {control}
-      {error && (
-        <p id={errorId} className="text-danger text-sm">
-          {error}
-        </p>
-      )}
+      {error && <FieldError id={errorId}>{error}</FieldError>}
       {hint && (
         <p id={hintId} className="text-fg-subtle text-xs">
           {hint}

@@ -71,6 +71,7 @@ export default function EnvironmentalPage() {
       />
       <SplitFeature
         eyebrow="Responsible fibres"
+        accent="prism"
         title="From the cotton field to the finished garment."
         image={IMG.cottonBoll}
         imageAlt="A ripe cotton boll ready for harvest"

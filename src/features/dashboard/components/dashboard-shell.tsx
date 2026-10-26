@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
@@ -15,6 +16,8 @@ import {
   UserCircle,
   X,
 } from 'lucide-react';
+import mark from '@/assets/brand/mark.png';
+import { Logo } from '@/components/layout/logo';
 import { SITE } from '@/config/site';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { fetchMe, logout } from '@/features/auth/services/auth.service';
@@ -98,6 +101,8 @@ function Sidebar({
     : collapsed
       ? 'justify-center px-0'
       : 'max-lg:justify-center max-lg:px-0';
+  // Logo images leave the layout entirely (not sr-only) when they are not the one shown.
+  const railLogoHide = !docked ? '' : collapsed ? 'hidden' : 'max-lg:hidden';
   const railShow = !docked ? 'hidden' : collapsed ? 'block' : 'block lg:hidden';
 
   return (
@@ -114,15 +119,19 @@ function Sidebar({
           aria-label={`${SITE.name}: go to the website`}
           className="flex min-w-0 items-center gap-3"
         >
-          <span
+          {/* Narrow rail: just the mark. Full width: the white wordmark and the area's name. */}
+          <Image
+            src={mark}
+            alt=""
             aria-hidden
-            className="shadow-glow flex size-9 shrink-0 items-center justify-center rounded-lg bg-(image:--gradient-brand) text-sm font-bold"
-          >
-            E
-          </span>
-          <span className={cn('min-w-0 leading-tight', railHide)}>
-            <span className="block truncate text-sm font-semibold">{SITE.name}</span>
-            <span className="text-fg-inverse-muted block text-xs">Management</span>
+            sizes="36px"
+            className={cn('size-9 shrink-0 rounded-lg', railShow)}
+          />
+          <span className={cn('flex min-w-0 items-center gap-3', railLogoHide)}>
+            <Logo inverse priority className="h-8" />
+            <span className="text-fg-inverse-muted border-l border-white/15 pl-3 text-[0.7rem] font-semibold tracking-[0.18em] uppercase">
+              Dashboard
+            </span>
           </span>
         </Link>
       </div>

@@ -1,3 +1,4 @@
+import { IconBadge } from '@/components/site/icon-badge';
 import type { Metadata } from 'next';
 import { Clock, Mail, MapPin, Phone, type LucideIcon } from 'lucide-react';
 import { MarketingShell } from '@/components/layout/marketing-shell';
@@ -17,18 +18,18 @@ export const metadata: Metadata = {
 
 function InfoCard({
   icon: Icon,
+  tone = 'emerald',
   title,
   children,
 }: {
   icon: LucideIcon;
+  tone?: Parameters<typeof IconBadge>[0]['tone'];
   title: string;
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-surface border-border flex gap-4 rounded-2xl border p-5 shadow-sm">
-      <span className="bg-brand-weave flex size-12 shrink-0 items-center justify-center rounded-xl text-white">
-        <Icon size={20} aria-hidden />
-      </span>
+    <div className="group bg-surface border-border flex gap-4 rounded-2xl border p-5 shadow-sm">
+      <IconBadge icon={Icon} tone={tone} />
       <div className="min-w-0">
         <h3 className="text-fg font-semibold">{title}</h3>
         <div className="text-fg-muted mt-1 text-sm">{children}</div>
@@ -67,7 +68,7 @@ export default async function ContactPage({
                   ))}
                 </address>
               </InfoCard>
-              <InfoCard icon={Phone} title="Phone">
+              <InfoCard icon={Phone} tone="gold" title="Phone">
                 <a
                   href={`tel:${CONTACT.phone.replace(/[^+\d]/g, '')}`}
                   className="hover:text-primary"
@@ -75,12 +76,12 @@ export default async function ContactPage({
                   {CONTACT.phone}
                 </a>
               </InfoCard>
-              <InfoCard icon={Mail} title="Email">
+              <InfoCard icon={Mail} tone="teal" title="Email">
                 <a href={`mailto:${email}`} className="hover:text-primary break-all">
                   {email}
                 </a>
               </InfoCard>
-              <InfoCard icon={Clock} title="Office hours">
+              <InfoCard icon={Clock} tone="petrol" title="Office hours">
                 {CONTACT.hours}
               </InfoCard>
             </div>

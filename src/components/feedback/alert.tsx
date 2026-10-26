@@ -4,11 +4,23 @@ import { cn } from '@/lib/utils';
 
 type Tone = 'info' | 'success' | 'warning' | 'danger';
 
-const STYLES: Record<Tone, { box: string; icon: LucideIcon }> = {
-  info: { box: 'border-info/25 bg-info-soft text-info', icon: Info },
-  success: { box: 'border-success/25 bg-success-soft text-success', icon: CheckCircle2 },
-  warning: { box: 'border-warning/25 bg-warning-soft text-warning', icon: AlertTriangle },
-  danger: { box: 'border-danger/25 bg-danger-soft text-danger', icon: XCircle },
+const STYLES: Record<Tone, { box: string; badge: string; icon: LucideIcon }> = {
+  info: { box: 'border-info/20 bg-info-soft/70', badge: 'bg-info/10 text-info', icon: Info },
+  success: {
+    box: 'border-success/20 bg-success-soft/70',
+    badge: 'bg-success/10 text-success',
+    icon: CheckCircle2,
+  },
+  warning: {
+    box: 'border-warning/25 bg-warning-soft/70',
+    badge: 'bg-warning/10 text-warning',
+    icon: AlertTriangle,
+  },
+  danger: {
+    box: 'border-danger/20 bg-danger-soft/70',
+    badge: 'bg-danger/10 text-danger',
+    icon: XCircle,
+  },
 };
 
 /** Inline feedback next to the thing it is about. Errors interrupt screen readers; others do not. */
@@ -23,16 +35,26 @@ export function Alert({
   children?: ReactNode;
   className?: string;
 }) {
-  const { box, icon: Icon } = STYLES[tone];
+  const { box, badge, icon: Icon } = STYLES[tone];
   return (
     <div
       role={tone === 'danger' ? 'alert' : 'status'}
-      className={cn('flex gap-3 rounded-md border px-4 py-3 text-sm', box, className)}
+      className={cn(
+        'flex animate-[field-error_220ms_ease-out] gap-3 rounded-xl border p-3.5 text-sm',
+        box,
+        className,
+      )}
     >
-      <Icon size={18} className="mt-0.5 shrink-0" aria-hidden />
-      <div className="min-w-0">
-        {title && <p className="font-medium">{title}</p>}
-        {children && <div className={cn(title && 'mt-0.5', 'text-fg')}>{children}</div>}
+      <span className={cn('flex size-8 shrink-0 items-center justify-center rounded-lg', badge)}>
+        <Icon size={17} aria-hidden />
+      </span>
+      <div className="min-w-0 self-center">
+        {title && <p className="text-fg font-semibold">{title}</p>}
+        {children && (
+          <div className={cn(title && 'mt-0.5', title ? 'text-fg-muted' : 'text-fg')}>
+            {children}
+          </div>
+        )}
       </div>
     </div>
   );

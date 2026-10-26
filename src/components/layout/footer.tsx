@@ -132,13 +132,20 @@ export function Footer() {
       </Container>
 
       <div className="border-t border-white/10">
-        <Container className="text-fg-inverse-muted flex flex-col gap-3 py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <Container className="text-fg-inverse-muted flex flex-col gap-3 py-6 pb-24 text-xs sm:flex-row sm:items-center sm:justify-between sm:pr-24 sm:pb-6">
           <p>
             &copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
-          <Link href="/login" className="hover:text-white">
-            Staff sign in
-          </Link>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <p>
+              Designed &amp; developed by{' '}
+              <span className="text-gold-light font-semibold tracking-wide">DotSkills</span>
+            </p>
+            <span aria-hidden className="hidden h-3 w-px bg-white/20 sm:block" />
+            <Link href="/login" className="hover:text-white">
+              Staff sign in
+            </Link>
+          </div>
         </Container>
       </div>
     </footer>

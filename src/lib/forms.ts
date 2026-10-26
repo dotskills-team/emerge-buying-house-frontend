@@ -21,3 +21,19 @@ export function applyFieldErrors<T extends FieldValues>(
   }
   return applied;
 }
+
+/** Scrolls to and focuses the first field marked invalid, once React has rendered the errors. */
+export function focusFirstInvalid(root: ParentNode = document) {
+  requestAnimationFrame(() => {
+    const el = root.querySelector<HTMLElement>('[aria-invalid="true"]');
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.focus({ preventScroll: true });
+  });
+}
+
+/** The backend's per-field messages as a plain map, for forms that keep their own state. */
+export function serverFieldErrors(err: unknown): Record<string, string> {
+  if (!(err instanceof ApiError)) return {};
+  return Object.fromEntries(err.fieldErrors.map((f) => [f.path.split('.')[0]!, f.message]));
+}

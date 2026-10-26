@@ -13,7 +13,6 @@ import {
   Plus,
   Ruler,
   Save,
-  SearchCheck,
   Send,
   Shirt,
   Tags,
@@ -22,10 +21,10 @@ import {
 import { Alert } from '@/components/feedback/alert';
 import { Button, IconButton } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
-import { Checkbox, Field, Input, Select, Textarea } from '@/components/ui/field';
+import { Checkbox, Field, FieldError, Input, Select, Textarea } from '@/components/ui/field';
+import { focusFirstInvalid, serverFieldErrors } from '@/lib/forms';
 import { usePermissions } from '@/features/auth/hooks/use-permissions';
 import { RichTextEditor } from '@/features/blog/components/rich-text-editor';
-import { TagsInput } from '@/features/blog/components/tags-input';
 import { slugify } from '@/features/blog/utils/slugify';
 import { ChipsInput } from '@/features/dashboard/components/chips-input';
 import { FormPanel } from '@/features/dashboard/components/content-ui';
@@ -110,16 +109,24 @@ export function ProductForm({ product }: { product?: Product }) {
   const [form, setForm] = useState<FormState>(initial);
   const [busy, setBusy] = useState<null | 'save' | 'publish' | 'unpublish'>(null);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [leaveOpen, setLeaveOpen] = useState(false);
 
   const dirty = JSON.stringify(form) !== JSON.stringify(initial);
   const isEdit = Boolean(current);
   const isPublished = current?.status === 'published';
-  const slugValue = form.slugTouched ? form.slug : slugify(form.name);
   const canPublish = can('products.publish');
 
-  const set = <K extends keyof FormState>(key: K, value: FormState[K]) =>
+  const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
+    // The message under a field goes away as soon as it is edited.
+    setFieldErrors((e) => {
+      if (!(key in e)) return e;
+      const rest = { ...e };
+      delete rest[key];
+      return rest;
+    });
+  };
 
   useEffect(() => {
     if (!dirty) return;
@@ -128,15 +135,23 @@ export function ProductForm({ product }: { product?: Product }) {
     return () => window.removeEventListener('beforeunload', onBeforeUnload);
   }, [dirty]);
 
-  function validate(publish: boolean): string | null {
-    if (form.name.trim().length < 2) return 'Add a product name of at least 2 characters.';
-    if (form.moq && !/^\d+$/.test(form.moq.trim())) return 'MOQ must be a whole number.';
+  /** Problems keyed by field, shown under each one. */
+  function validate(publish: boolean): Record<string, string> {
+    const e: Record<string, string> = {};
+    if (form.name.trim().length < 2) e.name = 'Add a product name of at least 2 characters.';
+    if (form.moq && !/^\d+$/.test(form.moq.trim())) e.moq = 'Enter a whole number, e.g. 500.';
     if (form.specs.some((s) => !s.label.trim() || !s.value.trim())) {
-      return 'Fill in or remove empty specification rows.';
+      e.specs = 'Fill in or remove the empty rows.';
     }
-    if (publish && !form.category) return 'Choose a category before publishing.';
-    if (publish && !form.summary.trim()) return 'Add a summary before publishing.';
-    return null;
+    if (publish && !form.category) e.category = 'Choose a category before publishing.';
+    if (publish && !form.summary.trim()) e.summary = 'Add a summary before publishing.';
+    return e;
+  }
+
+  function showFieldErrors(e: Record<string, string>) {
+    setFieldErrors(e);
+    setError('Some details need your attention. Check the highlighted fields below.');
+    focusFirstInvalid();
   }
 
   function toPayload(): ProductInput {
@@ -176,8 +191,9 @@ export function ProductForm({ product }: { product?: Product }) {
 
   async function save(publish: boolean) {
     setError(null);
-    const problem = validate(publish);
-    if (problem) return setError(problem);
+    setFieldErrors({});
+    const problems = validate(publish);
+    if (Object.keys(problems).length) return showFieldErrors(problems);
     setBusy(publish ? 'publish' : 'save');
     try {
       let saved = current
@@ -190,7 +206,9 @@ export function ProductForm({ product }: { product?: Product }) {
       toast.success(publish ? 'Product published.' : current ? 'Changes saved.' : 'Draft created.');
       if (!current) router.replace(`/dashboard/products/${saved.id}`);
     } catch (e) {
-      setError(errorMessage(e));
+      const fromServer = serverFieldErrors(e);
+      if (Object.keys(fromServer).length) showFieldErrors(fromServer);
+      else setError(errorMessage(e));
     } finally {
       setBusy(null);
     }
@@ -246,7 +264,12 @@ export function ProductForm({ product }: { product?: Product }) {
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
         <div className="min-w-0 space-y-6">
           <FormPanel icon={Shirt} title="Product" description="Name, code and description">
-            <Field label="Product name" aside={`${form.name.length}/140`}>
+            <Field
+              label="Product name"
+              required
+              error={fieldErrors.name}
+              aside={`${form.name.length}/140`}
+            >
               <Input
                 value={form.name}
                 onChange={(e) => set('name', e.target.value)}
@@ -255,27 +278,17 @@ export function ProductForm({ product }: { product?: Product }) {
                 className="font-display min-h-14 text-xl font-semibold sm:text-2xl"
               />
             </Field>
-            <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_12rem]">
-              <Field label="Web address" hint={`yourwebsite.com/products/${slugValue || '…'}`}>
-                <Input
-                  value={slugValue}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, slug: e.target.value, slugTouched: true }))
-                  }
-                  onBlur={() => set('slug', slugify(form.slug))}
-                />
-              </Field>
-              <Field label="Style code" hint="Your internal reference.">
-                <Input
-                  value={form.styleCode}
-                  onChange={(e) => set('styleCode', e.target.value)}
-                  maxLength={40}
-                  placeholder="EBH-KN-001"
-                />
-              </Field>
-            </div>
+            <Field label="Style code" hint="Your internal reference.">
+              <Input
+                value={form.styleCode}
+                onChange={(e) => set('styleCode', e.target.value)}
+                maxLength={40}
+                placeholder="EBH-KN-001"
+              />
+            </Field>
             <Field
               label="Summary"
+              error={fieldErrors.summary}
               aside={`${form.summary.length}/300`}
               hint="One or two sentences shown on product cards and in search results."
             >
@@ -331,7 +344,7 @@ export function ProductForm({ product }: { product?: Product }) {
                   placeholder="180 GSM"
                 />
               </Field>
-              <Field label="Minimum order (MOQ)">
+              <Field label="Minimum order (MOQ)" error={fieldErrors.moq}>
                 <Input
                   inputMode="numeric"
                   value={form.moq}
@@ -413,6 +426,7 @@ export function ProductForm({ product }: { product?: Product }) {
                     >
                       <Input
                         aria-label={`Detail ${i + 1} name`}
+                        aria-invalid={fieldErrors.specs && !s.label.trim() ? true : undefined}
                         value={s.label}
                         maxLength={40}
                         placeholder="Wash"
@@ -420,6 +434,7 @@ export function ProductForm({ product }: { product?: Product }) {
                       />
                       <Input
                         aria-label={`Detail ${i + 1} value`}
+                        aria-invalid={fieldErrors.specs && !s.value.trim() ? true : undefined}
                         value={s.value}
                         maxLength={160}
                         placeholder="Enzyme and stone wash"
@@ -441,6 +456,7 @@ export function ProductForm({ product }: { product?: Product }) {
                   ))}
                 </ul>
               )}
+              {fieldErrors.specs && <FieldError>{fieldErrors.specs}</FieldError>}
             </div>
           </FormPanel>
         </div>
@@ -504,7 +520,7 @@ export function ProductForm({ product }: { product?: Product }) {
           </FormPanel>
 
           <FormPanel icon={Tags} title="Organise" description="Category, order and featuring">
-            <Field label="Category">
+            <Field label="Category" error={fieldErrors.category}>
               <Select value={form.category} onChange={(e) => set('category', e.target.value)}>
                 <option value="">Choose a category</option>
                 {categories.data?.map((c) => (
@@ -522,10 +538,6 @@ export function ProductForm({ product }: { product?: Product }) {
                 Manage categories
               </Link>
             )}
-            <div className="space-y-1.5">
-              <p className="text-fg text-sm font-medium">Tags</p>
-              <TagsInput value={form.tags} onChange={(t) => set('tags', t)} max={15} />
-            </div>
             <Field label="Display order" hint="Lower numbers appear first on the website.">
               <Input
                 type="number"
@@ -539,47 +551,6 @@ export function ProductForm({ product }: { product?: Product }) {
               checked={form.featured}
               onChange={(e) => set('featured', e.target.checked)}
             />
-          </FormPanel>
-
-          <FormPanel
-            icon={SearchCheck}
-            title="Search appearance"
-            description="How the product looks in Google"
-          >
-            <div className="bg-bg rounded-lg p-3">
-              <p className="text-primary truncate text-sm">
-                {form.seoTitle || form.name || 'Product name'}
-              </p>
-              <p className="text-success truncate text-xs">
-                yourwebsite.com/products/{slugValue || '…'}
-              </p>
-              <p className="text-fg-muted line-clamp-2 text-xs">
-                {form.seoDescription || form.summary || 'Your summary will appear here.'}
-              </p>
-            </div>
-            <Field
-              label="SEO title"
-              aside={`${form.seoTitle.length}/70`}
-              hint="Leave empty to use the name."
-            >
-              <Input
-                value={form.seoTitle}
-                onChange={(e) => set('seoTitle', e.target.value)}
-                maxLength={70}
-              />
-            </Field>
-            <Field
-              label="SEO description"
-              aside={`${form.seoDescription.length}/170`}
-              hint="Leave empty to use the summary."
-            >
-              <Textarea
-                value={form.seoDescription}
-                onChange={(e) => set('seoDescription', e.target.value)}
-                maxLength={170}
-                rows={3}
-              />
-            </Field>
           </FormPanel>
 
           <p className="text-fg-subtle flex items-center gap-2 px-1 text-xs">

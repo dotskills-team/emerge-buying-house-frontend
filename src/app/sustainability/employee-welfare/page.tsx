@@ -21,6 +21,7 @@ export default function EmployeeWelfarePage() {
       />
       <SplitFeature
         eyebrow="People first"
+        accent="grid"
         title="Good garments come from good workplaces."
         image={IMG.heroSewing}
         imageAlt="Garment workers at their sewing stations"

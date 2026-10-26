@@ -26,6 +26,8 @@ import {
   SERVICES,
   SOURCING_POINTS,
 } from '@/content/home';
+import { ImageAccents } from '@/components/site/image-accent';
+import { IconBadge, toneAt } from '@/components/site/icon-badge';
 import { IMG } from '@/content/images';
 
 const section = 'py-16 sm:py-20 lg:py-20 2xl:py-28';
@@ -35,15 +37,18 @@ export function ManufacturingStrength() {
   return (
     <section className={section}>
       <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-          <Image
-            src={IMG.productionLine}
-            alt="A modern, well-lit garment production line"
-            fill
-            placeholder="blur"
-            sizes="(min-width: 1024px) 45vw, 100vw"
-            className="object-cover"
-          />
+        <Reveal className="relative isolate">
+          <ImageAccents preset="loom" />
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
+            <Image
+              src={IMG.productionLine}
+              alt="A modern, well-lit garment production line"
+              fill
+              placeholder="blur"
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </Reveal>
         <div>
           <SectionHeading
@@ -92,24 +97,27 @@ export function SourcingStrength() {
             title="Fabric, trims and factories, sourced close to the line."
             lead="Years of relationships with mills and suppliers in Bangladesh mean better prices, earlier bookings and fewer surprises."
           />
-          <Reveal className="relative mt-8 hidden aspect-[16/10] overflow-hidden rounded-2xl lg:block">
-            <Image
-              src={IMG.sourcingFabricLibrary}
-              alt="Fabric in many colours ready for cutting"
-              fill
-              placeholder="blur"
-              sizes="40vw"
-              className="object-cover"
-            />
+          <Reveal className="relative isolate mt-8 hidden lg:block">
+            <ImageAccents preset="night" />
+            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+              <Image
+                src={IMG.sourcingFabricLibrary}
+                alt="Fabric in many colours ready for cutting"
+                fill
+                placeholder="blur"
+                sizes="40vw"
+                className="object-cover"
+              />
+            </div>
           </Reveal>
         </div>
         <ul className="grid grid-cols-1 gap-px self-start overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2">
           {SOURCING_POINTS.map((p, i) => {
             const Icon = SOURCING_ICONS[i] ?? Layers;
             return (
-              <li key={p.title} className="bg-surface-inverse p-6 sm:p-7">
+              <li key={p.title} className="group bg-surface-inverse p-6 sm:p-7">
                 <Reveal delay={i * 0.05}>
-                  <Icon size={22} aria-hidden className="text-gold-light" strokeWidth={1.6} />
+                  <IconBadge icon={Icon} tone={toneAt(i + 1)} dark />
                   <h3 className="mt-5 text-lg font-semibold">{p.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/70">{p.body}</p>
                 </Reveal>
@@ -149,12 +157,10 @@ export function Services() {
               <li key={s.title}>
                 <Reveal
                   delay={i * 0.06}
-                  className="border-border bg-surface hover:border-primary/30 flex h-full flex-col rounded-2xl border p-7 transition-colors"
+                  className="group border-border bg-surface hover:border-primary/30 flex h-full flex-col rounded-2xl border p-7 transition-colors"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="bg-primary-soft text-primary flex size-11 items-center justify-center rounded-xl">
-                      <Icon size={20} aria-hidden />
-                    </span>
+                    <IconBadge icon={Icon} tone={toneAt(i)} />
                     <span className="text-fg-subtle font-display text-sm tabular-nums">
                       0{i + 1}
                     </span>
@@ -196,11 +202,9 @@ export function ManufacturingPartners() {
             <li key={p.name}>
               <Reveal
                 delay={(i % 3) * 0.05}
-                className="border-border bg-bg flex items-center gap-4 rounded-xl border p-5"
+                className="group border-border bg-bg flex items-center gap-4 rounded-xl border p-5"
               >
-                <span className="bg-surface text-primary border-border flex size-12 shrink-0 items-center justify-center rounded-lg border">
-                  <Factory size={20} aria-hidden strokeWidth={1.6} />
-                </span>
+                <IconBadge icon={Factory} tone={toneAt(i)} />
                 <div className="min-w-0">
                   <p className="text-fg truncate font-semibold">{p.name}</p>
                   <p className="text-fg-muted mt-0.5 text-sm">

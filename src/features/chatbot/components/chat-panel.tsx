@@ -13,6 +13,7 @@ import {
   X,
 } from 'lucide-react';
 import { CONTACT, SITE } from '@/config/site';
+import { FieldError } from '@/components/ui/field';
 import { submitContact } from '@/features/inquiries/services/inquiries.service';
 import { ApiError, errorMessage } from '@/lib/http';
 import { cn } from '@/lib/utils';
@@ -542,12 +543,12 @@ function ContactInChat({
   }
 
   const field =
-    'border-border-strong bg-bg focus:border-primary block w-full rounded-lg border px-3 py-2 text-base outline-none aria-[invalid=true]:border-danger sm:text-sm';
+    'border-border-strong bg-bg focus:border-primary focus:ring-primary/15 aria-[invalid=true]:border-danger aria-[invalid=true]:bg-danger-soft/40 block w-full rounded-xl border px-3 py-2.5 text-base outline-none transition-[border-color,box-shadow] focus:ring-4 sm:text-sm';
   const err = (key: string) =>
     errors[key] && (
-      <p id={`${id}-${key}-error`} className="text-danger mt-1 text-xs">
-        {errors[key]}
-      </p>
+      <div className="mt-1.5">
+        <FieldError id={`${id}-${key}-error`}>{errors[key]!}</FieldError>
+      </div>
     );
   const a11y = (key: string) => ({
     'aria-invalid': errors[key] ? true : undefined,
@@ -558,7 +559,10 @@ function ContactInChat({
     <form onSubmit={(e) => void submit(e)} noValidate className="space-y-2.5">
       <p>Leave your details and our team will reply by email.</p>
       {failure && (
-        <p role="alert" className="text-danger text-xs">
+        <p
+          role="alert"
+          className="border-danger/20 bg-danger-soft/70 text-danger rounded-lg border px-3 py-2 text-xs"
+        >
           {failure} You can also write to{' '}
           <a href={`mailto:${SITE.contactEmail ?? CONTACT.email}`} className="underline">
             {SITE.contactEmail ?? CONTACT.email}

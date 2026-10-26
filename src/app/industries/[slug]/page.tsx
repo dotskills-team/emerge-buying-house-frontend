@@ -1,3 +1,4 @@
+import { ImageAccents } from '@/components/site/image-accent';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
@@ -61,7 +62,8 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
               />
             </Link>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} className="relative isolate">
+            <ImageAccents preset="atlas" />
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg sm:aspect-[4/3] lg:aspect-[4/5]">
               {industry.image ? (
                 <Image

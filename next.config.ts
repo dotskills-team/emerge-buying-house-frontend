@@ -11,6 +11,8 @@ const API_PROXY_TARGET = (process.env.API_PROXY_TARGET || 'http://localhost:5000
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // The dev-only "N" badge sat on top of the dashboard's collapse/expand button.
+  devIndicators: false,
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }],
   },

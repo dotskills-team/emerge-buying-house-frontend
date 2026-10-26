@@ -5,12 +5,16 @@ import {
   BadgeCheck,
   Eye,
   Gem,
+  Layers,
   HeartHandshake,
   Quote,
+  ScanSearch,
   ShieldCheck,
   Target,
   type LucideIcon,
 } from 'lucide-react';
+import { ImageAccents } from '@/components/site/image-accent';
+import { IconBadge, toneAt } from '@/components/site/icon-badge';
 import { Counter } from '@/components/site/counter';
 import { NewsCard } from '@/components/site/news-card';
 import { Reveal } from '@/components/site/reveal';
@@ -30,9 +34,17 @@ import { IMG } from '@/content/images';
 import { NEWS_SORTED } from '@/content/news';
 
 const INTRO_POINTS = [
-  { title: 'Knitwear, woven & denim', text: 'One team across every category.' },
-  { title: 'Audited factories only', text: 'Compliance checked before an order.' },
-  { title: 'On-the-ground QC', text: 'Inline and final inspection, reported openly.' },
+  { icon: Layers, title: 'Knitwear, woven & denim', text: 'One team across every category.' },
+  {
+    icon: ShieldCheck,
+    title: 'Audited factories only',
+    text: 'Compliance checked before an order.',
+  },
+  {
+    icon: ScanSearch,
+    title: 'On-the-ground QC',
+    text: 'Inline and final inspection, reported openly.',
+  },
 ];
 
 /** Who we are: a calm, light section with clear air between it and the dark hero. */
@@ -51,11 +63,7 @@ export function IntroSplit() {
               className="object-cover"
             />
           </div>
-          {/* Thin gold frame offset behind the photo: a quiet, classic accent. */}
-          <div
-            aria-hidden
-            className="border-gold/60 absolute -right-4 -bottom-4 -z-10 hidden h-full w-full rounded-2xl border sm:block"
-          />
+          <ImageAccents preset="facet" />
           <div className="bg-surface border-border absolute -bottom-8 left-6 flex items-center gap-4 rounded-xl border px-6 py-4 shadow-lg sm:left-8">
             <span className="font-display text-primary text-4xl leading-none font-semibold">
               {STATS[0]!.value}
@@ -91,10 +99,10 @@ export function IntroSplit() {
             protecting quality and keeping delivery dates realistic.
           </p>
           <ul className="border-border mt-8 grid gap-5 border-t pt-8 sm:grid-cols-3">
-            {INTRO_POINTS.map((p) => (
-              <li key={p.title}>
-                <BadgeCheck size={20} aria-hidden className="text-gold" />
-                <p className="text-fg mt-2 text-sm font-semibold">{p.title}</p>
+            {INTRO_POINTS.map((p, i) => (
+              <li key={p.title} className="group">
+                <IconBadge icon={p.icon} tone={toneAt(i)} size="sm" />
+                <p className="text-fg mt-3 text-sm font-semibold">{p.title}</p>
                 <p className="text-fg-subtle mt-1 text-sm leading-snug">{p.text}</p>
               </li>
             ))}
@@ -190,9 +198,7 @@ export function VisionMission() {
                     aria-hidden
                     className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-(image:--gradient-brand) transition-transform duration-(--duration-base) group-hover:scale-x-100"
                   />
-                  <span className="bg-brand-weave flex size-12 items-center justify-center rounded-xl text-white shadow-md">
-                    <Icon size={22} aria-hidden />
-                  </span>
+                  <IconBadge icon={Icon} tone={toneAt(i)} />
                   <h3 className="text-fg mt-5 text-lg font-semibold">{v.title}</h3>
                   <p className="text-fg-muted mt-2 text-sm">{v.body}</p>
                 </div>
