@@ -20,22 +20,22 @@ const SLIDES: Slide[] = [
   {
     image: IMG.heroModernFloor,
     eyebrow: 'Garments buying house · Bangladesh',
-    title: 'From first sketch to loaded container, one accountable team.',
-    lead: 'We connect international brands with audited manufacturers and manage every step in between.',
+    title: 'From first sketch to loaded container, one accountable team for your brand.',
+    lead: 'We connect international fashion brands and retailers with audited manufacturers across Bangladesh, then manage every step in between: sampling, fabric and trims, production follow-up, quality inspection and on-time shipment.',
     cta: { label: 'Discover our company', href: '/company/about-us' },
   },
   {
     image: IMG.heroWorker,
     eyebrow: 'Production you can see',
-    title: 'Quality built on the line, not checked at the port.',
-    lead: 'Inline inspections, digital QC reports and merchandisers who live next to the factories.',
+    title: 'Quality built into every line, not checked at the port.',
+    lead: 'Our merchandisers and quality inspectors work beside the factories every day. Inline and final inspections, digital QC reports and clear updates mean problems are fixed on the production floor, long before goods are packed.',
     cta: { label: 'Explore products', href: '/products' },
   },
   {
     image: IMG.heroCleanLine,
     eyebrow: 'Responsible by design',
-    title: 'Sustainable production, passion-driven and made for the future.',
-    lead: 'Safe factories, fair work and lower-impact materials across our partner network.',
+    title: 'Sustainable production, passion-driven and made for a better future.',
+    lead: 'Safe, audited factories, fair working conditions and lower-impact materials across our partner network. We help brands move to certified organic and recycled fibres and keep every claim on the label traceable.',
     cta: { label: 'Our sustainability', href: '/sustainability/environmental-sustainability' },
   },
 ];
@@ -110,7 +110,7 @@ export function HeroSlider() {
           role="group"
           aria-roledescription="slide"
           aria-label={`${index + 1} of ${SLIDES.length}`}
-          className="max-w-4xl"
+          className="max-w-4xl lg:max-w-[56rem]"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -120,20 +120,20 @@ export function HeroSlider() {
               exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }}
               transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.22em] uppercase">
+              <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.22em] uppercase lg:text-[0.85rem]">
                 <span aria-hidden className="h-px w-8 bg-current" />
                 {slide.eyebrow}
               </p>
-              <h1 className="font-display text-display 2xl:text-display mt-5 max-w-3xl font-semibold tracking-tight text-balance lg:text-[clamp(2.25rem,1.2rem+1.9vw,2.6rem)]">
+              <h1 className="font-display text-display 2xl:text-display mt-5 max-w-3xl font-semibold tracking-tight text-balance lg:mt-6 lg:max-w-[52rem] lg:text-[clamp(3rem,1.5rem+2.6vw,3.75rem)] lg:leading-[1.06]">
                 {slide.title}
               </h1>
-              <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg lg:text-base 2xl:text-lg">
+              <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg lg:mt-7 lg:max-w-[50rem] lg:text-[1.3rem] lg:leading-relaxed 2xl:text-lg">
                 {slide.lead}
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:mt-10 lg:gap-4">
                 <Link
                   href={slide.cta.href}
-                  className="group text-ink-deep shadow-gold inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform"
+                  className="group text-ink-deep shadow-gold inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform lg:min-h-[3.6rem] lg:px-9 lg:text-base"
                 >
                   {slide.cta.label}
                   <ArrowRight
@@ -144,7 +144,7 @@ export function HeroSlider() {
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/40 px-6 text-sm font-semibold transition-colors hover:bg-white/10"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/40 px-6 text-sm font-semibold transition-colors hover:bg-white/10 lg:min-h-[3.6rem] lg:px-8 lg:text-base"
                 >
                   Request a quote
                 </Link>

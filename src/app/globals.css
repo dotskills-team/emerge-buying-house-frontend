@@ -221,12 +221,20 @@
  * tablets and large desktop screens keep the scale above.
  */
 @media (min-width: 64rem) and (max-width: 95.99rem) {
+  /* The whole layout one notch smaller: a 14px base instead of 16px. Text, spacing and
+     components are all in rem, so everything shrinks together and keeps its proportions. */
+  html {
+    font-size: 87.5%;
+  }
   :root {
-    --text-display: clamp(2rem, 0.9rem + 2.3vw, 2.875rem);
-    --text-h1: clamp(1.5rem, 1rem + 1vw, 1.875rem);
-    --text-h2: clamp(1.25rem, 0.95rem + 0.6vw, 1.5rem);
-    --text-h3: 1.125rem;
-    --text-kpi: clamp(1.5rem, 1.2rem + 0.6vw, 1.875rem);
+    /* Headings about a quarter smaller than before, on top of the smaller base. */
+    --text-display: clamp(1.75rem, 0.9rem + 1.6vw, 2.25rem);
+    --text-h1: clamp(1.375rem, 0.95rem + 0.8vw, 1.625rem);
+    --text-h2: clamp(1.125rem, 0.9rem + 0.45vw, 1.3rem);
+    --text-h3: 1.05rem;
+    --text-kpi: clamp(1.375rem, 1.1rem + 0.5vw, 1.625rem);
+    /* Narrower content column with calm margins either side (about 1090px). */
+    --container-site: 78rem;
   }
 }
 

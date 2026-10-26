@@ -135,7 +135,7 @@ export function StatsBand() {
               className="border-border flex flex-col gap-1 border-b px-2 py-8 even:border-l sm:px-6 sm:py-10 lg:border-b-0 lg:border-l lg:first:border-l-0"
             >
               <dt className="text-fg-muted order-2 text-sm">{s.label}</dt>
-              <dd className="order-1 bg-(image:--gradient-brand-text) bg-clip-text text-[clamp(2.25rem,1.6rem+2.4vw,3.5rem)] leading-none font-bold tracking-tight text-transparent">
+              <dd className="order-1 bg-(image:--gradient-brand-text) bg-clip-text text-[clamp(2.25rem,1.6rem+2.4vw,3.5rem)] leading-none font-bold tracking-tight text-transparent lg:max-2xl:text-[2.25rem]">
                 <Reveal delay={i * 0.08}>
                   <Counter to={s.value} suffix={s.suffix} />
                 </Reveal>

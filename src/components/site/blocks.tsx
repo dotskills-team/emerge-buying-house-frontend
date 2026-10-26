@@ -131,7 +131,7 @@ export function MetricsBand({ items }: { items: Array<{ value: string; label: st
           {items.map((m) => (
             <div key={m.label} className="flex flex-col gap-1 py-8 text-center sm:py-12">
               <dt className="order-2 text-sm text-white/75">{m.label}</dt>
-              <dd className="order-1 text-[clamp(2.25rem,1.6rem+2.4vw,3.5rem)] leading-none font-bold tracking-tight">
+              <dd className="order-1 text-[clamp(2.25rem,1.6rem+2.4vw,3.5rem)] leading-none font-bold tracking-tight lg:max-2xl:text-[2.25rem]">
                 {m.value}
               </dd>
             </div>

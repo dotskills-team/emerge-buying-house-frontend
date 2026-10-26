@@ -34,7 +34,7 @@ export function MarqueeBand() {
               >
                 <span
                   className={cn(
-                    'font-display text-[clamp(2.75rem,2rem+4vw,6.5rem)] leading-[1.2] font-semibold tracking-tight whitespace-nowrap',
+                    'font-display text-[clamp(2.75rem,2rem+4vw,6.5rem)] leading-[1.2] font-semibold tracking-tight whitespace-nowrap lg:max-2xl:text-[3.25rem]',
                     (i + r) % 2 === 0 ? 'text-outline-gold' : 'text-white',
                   )}
                 >
@@ -140,7 +140,7 @@ export function TestimonialSlider() {
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               >
-                <blockquote className="font-display text-fg text-[clamp(1.375rem,1.1rem+1vw,2rem)] leading-snug font-medium">
+                <blockquote className="font-display text-fg text-[clamp(1.375rem,1.1rem+1vw,2rem)] leading-snug font-medium lg:max-2xl:text-[1.375rem]">
                   “{t.quote}”
                 </blockquote>
                 <figcaption className="mt-8 flex items-center gap-4">
