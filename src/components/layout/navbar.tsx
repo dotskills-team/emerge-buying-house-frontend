@@ -151,7 +151,7 @@ function DesktopDropdown({
           pointerType.current = null;
         }}
         className={cn(
-          'relative flex h-10 items-center gap-1 rounded-md px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-2.5 lg:text-[0.98rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
+          'relative flex h-10 items-center gap-1 rounded-md px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-1.5 lg:text-[0.9rem] xl:px-2.5 xl:text-[0.98rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
           light ? 'text-white/85 hover:text-white' : 'text-fg/80 hover:text-primary',
           active && (light ? 'text-white' : 'text-primary'),
           open && (light ? 'text-white' : 'text-fg'),
@@ -269,7 +269,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-(--z-modal) xl:hidden"
+      className="fixed inset-0 z-(--z-modal) lg:hidden"
       role="dialog"
       aria-modal="true"
       aria-label="Site menu"
@@ -484,7 +484,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
       >
         <Container
           className={cn(
-            'flex items-center justify-between gap-6 transition-[height] duration-(--duration-base) lg:gap-10',
+            'flex items-center justify-between gap-6 transition-[height] duration-(--duration-base) lg:gap-5 xl:gap-10',
             'h-16 lg:h-[4.25rem] 2xl:h-[4.5rem]',
           )}
         >
@@ -499,8 +499,8 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
             />
           </Link>
 
-          <nav aria-label="Primary" className="hidden xl:block">
-            <ul className="flex items-center gap-0.5 lg:gap-2">
+          <nav aria-label="Primary" className="hidden lg:block">
+            <ul className="flex items-center gap-0.5 xl:gap-2">
               {MAIN_NAV.map((entry) => {
                 const active = isActive(pathname, entry);
                 return entry.children ? (
@@ -511,7 +511,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
                       href={entry.href ?? '/'}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'relative flex h-10 items-center rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-2.5 lg:text-[0.98rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
+                        'relative flex h-10 items-center rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-1.5 lg:text-[0.9rem] xl:px-2.5 xl:text-[0.98rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
                         light
                           ? 'text-white/85 hover:bg-white/10 hover:text-white'
                           : 'text-fg/80 hover:text-primary',
@@ -549,7 +549,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
               aria-expanded={mobileMenuOpen}
               aria-label="Open menu"
               className={cn(
-                '-mr-1 inline-flex size-11 items-center justify-center rounded-full border transition-colors xl:hidden',
+                '-mr-1 inline-flex size-11 items-center justify-center rounded-full border transition-colors lg:hidden',
                 light
                   ? 'border-white/25 text-white hover:bg-white/10'
                   : 'border-border text-fg hover:bg-surface-muted',

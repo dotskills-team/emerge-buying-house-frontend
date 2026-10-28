@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowRight,
+  ArrowUpRight,
   BadgeCheck,
   Eye,
   Gem,
@@ -31,7 +32,9 @@ import {
   VISION,
 } from '@/content/company';
 import { IMG } from '@/content/images';
+import { PRODUCT_CATEGORIES } from '@/content/product-categories';
 import { NEWS_SORTED } from '@/content/news';
+import { cn } from '@/lib/utils';
 
 const INTRO_POINTS = [
   { icon: Layers, title: 'Knitwear, woven & denim', text: 'One team across every category.' },
@@ -241,17 +244,18 @@ export function ProcessTimeline() {
   );
 }
 
-// Showcase tiles for what we produce (photography only; the catalogue lives on /products).
-const SHOWCASE = [
-  { id: 'denim', name: 'Denim', category: 'Wovens', image: IMG.denim },
-  { id: 'jersey', name: 'Embroidered jerseys', category: 'Knitwear', image: IMG.embroidery },
-  { id: 'fabric', name: 'Fabric library', category: 'Fabric & trims', image: IMG.fabricRolls },
-  { id: 'sweaters', name: 'Flat-knit sweaters', category: 'Knitwear', image: IMG.knittingMachine },
-  { id: 'dresses', name: 'Dresses & blouses', category: 'Wovens', image: IMG.sewingDress },
-];
+const TILE_SHAPES = {
+  feature: 'col-span-2 row-span-2',
+  tall: 'row-span-2',
+  wide: 'col-span-2',
+  square: '',
+} as const;
 
+/**
+ * The client's product categories as a bento grid: one feature tile, tall tiles for jackets and
+ * joggers, wide tiles for the last row. Each opens the catalogue filtered to that category.
+ */
 export function ProductionTeaser() {
-  const picks = SHOWCASE;
   return (
     <section className="py-20 sm:py-24 lg:py-20 2xl:py-32">
       <Container>
@@ -259,7 +263,7 @@ export function ProductionTeaser() {
           <SectionHeading
             eyebrow="Products"
             title="Products made with care, at scale."
-            lead="A look at the categories we source and the lines that make them."
+            lead="Nine categories we source every season, from denim and outerwear to swimwear and kids wear."
           />
           <Link
             href="/products"
@@ -273,39 +277,70 @@ export function ProductionTeaser() {
             />
           </Link>
         </div>
-        <ul className="mt-12 grid auto-rows-[14rem] grid-cols-2 gap-3 sm:auto-rows-[16rem] sm:gap-4 lg:auto-rows-[15rem] lg:grid-cols-4">
-          {picks.map((p, i) => (
-            <Reveal
-              as="li"
-              key={p.id}
-              delay={i * 0.06}
-              className={i === 0 ? 'col-span-2 row-span-2' : undefined}
-            >
+
+        <ul className="mt-12 grid grid-flow-dense auto-rows-[11rem] grid-cols-2 gap-3 sm:auto-rows-[13rem] sm:gap-4 lg:auto-rows-[12.5rem] lg:grid-cols-4 2xl:auto-rows-[15rem]">
+          {PRODUCT_CATEGORIES.map((c, i) => (
+            <Reveal as="li" key={c.slug} delay={(i % 4) * 0.06} className={TILE_SHAPES[c.shape]}>
               <Link
-                href="/products#catalogue"
-                className="group relative block h-full overflow-hidden rounded-2xl"
+                href={`/products?category=${c.slug}#catalogue`}
+                className="group bg-ink-deep relative isolate flex h-full flex-col justify-between overflow-hidden rounded-2xl p-4 text-white sm:p-5"
               >
                 <Image
-                  src={p.image}
-                  alt={p.name}
+                  src={c.image}
+                  alt=""
                   fill
                   placeholder="blur"
                   sizes={
-                    i === 0 ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 25vw, 50vw'
+                    c.shape === 'feature' || c.shape === 'wide'
+                      ? '(min-width: 1024px) 50vw, 100vw'
+                      : '(min-width: 1024px) 25vw, 50vw'
                   }
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="-z-20 object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
+                {/* Dark at the foot for the label, a light tint on top for the number. */}
                 <span
                   aria-hidden
-                  className="from-ink-deep/85 absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+                  className="from-ink-deep/90 via-ink-deep/25 to-ink-deep/10 absolute inset-0 -z-10 bg-gradient-to-t transition-opacity duration-500 group-hover:opacity-95"
                 />
-                <span className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-5">
-                  <span className="text-xs font-semibold tracking-wider text-white/70 uppercase">
-                    {p.category}
+
+                <span className="flex items-start justify-between">
+                  <span className="font-display rounded-full border border-white/30 bg-white/10 px-2.5 py-0.5 text-xs font-semibold tracking-wider backdrop-blur-sm">
+                    {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="mt-1 block font-semibold sm:text-lg lg:text-base 2xl:text-lg">
-                    {p.name}
+                  <span
+                    aria-hidden
+                    className="text-ink-deep flex size-9 translate-y-1 items-center justify-center rounded-full bg-(image:--gradient-gold) opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                  >
+                    <ArrowUpRight size={17} />
                   </span>
+                </span>
+
+                <span className="block">
+                  <span
+                    className={cn(
+                      'font-display block font-semibold tracking-tight',
+                      c.shape === 'feature'
+                        ? 'text-2xl sm:text-3xl lg:text-[1.9rem] 2xl:text-4xl'
+                        : 'text-base sm:text-lg 2xl:text-xl',
+                    )}
+                  >
+                    {c.name}
+                  </span>
+                  {/* Always shown on the feature tile; on the others it slides up on hover. */}
+                  <span
+                    className={cn(
+                      'block overflow-hidden text-sm leading-snug text-white/80 transition-all duration-500',
+                      c.shape === 'feature'
+                        ? 'mt-2 max-h-20 max-w-md'
+                        : 'max-h-0 opacity-0 group-hover:mt-1.5 group-hover:max-h-16 group-hover:opacity-100 max-sm:hidden',
+                    )}
+                  >
+                    {c.description}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="mt-3 block h-px w-10 bg-(image:--gradient-gold) transition-all duration-500 group-hover:w-16"
+                  />
                 </span>
               </Link>
             </Reveal>

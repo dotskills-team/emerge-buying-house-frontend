@@ -32,3 +32,11 @@ Development placeholders from Wikimedia Commons. Replace them with the company's
 | sourcing-fabric-library.jpg | rawpixel                                         | CC0           | https://www.rawpixel.com/image/6038451/textile-rolls-free-public-domain-cc0-photo |
 | story-qa-floor.jpg     | Fahad Faisal | CC BY-SA 4.0  | https://commons.wikimedia.org/w/index.php?curid=38295272 |
 | textile-knit-floor.jpg | Fahad Faisal | CC BY-SA 4.0  | https://commons.wikimedia.org/w/index.php?curid=38295269 |
+| categories/twill.jpg | Menswear Market | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Chino_Pant_Stack.jpg |
+| categories/padded-jacket.jpg | Adenosine Triphosphate | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:6x_The_North_Face_Mountain_Light_Gore-tex_Triclimate_Down_Jacket.jpg |
+| categories/non-padded-jacket.jpg | Nolispanmo | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:BHC-Fliegerjacke.jpg |
+| categories/shirts.jpg | Marcus Quigmire from Florida, USA | CC BY-SA 2.0 | https://commons.wikimedia.org/wiki/File:Dress_Shirts_(3168545260).jpg |
+| categories/overshirts.jpg | Anonyme | CC0 | https://commons.wikimedia.org/wiki/File:(US)_SHIRT,_FLANNEL,_OD,_COAT_STYLE_-_Chemise_am%C3%A9ricaine,_2002.2165(2).jpg |
+| categories/joggers.jpg | Adidas | CC BY 4.0 | https://commons.wikimedia.org/wiki/File:Tracksuit_pants_(AM_2017.66.26-4).jpg |
+| categories/swimming-shorts.jpg | Geoffreyrabbit | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Sky_blue_board_shorts.jpg |
+| categories/kids-wear.jpg | 芳蘭 徐芳蘭 | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:%E5%B1%B1%E4%BB%A3%E6%BA%AB%E6%B3%89_%E5%B1%B1%E4%B8%8B%E5%AE%B6_(40074014742).jpg |
