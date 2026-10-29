@@ -30,19 +30,11 @@ export interface SourcingPoint {
 
 export const SOURCING_POINTS: SourcingPoint[] = [
   {
-    title: 'Fabric mills',
-    body: 'Knit, woven and denim mills we have worked with for years, booked ahead of demand.',
-  },
-  {
     title: 'Trims and accessories',
     body: 'Labels, buttons, zippers and packaging sourced and approved before bulk starts.',
   },
   {
-    title: 'Testing and compliance',
-    body: 'Lab tests for every fabric and audited factories only, with reports shared openly.',
-  },
-  {
-    title: 'Two sourcing offices',
+    title: 'Sourcing offices',
     body: 'Teams in Dhaka and next to the port in Chattogram, close to mills and to shipping.',
   },
 ];
@@ -55,26 +47,30 @@ export interface Service {
 
 export const SERVICES: Service[] = [
   {
-    title: 'Design',
-    body: 'From your mood board or our trend research to a costed collection.',
-    points: ['Trend and fabric research', 'Line sheets and tech packs', 'Costing by target price'],
-  },
-  {
-    title: 'Development',
-    body: 'Samples refined with you until fit, colour and finish are right.',
-    points: [
-      'Lab dips and strike-offs',
-      'Proto, fit and salesman samples',
-      'Wash and print development',
-    ],
-  },
-  {
     title: 'Sourcing',
     body: 'The right mill and factory for each style, and an eye on every step after.',
     points: [
       'Factory matching and audits',
       'Fabric and trims booking',
       'Production follow-up to shipment',
+    ],
+  },
+  {
+    title: 'Design & development',
+    body: 'From your mood board to an approved sample: design, tech packs, fits and sampling in one team.',
+    points: [
+      'Trend and fabric research',
+      'Line sheets, tech packs and costing',
+      'Lab dips, proto and fit samples',
+    ],
+  },
+  {
+    title: 'R&D',
+    body: 'New fabrics, washes and methods tested in our lab before they reach your line.',
+    points: [
+      'Fabric and fibre innovation',
+      'Wash and finish trials',
+      'Sustainable material testing',
     ],
   },
   {

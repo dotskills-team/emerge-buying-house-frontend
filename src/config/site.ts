@@ -62,7 +62,23 @@ export const MAIN_NAV: NavEntry[] = [
       },
     ],
   },
-  { label: 'Products', href: '/products' },
+  // { label: 'Products', href: '/products' },
+  {
+  label: 'Products',
+  href: '/products',
+  children: [
+    { label: 'All products', href: '/products', description: 'Browse the full catalogue' },
+    { label: 'Denim', href: '/products?category=denim' },
+    { label: 'Twill', href: '/products?category=twill' },
+    { label: 'Padded jacket', href: '/products?category=padded-jacket' },
+    { label: 'Not padded jacket', href: '/products?category=not-padded-jacket' },
+    { label: 'Shirts', href: '/products?category=shirts' },
+    { label: 'Over shirts', href: '/products?category=over-shirts' },
+    { label: 'Joggers', href: '/products?category=joggers' },
+    { label: 'Swimming shorts', href: '/products?category=swimming-shorts' },
+    { label: 'Kids wear', href: '/products?category=kids-wear' },
+  ],
+},
   {
     label: 'Sustainability',
     children: [

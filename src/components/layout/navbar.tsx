@@ -24,6 +24,13 @@ import {
   Handshake,
   X,
   type LucideIcon,
+  Layers,
+  Scissors,
+  Snowflake,
+  Wind,
+  Footprints,
+  Waves,
+  Baby,
 } from 'lucide-react';
 import { SOCIAL_ICONS } from '@/components/site/social-icons';
 import { Container } from '@/components/ui/container';
@@ -46,7 +53,32 @@ const ICONS: Record<string, LucideIcon> = {
   '/industries/real-estate': Building2,
   '/sustainability/environmental-sustainability': Leaf,
   '/sustainability/employee-welfare': HeartHandshake,
+  '/products': ShoppingBag,
+  '/products?category=denim': Layers,
+  '/products?category=twill': Scissors,
+  '/products?category=padded-jacket': Snowflake,
+  '/products?category=not-padded-jacket': Wind,
+  '/products?category=shirts': Shirt,
+  '/products?category=over-shirts': Shirt,
+  '/products?category=joggers': Footprints,
+  '/products?category=swimming-shorts': Waves,
+  '/products?category=kids-wear': Baby,
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /** The highlight shown beside each dropdown's links: a photo, a line of text and one link. */
 const FEATURES: Record<
@@ -74,6 +106,13 @@ const FEATURES: Record<
     cta: 'Our CSR work',
     image: IMG.cottonField,
   },
+  Products: {
+  title: 'Made to be inspected',
+  body: 'Open any product to zoom into the fabric and check specifications.',
+  href: '/products',
+  cta: 'View catalogue',
+  image: IMG.heroSewing,
+},
 };
 
 const isActive = (pathname: string, entry: NavEntry) =>

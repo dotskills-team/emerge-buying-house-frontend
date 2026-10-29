@@ -226,8 +226,7 @@ export function ProcessTimeline() {
           title="Five steps from brief to warehouse."
           lead="One merchandiser owns your order the whole way, with a quality checkpoint at every step."
         />
-        <ol className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0">
-          {PROCESS.map((p, i) => (
+<ol className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">          {PROCESS.map((p, i) => (
             <Reveal as="li" key={p.step} delay={i * 0.08} className="relative">
               <div className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm lg:rounded-none lg:border-y-0 lg:border-r-0 lg:border-l lg:bg-transparent lg:p-7 lg:first:border-l-0">
                 <span className="bg-(image:--gradient-indicator) bg-clip-text text-4xl font-bold text-transparent">

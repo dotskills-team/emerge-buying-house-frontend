@@ -23,8 +23,8 @@ export function Logo({
         src={logoLight}
         alt={SITE.name}
         priority={priority}
-        sizes="160px"
-        className={cn('h-10 w-auto', className)}
+        sizes="180px"
+        className={cn('h-12 w-auto', className)}
       />
     );
   }
@@ -36,16 +36,16 @@ export function Logo({
         src={logoDark}
         alt={SITE.name}
         priority={priority}
-        sizes="160px"
-        className={cn('h-10 w-auto dark:hidden', className)}
+        sizes="180px"
+        className={cn('h-12 w-auto dark:hidden', className)}
       />
       <Image
         src={logoLight}
         alt=""
         aria-hidden
         priority={priority}
-        sizes="160px"
-        className={cn('hidden h-10 w-auto dark:block', className)}
+        sizes="180px"
+        className={cn('hidden h-12 w-auto dark:block', className)}
       />
     </>
   );
