@@ -234,7 +234,8 @@
     --text-h3: 1.2rem;
     --text-kpi: clamp(1.6rem, 1.25rem + 0.6vw, 1.875rem);
     /* Narrower content column with calm margins either side (about 1090px). */
-    --container-site: 84rem;
+    --container-site: 82rem;
+    --page-gutter: 3.25rem;
   }
 }
 

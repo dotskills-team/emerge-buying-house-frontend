@@ -151,7 +151,7 @@ function DesktopDropdown({
           pointerType.current = null;
         }}
         className={cn(
-          'relative flex h-10 items-center gap-1 rounded-md px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-1.5 lg:text-[0.9rem] xl:px-2.5 xl:text-[0.98rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
+          'relative flex h-10 items-center gap-1 rounded-md px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-1.5 lg:text-[0.95rem] xl:px-2.5 xl:text-[1.05rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
           light ? 'text-white/85 hover:text-white' : 'text-fg/80 hover:text-primary',
           active && (light ? 'text-white' : 'text-primary'),
           open && (light ? 'text-white' : 'text-fg'),
@@ -511,7 +511,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
                       href={entry.href ?? '/'}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'relative flex h-10 items-center rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-1.5 lg:text-[0.9rem] xl:px-2.5 xl:text-[0.98rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
+                        'relative flex h-10 items-center rounded-full px-2.5 text-sm font-medium whitespace-nowrap transition-colors lg:px-1.5 lg:text-[0.95rem] xl:px-2.5 xl:text-[1.05rem] 2xl:px-3.5 2xl:text-[0.9375rem]',
                         light
                           ? 'text-white/85 hover:bg-white/10 hover:text-white'
                           : 'text-fg/80 hover:text-primary',

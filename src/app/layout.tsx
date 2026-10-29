@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${inter.variable} ${interTight.variable} ${bengali.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      <body suppressHydrationWarning>
         {/* Applies the visitor's light/dark choice before the page is shown: no flash.
             next/script puts it in <head> ahead of everything else and keeps React from warning
             about a raw <script> in a component. */}
