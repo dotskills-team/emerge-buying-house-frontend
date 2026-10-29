@@ -36,14 +36,14 @@ export const MAIN_NAV: NavEntry[] = [
     children: [
       { label: 'About Us', href: '/company/about-us', description: 'Who we are and how we work' },
       {
-        label: 'Management',
-        href: '/company/management',
-        description: 'The people who lead Emerge',
+        label: 'Manufacturing Strength',
+        href: '/#manufacturing-strength',
+        description: 'Capacity, lines and quality standards',
       },
       {
-        label: 'History',
-        href: '/company/history',
-        description: 'Milestones since our first order',
+        label: 'Manufacturing Partners',
+        href: '/#manufacturing-partners',
+        description: 'The audited factories behind every order',
       },
       {
         label: 'Company Profiles',
@@ -56,29 +56,9 @@ export const MAIN_NAV: NavEntry[] = [
     label: 'Industries',
     children: [
       {
-        label: 'Textile',
+        label: 'RMG',
         href: '/industries/textile',
-        description: 'Knit, woven and denim apparel',
-      },
-      {
-        label: 'Retail',
-        href: '/industries/retail',
-        description: 'Private label and store brands',
-      },
-      {
-        label: 'Pharmaceuticals',
-        href: '/industries/pharmaceuticals',
-        description: 'Medical textiles and uniforms',
-      },
-      {
-        label: 'Information Technology',
-        href: '/industries/information-technology',
-        description: 'Supply-chain visibility tools',
-      },
-      {
-        label: 'Real Estate',
-        href: '/industries/real-estate',
-        description: 'Facilities and workspaces',
+        description: 'Ready-made garments: knit, woven and denim',
       },
     ],
   },

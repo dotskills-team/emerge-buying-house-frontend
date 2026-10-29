@@ -16,7 +16,7 @@ export interface Industry {
 export const INDUSTRIES: Industry[] = [
   {
     slug: 'textile',
-    name: 'Textile',
+    name: 'RMG',
     tagline: 'Knit, woven and denim apparel for international brands.',
     summary:
       'Our core business: we source, develop and follow up apparel orders across a network of audited mills and factories in Bangladesh.',

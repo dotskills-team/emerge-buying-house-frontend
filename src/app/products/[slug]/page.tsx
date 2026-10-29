@@ -6,9 +6,9 @@ import {
   ArrowRight,
   BadgeCheck,
   ChevronRight,
-  Clock,
+  // Clock, (lead time, hidden)
   Layers,
-  Package,
+  // Package, (minimum order, hidden)
   Palette,
   Ruler,
   Weight,
@@ -97,12 +97,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!product) notFound();
 
   const facts = [
-    product.moq != null && {
-      icon: Package,
-      label: 'Minimum order',
-      value: `${product.moq.toLocaleString()} ${product.moqUnit}`,
-    },
-    product.leadTime && { icon: Clock, label: 'Lead time', value: product.leadTime },
+    // Hidden for now at the client's request; uncomment to show them again.
+    // product.moq != null && {
+    //   icon: Package,
+    //   label: 'Minimum order',
+    //   value: `${product.moq.toLocaleString()} ${product.moqUnit}`,
+    // },
+    // product.leadTime && { icon: Clock, label: 'Lead time', value: product.leadTime },
     product.fabric && { icon: Layers, label: 'Fabric', value: product.fabric },
     product.weight && { icon: Weight, label: 'Weight', value: product.weight },
   ].filter(Boolean) as { icon: LucideIcon; label: string; value: string }[];
@@ -212,7 +213,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
 
             {facts.length > 0 && (
-              <dl className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <h2 className="font-display text-fg mt-10 text-lg font-semibold tracking-tight">
+                Product details
+              </h2>
+            )}
+            {facts.length > 0 && (
+              <dl className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {facts.map((f) => (
                   <Fact key={f.label} {...f} />
                 ))}

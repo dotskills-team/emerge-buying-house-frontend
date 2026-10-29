@@ -77,6 +77,15 @@ export const SERVICES: Service[] = [
       'Production follow-up to shipment',
     ],
   },
+  {
+    title: 'Manufacturing',
+    body: 'Bulk production on audited lines, managed by our team from cutting to packing.',
+    points: [
+      'Cutting, sewing and finishing',
+      'Inline and final quality inspection',
+      'Retail-ready packing and labelling',
+    ],
+  },
 ];
 
 export interface Partner {
@@ -113,21 +122,21 @@ export interface GroupCompany {
   body: string;
 }
 
-// PLACEHOLDER details, from the brief ("Company: Jeans, Jacket, Just Denim"): confirm names and text.
+// Company names from the client. The focus lines and descriptions are drafts: confirm the text.
 export const GROUP_COMPANIES: GroupCompany[] = [
   {
-    name: 'Emerge Jeans',
-    focus: 'Jeans',
-    body: 'Five-pocket jeans and denim bottoms, from rigid to comfort stretch, with full wash development.',
+    name: 'Jeans & Jacket',
+    focus: 'Denim and outerwear',
+    body: 'Jeans, denim jackets and woven outerwear, from rigid to comfort stretch, with full wash development.',
   },
   {
-    name: 'Emerge Jacket',
-    focus: 'Jackets',
-    body: 'Denim and woven jackets and outerwear, lined and unlined, for every season.',
+    name: 'Just Clean BD',
+    focus: 'Washing and finishing',
+    body: 'Garment washing, finishing and care treatments with responsible water and chemical management.',
   },
   {
-    name: 'Just Denim',
-    focus: 'Denim specialist',
-    body: 'A denim-only unit: fabric sourcing, washing and finishing under one roof.',
+    name: 'Emerge Style',
+    focus: 'Fashion and design',
+    body: 'Trend-led design and product development that turns ideas into ready-to-produce collections.',
   },
 ];

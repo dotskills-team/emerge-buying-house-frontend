@@ -13,7 +13,6 @@ import {
   FileText,
   Cpu,
   HeartHandshake,
-  History,
   Leaf,
   Mail,
   Menu,
@@ -21,7 +20,8 @@ import {
   Pill,
   Shirt,
   ShoppingBag,
-  Users,
+  Factory,
+  Handshake,
   X,
   type LucideIcon,
 } from 'lucide-react';
@@ -36,8 +36,8 @@ import { Logo } from './logo';
 
 const ICONS: Record<string, LucideIcon> = {
   '/company/about-us': BookOpenText,
-  '/company/management': Users,
-  '/company/history': History,
+  '/#manufacturing-strength': Factory,
+  '/#manufacturing-partners': Handshake,
   '/company/profiles': FileText,
   '/industries/textile': Shirt,
   '/industries/retail': ShoppingBag,
@@ -56,8 +56,8 @@ const FEATURES: Record<
   Company: {
     title: '15 years of accountable sourcing',
     body: 'One team that owns every order, from first sketch to loaded container.',
-    href: '/company/history',
-    cta: 'Our journey',
+    href: '/company/about-us',
+    cta: 'About us',
     image: IMG.garmentLine,
   },
   Industries: {

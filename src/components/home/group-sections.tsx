@@ -35,7 +35,7 @@ const section = 'py-16 sm:py-20 lg:py-20 2xl:py-28';
 /** C. Our manufacturing strength: capacity in figures, and what the lines can do. */
 export function ManufacturingStrength() {
   return (
-    <section className={section}>
+    <section id="manufacturing-strength" className={section}>
       <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal className="relative isolate">
           <ImageAccents preset="loom" />
@@ -130,7 +130,7 @@ export function SourcingStrength() {
   );
 }
 
-const SERVICE_ICONS: LucideIcon[] = [PenTool, Compass, Truck];
+const SERVICE_ICONS: LucideIcon[] = [PenTool, Compass, Truck, Factory];
 
 /** E. Service / what we are good at: design, development and sourcing. */
 export function Services() {
@@ -141,7 +141,7 @@ export function Services() {
           <SectionHeading
             eyebrow="Our services"
             title="What we are good at."
-            lead="One partner from the first sketch to the finished garment: take one service, or all three."
+            lead="One partner from the first sketch to the finished garment: take one service, or all four."
           />
           <Link
             href="/contact"
@@ -150,33 +150,57 @@ export function Services() {
             Discuss a project <ArrowRight size={16} aria-hidden />
           </Link>
         </div>
-        <ol className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <ol className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s, i) => {
             const Icon = SERVICE_ICONS[i] ?? PenTool;
             return (
               <li key={s.title}>
-                <Reveal
-                  delay={i * 0.06}
-                  className="group border-border bg-surface hover:border-primary/30 flex h-full flex-col rounded-2xl border p-7 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <IconBadge icon={Icon} tone={toneAt(i)} />
-                    <span className="text-fg-subtle font-display text-sm tabular-nums">
+                <Reveal delay={i * 0.06} className="h-full">
+                  {/* Lifts on hover; a gold-to-emerald line draws across the top and the big
+                      outlined number in the corner fills with colour. */}
+                  <div className="group border-border bg-surface relative isolate flex h-full flex-col overflow-hidden rounded-2xl border p-7 shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-transparent hover:shadow-xl">
+                    <span
+                      aria-hidden
+                      className="from-gold via-gold-light to-primary absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r transition-transform duration-500 ease-out group-hover:scale-x-100"
+                    />
+                    <span
+                      aria-hidden
+                      className="bg-primary/5 absolute -top-16 -right-16 -z-10 size-44 rounded-full transition-transform duration-700 ease-out group-hover:scale-[2.6]"
+                    />
+                    <span
+                      aria-hidden
+                      className="font-display text-fg/10 group-hover:text-primary/15 absolute top-3 right-5 text-6xl leading-none font-bold tabular-nums transition-colors duration-500"
+                    >
                       0{i + 1}
                     </span>
+
+                    <IconBadge icon={Icon} tone={toneAt(i)} />
+                    <h3 className="font-display text-fg mt-6 text-2xl font-semibold tracking-tight">
+                      {s.title}
+                    </h3>
+                    <p className="text-fg-muted mt-2 text-sm leading-relaxed">{s.body}</p>
+                    <ul className="border-border mt-6 space-y-2.5 border-t border-dashed pt-5">
+                      {s.points.map((p) => (
+                        <li key={p} className="text-fg flex gap-2.5 text-sm">
+                          <span className="bg-primary-soft text-primary mt-0.5 flex size-4.5 shrink-0 items-center justify-center rounded-full">
+                            <Check size={11} strokeWidth={3} aria-hidden />
+                          </span>
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold"
+                    >
+                      Start with {s.title.toLowerCase()}
+                      <ArrowRight
+                        size={15}
+                        aria-hidden
+                        className="transition-transform duration-300 group-hover:translate-x-1"
+                      />
+                    </Link>
                   </div>
-                  <h3 className="font-display text-fg mt-6 text-2xl font-semibold tracking-tight">
-                    {s.title}
-                  </h3>
-                  <p className="text-fg-muted mt-2 text-sm leading-relaxed">{s.body}</p>
-                  <ul className="border-border mt-6 space-y-2 border-t pt-5">
-                    {s.points.map((p) => (
-                      <li key={p} className="text-fg flex gap-2 text-sm">
-                        <Check size={16} aria-hidden className="text-primary mt-0.5 shrink-0" />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
                 </Reveal>
               </li>
             );
@@ -190,7 +214,7 @@ export function Services() {
 /** F. Production and manufacturing partners: the factories behind the products. */
 export function ManufacturingPartners() {
   return (
-    <section className={`bg-surface border-border border-y ${section}`}>
+    <section id="manufacturing-partners" className={`bg-surface border-border border-y ${section}`}>
       <Container>
         <SectionHeading
           eyebrow="Manufacturing partners"
