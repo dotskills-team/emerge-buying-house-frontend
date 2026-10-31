@@ -122,17 +122,17 @@ export interface GroupCompany {
 export const GROUP_COMPANIES: GroupCompany[] = [
   {
     name: 'Jeans & Jacket',
-    focus: 'Denim and outerwear',
-    body: 'Jeans, denim jackets and woven outerwear, from rigid to comfort stretch, with full wash development.',
+    focus: 'Manufacturing and finishing',
+    body: 'Jeans, denim jackets and woven outerwear, from cutting and sewing to finishing, with full quality control in-house.',
   },
   {
     name: 'Just Clean BD',
-    focus: 'Washing and finishing',
-    body: 'Garment washing, finishing and care treatments with responsible water and chemical management.',
+    focus: 'Laundry and washing',
+    body: 'Garment washing and laundry services with responsible water and chemical management.',
   },
   {
     name: 'Emerge Style',
-    focus: 'Fashion and design',
-    body: 'Trend-led design and product development that turns ideas into ready-to-produce collections.',
+    focus: 'Buying and sourcing',
+    body: 'Buying and sourcing support that connects international brands with reliable factories, from costing and sampling to shipment.',
   },
 ];

@@ -44,15 +44,15 @@ import { Logo } from './logo';
 const ICONS: Record<string, LucideIcon> = {
   '/company/about-us': BookOpenText,
   '/#manufacturing-strength': Factory,
-  '/#manufacturing-partners': Handshake,
+  // '/#manufacturing-partners': Handshake,
   '/company/profiles': FileText,
   '/industries/textile': Shirt,
   '/industries/retail': ShoppingBag,
   '/industries/pharmaceuticals': Pill,
   '/industries/information-technology': Cpu,
   '/industries/real-estate': Building2,
-  '/sustainability/environmental-sustainability': Leaf,
-  '/sustainability/employee-welfare': HeartHandshake,
+  // '/sustainability/environmental-sustainability': Leaf,
+  // '/sustainability/employee-welfare': HeartHandshake,
   '/products': ShoppingBag,
   '/products?category=denim': Layers,
   '/products?category=twill': Scissors,
@@ -64,20 +64,6 @@ const ICONS: Record<string, LucideIcon> = {
   '/products?category=swimming-shorts': Waves,
   '/products?category=kids-wear': Baby,
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /** The highlight shown beside each dropdown's links: a photo, a line of text and one link. */
@@ -99,13 +85,13 @@ const FEATURES: Record<
     cta: 'Explore products',
     image: IMG.textileFactory,
   },
-  Sustainability: {
-    title: 'Responsible by design',
-    body: 'Audited factories, cleaner energy and traceable fibres.',
-    href: '/csr',
-    cta: 'Our CSR work',
-    image: IMG.cottonField,
-  },
+  // Sustainability: {
+  //   title: 'Responsible by design',
+  //   body: 'Audited factories, cleaner energy and traceable fibres.',
+  //   href: '/csr',
+  //   cta: 'Our CSR work',
+  //   image: IMG.cottonField,
+  // },
   Products: {
   title: 'Made to be inspected',
   body: 'Open any product to zoom into the fabric and check specifications.',
@@ -524,17 +510,22 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
         <Container
           className={cn(
             'flex items-center justify-between gap-6 transition-[height] duration-(--duration-base) lg:gap-5 xl:gap-10',
-            'h-16 lg:h-[4.25rem] 2xl:h-[4.5rem]',
+            // 'h-16 lg:h-[4.25rem] 2xl:h-[4.5rem]',
+            'h-16 lg:h-20 2xl:h-[4.5rem]',
           )}
         >
           <Link href="/" aria-label={`${SITE.name} home`} className="shrink-0">
             <Logo
               inverse={light}
               priority
+              // className={cn(
+              //   'transition-[height] duration-(--duration-base)',
+              //   'h-11 lg:h-11 2xl:h-11',
+              // )}
               className={cn(
-                'transition-[height] duration-(--duration-base)',
-                'h-10 lg:h-11 2xl:h-11',
-              )}
+  'transition-[height] duration-(--duration-base)',
+  'h-11 lg:h-14 2xl:h-12',
+)}
             />
           </Link>
 
@@ -601,7 +592,8 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
       </header>
       {/* The header is always fixed; this keeps its full height in the flow so folding the
           contact bar never shifts the page (which would re-trigger the scroll threshold). */}
-      {!overlay && <div aria-hidden className="h-16 lg:h-[4.25rem] 2xl:h-[4.5rem]" />}
+      {/* {!overlay && <div aria-hidden className="h-16 lg:h-[4.25rem] 2xl:h-[4.5rem]" />} */}
+      {!overlay && <div aria-hidden className="h-16 lg:h-20 2xl:h-[4.5rem]" />}
       <AnimatePresence>
         {mobileMenuOpen && <MobileMenu onClose={closeMobileMenu} />}
       </AnimatePresence>

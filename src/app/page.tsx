@@ -27,10 +27,11 @@ export default function HomePage() {
       <HeroSlider />
       <IntroSplit />
       <StatsBand />
+            <Services />
+
       <ManufacturingStrength />
       <SourcingStrength />
-      <Services />
-      <ManufacturingPartners />
+      {/* <ManufacturingPartners /> */}
       <CertificationStrip />
       <ProductionTeaser />
       <Clients />

@@ -40,11 +40,11 @@ export const MAIN_NAV: NavEntry[] = [
         href: '/#manufacturing-strength',
         description: 'Capacity, lines and quality standards',
       },
-      {
-        label: 'Manufacturing Partners',
-        href: '/#manufacturing-partners',
-        description: 'The audited factories behind every order',
-      },
+      // {
+      //   label: 'Manufacturing Partners',
+      //   href: '/#manufacturing-partners',
+      //   description: 'The audited factories behind every order',
+      // },
       {
         label: 'Company Profiles',
         href: '/company/profiles',
@@ -79,22 +79,22 @@ export const MAIN_NAV: NavEntry[] = [
     { label: 'Kids wear', href: '/products?category=kids-wear' },
   ],
 },
-  {
-    label: 'Sustainability',
-    children: [
-      {
-        label: 'Environmental Sustainability',
-        href: '/sustainability/environmental-sustainability',
-        description: 'Water, energy and materials',
-      },
-      {
-        label: 'Employee Welfare',
-        href: '/sustainability/employee-welfare',
-        description: 'Safe, fair and rewarding work',
-      },
-    ],
-  },
-  { label: 'CSR', href: '/csr' },
+  // {
+  //   label: 'Sustainability',
+  //   children: [
+  //     {
+  //       label: 'Environmental Sustainability',
+  //       href: '/sustainability/environmental-sustainability',
+  //       description: 'Water, energy and materials',
+  //     },
+  //     {
+  //       label: 'Employee Welfare',
+  //       href: '/sustainability/employee-welfare',
+  //       description: 'Safe, fair and rewarding work',
+  //     },
+  //   ],
+  // },
+  { label: 'Clients', href: '/clients' },
   { label: 'News & Events', href: '/news-events' },
   // Hidden for now; uncomment to show Blog in the menu again.
   // { label: 'Blog', href: '/blog' },
