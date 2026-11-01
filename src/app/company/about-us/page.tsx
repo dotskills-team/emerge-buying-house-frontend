@@ -61,6 +61,8 @@ export default function AboutPage() {
         <p>
    
        <strong className="text-fg">    EMERGE GROUP – Connected Capabilities. Shared Vision. Continuous Evolution.</strong>
+       {/* <strong className="text-fg">    EMERGE GROUP – Connected Capabilities. Shared Vision. Continuous Evolution.</strong>
+       <strong className="text-fg">    EMERGE GROUP – Connected Capabilities. Shared Vision. Continuous Evolution.</strong> */}
         </p>
       </SplitFeature>
       <StatsBand />
