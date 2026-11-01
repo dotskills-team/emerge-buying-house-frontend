@@ -39,51 +39,6 @@ export const SOURCING_POINTS: SourcingPoint[] = [
   },
 ];
 
-export interface Service {
-  title: string;
-  body: string;
-  points: string[];
-}
-
-export const SERVICES: Service[] = [
-  {
-    title: 'Sourcing',
-    body: 'The right mill and factory for each style, and an eye on every step after.',
-    points: [
-      'Factory matching and audits',
-      'Fabric and trims booking',
-      'Production follow-up to shipment',
-    ],
-  },
-  {
-    title: 'Design & development',
-    body: 'From your mood board to an approved sample: design, tech packs, fits and sampling in one team.',
-    points: [
-      'Trend and fabric research',
-      'Line sheets, tech packs and costing',
-      'Lab dips, proto and fit samples',
-    ],
-  },
-  {
-    title: 'R&D',
-    body: 'New fabrics, washes and methods tested in our lab before they reach your line.',
-    points: [
-      'Fabric and fibre innovation',
-      'Wash and finish trials',
-      'Sustainable material testing',
-    ],
-  },
-  {
-    title: 'Manufacturing',
-    body: 'Bulk production on audited lines, managed by our team from cutting to packing.',
-    points: [
-      'Cutting, sewing and finishing',
-      'Inline and final quality inspection',
-      'Retail-ready packing and labelling',
-    ],
-  },
-];
-
 export interface Partner {
   name: string;
   speciality: string;
@@ -118,21 +73,21 @@ export interface GroupCompany {
   body: string;
 }
 
-// Company names from the client. The focus lines and descriptions are drafts: confirm the text.
+// Company names and descriptions from the client's brief.
 export const GROUP_COMPANIES: GroupCompany[] = [
   {
     name: 'Jeans & Jacket',
-    focus: 'Manufacturing and finishing',
-    body: 'Jeans, denim jackets and woven outerwear, from cutting and sewing to finishing, with full quality control in-house.',
+    focus: 'Garment manufacturing',
+    body: 'Dedicated garment manufacturing capabilities with expertise in denim, woven, and casual apparel production.',
   },
   {
     name: 'Just Clean BD',
-    focus: 'Laundry and washing',
-    body: 'Garment washing and laundry services with responsible water and chemical management.',
+    focus: 'Denim washing & finishing',
+    body: 'Specialized denim washing, garment finishing, wash development, and innovative treatment solutions.',
   },
   {
     name: 'Emerge Style',
-    focus: 'Buying and sourcing',
-    body: 'Buying and sourcing support that connects international brands with reliable factories, from costing and sampling to shipment.',
+    focus: 'Sourcing & buying house',
+    body: 'Strategic sourcing, merchandising, supplier coordination, material development, and buyer-focused apparel solutions',
   },
 ];

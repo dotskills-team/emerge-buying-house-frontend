@@ -524,7 +524,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
               // )}
               className={cn(
   'transition-[height] duration-(--duration-base)',
-  'h-11 lg:h-14 2xl:h-12',
+  'h-12 lg:h-16 2xl:h-16',
 )}
             />
           </Link>

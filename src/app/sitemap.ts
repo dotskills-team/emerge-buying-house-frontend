@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { MAIN_NAV, SITE } from '@/config/site';
 import { INDUSTRIES } from '@/content/industries';
+import { SERVICES } from '@/content/services';
 import { NEWS } from '@/content/news';
 import { allPublishedPosts } from '@/features/blog/server';
 import { allPublishedProducts } from '@/features/products/server';
@@ -31,6 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     })),
     ...INDUSTRIES.map((i) => ({ url: `${SITE.url}/industries/${i.slug}`, priority: 0.6 })),
+    ...SERVICES.map((s) => ({ url: `${SITE.url}/services/${s.slug}`, priority: 0.6 })),
     ...NEWS.map((n) => ({
       url: `${SITE.url}/news-events/${n.slug}`,
       lastModified: n.date,
