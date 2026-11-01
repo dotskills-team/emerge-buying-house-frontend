@@ -58,6 +58,10 @@ export default function AboutPage() {
           participate in the apparel supply chain; we are building the capabilities to shape more of
           it.
         </p>
+        <p>
+   
+       <strong className="text-fg">    EMERGE GROUP – Connected Capabilities. Shared Vision. Continuous Evolution.</strong>
+        </p>
       </SplitFeature>
       <StatsBand />
       <FeatureGrid
