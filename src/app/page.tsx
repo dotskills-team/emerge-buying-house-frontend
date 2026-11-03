@@ -13,6 +13,7 @@ import {
   ProductionTeaser,
   StatsBand,
 } from '@/components/home/home-sections';
+import { ProductProcess } from '@/components/home/product-process';
 import { TestimonialSlider } from '@/components/home/premium-sections';
 import { MarketingShell } from '@/components/layout/marketing-shell';
 
@@ -28,15 +29,16 @@ export default function HomePage() {
       <IntroSplit />
       <StatsBand />
             <Services />
-
+<GroupCompanies />
       <ManufacturingStrength />
       <SourcingStrength />
+      <ProductProcess />
       {/* <ManufacturingPartners /> */}
       <CertificationStrip />
       <ProductionTeaser />
       <Clients />
-      <TestimonialSlider />
-      <GroupCompanies />
+      {/* <TestimonialSlider /> */}
+      
     </MarketingShell>
   );
 }

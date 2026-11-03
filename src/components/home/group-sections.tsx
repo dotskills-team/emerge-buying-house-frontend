@@ -5,7 +5,6 @@ import {
   Building2,
   Check,
   Factory,
-  MapPin,
   PenTool,
   Truck,
   type LucideIcon,
@@ -14,15 +13,15 @@ import { Reveal } from '@/components/site/reveal';
 import { SectionHeading } from '@/components/site/section-heading';
 import { Container } from '@/components/ui/container';
 import {
-  CLIENTS,
   GROUP_COMPANIES,
   
   MANUFACTURING_COMPANIES,
   PARTNERS,
   SOURCING_INTRO,
-  SOURCING_OFFICES,
 } from '@/content/home';
 import { SERVICES } from '@/content/services';
+import { CLIENT_LOGOS } from '@/content/clients';
+import { ClientLogoTile } from '@/components/site/client-logo-tile';
 import { ImageAccents } from '@/components/site/image-accent';
 import { IconBadge, toneAt } from '@/components/site/icon-badge';
 import { IMG } from '@/content/images';
@@ -85,13 +84,14 @@ export function ManufacturingStrength() {
 export function SourcingStrength() {
   return (
     <section className={`bg-surface-inverse text-white ${section}`}>
-      <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+      <Container>
         <div>
-          <SectionHeading
-            tone="inverse"
-            eyebrow={SOURCING_INTRO.eyebrow}
-            title={SOURCING_INTRO.title}
-          />
+          <h2 className="font-display text-gold-light text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            {SOURCING_INTRO.eyebrow}
+          </h2>
+          <h3 className="font-display mt-4 text-2xl leading-snug font-semibold tracking-tight text-white sm:text-3xl">
+            {SOURCING_INTRO.title}
+          </h3>
           <div className="mt-6 space-y-4 text-base leading-relaxed text-white/80 sm:text-lg">
             {SOURCING_INTRO.paragraphs.map((p) => (
               <p key={p}>{p}</p>
@@ -101,18 +101,6 @@ export function SourcingStrength() {
             {SOURCING_INTRO.closing}
           </p>
         </div>
-        <Reveal className="self-center rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
-          <IconBadge icon={MapPin} tone={toneAt(1)} dark />
-          <h3 className="mt-6 text-2xl font-semibold sm:text-3xl">Sourcing offices</h3>
-          <ul className="mt-6 space-y-6">
-            {SOURCING_OFFICES.map((o) => (
-              <li key={o.city}>
-                <p className="font-semibold">{o.city}</p>
-                <p className="mt-1 text-base leading-relaxed text-white/70">{o.address}</p>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
       </Container>
     </section>
   );
@@ -247,13 +235,10 @@ export function Clients() {
           eyebrow="Our clients"
           title="Brands that trust us with their collections."
         />
-        <ul className="border-border mt-10 grid grid-cols-2 overflow-hidden rounded-2xl border sm:grid-cols-4">
-          {CLIENTS.map((c) => (
-            <li
-              key={c}
-              className="border-border text-fg-muted hover:text-fg flex min-h-24 items-center justify-center border-r border-b px-4 text-center transition-colors [&:nth-child(2n)]:border-r-0 sm:[&:nth-child(2n)]:border-r sm:[&:nth-child(4n)]:border-r-0"
-            >
-              <span className="font-display text-lg font-semibold tracking-tight">{c}</span>
+        <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+          {CLIENT_LOGOS.map((c) => (
+            <li key={c.name}>
+              <ClientLogoTile client={c} />
             </li>
           ))}
         </ul>

@@ -63,9 +63,9 @@ export const SOURCING_INTRO = {
   closing: 'Emerge Style — Where Sourcing Expertise Meets Manufacturing Strength.',
 };
 
-// PLACEHOLDER addresses: replace with the real office addresses.
+// Dhaka address from the client. Chattogram is still a placeholder.
 export const SOURCING_OFFICES: Array<{ city: string; address: string }> = [
-  { city: 'Dhaka', address: 'Placeholder address, Dhaka' },
+  { city: 'Dhaka', address: 'House # 557, Road # 9 (Main Road), Mirpur DOHS, Dhaka' },
   { city: 'Chattogram', address: 'Placeholder address, next to the port, Chattogram' },
 ];
 
@@ -83,18 +83,6 @@ export const PARTNERS: Partner[] = [
   { name: 'Bayview Sweaters', speciality: 'Flat-knit sweaters', location: 'Chattogram' },
   { name: 'Eastgate Fashions', speciality: 'Outerwear and jackets', location: 'Ashulia' },
   { name: 'Crestwood Garments', speciality: 'Activewear and teamwear', location: 'Gazipur' },
-];
-
-// PLACEHOLDER names: replace with the real buyers (or their logos).
-export const CLIENTS: string[] = [
-  'Nordvale',
-  'Maison Arlo',
-  'Urban Thread Co.',
-  'Halden & Hart',
-  'Brightline Retail',
-  'Kestrel Outfitters',
-  'Linnea Studio',
-  'Coastline Denim',
 ];
 
 export interface GroupCompany {

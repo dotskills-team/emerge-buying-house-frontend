@@ -5,7 +5,7 @@ export const SITE = {
   shortName: 'Emerge',
   tagline: 'Sourcing, made accountable.',
   description:
-    'International garments buying house connecting global brands with vetted manufacturers: sourcing, product development, quality assurance and shipment coordination.',
+    'Emerge Group is an integrated apparel industry group driving manufacturing excellence, advanced garment processing, and strategic global sourcing through interconnected business capabilities.',
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || null,
   /** Absolute origin for canonical links, social previews, the sitemap and RSS. */
   url: (
@@ -105,8 +105,8 @@ export const MAIN_NAV: NavEntry[] = [
 
 /** Dummy contact details shown until the company confirms its own. */
 export const CONTACT = {
-  address: ['House 12, Road 7, Sector 4', 'Uttara, Dhaka-1230', 'Bangladesh'],
-  phone: '+880 1700-000000',
+  address: ['House # 557', 'Road # 9 (Main Road)', 'Mirpur DOHS, Dhaka', 'Bangladesh'],
+  phone: '+880 1741-140112',
   email: 'info@emergebuyinghouse.com',
   hours: 'Sunday – Thursday, 9:00 – 18:00 (GMT+6)',
 } as const;

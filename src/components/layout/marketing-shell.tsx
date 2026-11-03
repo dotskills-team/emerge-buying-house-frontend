@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { Footer } from './footer';
 import { Navbar } from './navbar';
-import { ScrollProgress } from '@/components/site/text-effects';
 import { ChatLauncher } from '@/features/chatbot/components/chat-launcher';
 
 /** Public website frame. `overlayHeader` lets the header float over a full-screen hero. */
@@ -21,7 +20,6 @@ export function MarketingShell({
       >
         Skip to content
       </a>
-      <ScrollProgress />
       <Navbar overlay={overlayHeader} />
       <main id="main" className="overflow-x-clip">
         {children}

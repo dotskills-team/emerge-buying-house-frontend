@@ -13,7 +13,7 @@ interface Slide {
   eyebrow: string;
   title: string;
   lead: string;
-  cta: { label: string; href: string };
+  cta?: { label: string; href: string };
 }
 
 const SLIDES: Slide[] = [
@@ -36,7 +36,6 @@ const SLIDES: Slide[] = [
     eyebrow: 'Responsible by design',
     title: 'Sustainable production, passion-driven and made for a better future.',
     lead: 'Safe, audited factories, fair working conditions and lower-impact materials across our partner network. We help brands move to certified organic and recycled fibres and keep every claim on the label traceable.',
-    cta: { label: 'Our sustainability', href: '/sustainability/environmental-sustainability' },
   },
 ];
 
@@ -130,25 +129,21 @@ export function HeroSlider() {
               <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg lg:mt-7 lg:max-w-[50rem] lg:text-[1.3rem] lg:leading-relaxed 2xl:text-lg">
                 {slide.lead}
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:mt-10 lg:gap-4">
-                <Link
-                  href={slide.cta.href}
-                  className="group text-ink-deep shadow-gold inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform lg:min-h-[3.6rem] lg:px-9 lg:text-base"
-                >
-                  {slide.cta.label}
-                  <ArrowRight
-                    size={16}
-                    aria-hidden
-                    className="transition-transform group-hover:translate-x-0.5"
-                  />
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/40 px-6 text-sm font-semibold transition-colors hover:bg-white/10 lg:min-h-[3.6rem] lg:px-8 lg:text-base"
-                >
-                  Request a quote
-                </Link>
-              </div>
+              {slide.cta && (
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:mt-10 lg:gap-4">
+                  <Link
+                    href={slide.cta.href}
+                    className="group text-ink-deep shadow-gold inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-(image:--gradient-gold) px-7 text-sm font-semibold transition-transform lg:min-h-[3.6rem] lg:px-9 lg:text-base"
+                  >
+                    {slide.cta.label}
+                    <ArrowRight
+                      size={16}
+                      aria-hidden
+                      className="transition-transform group-hover:translate-x-0.5"
+                    />
+                  </Link>
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

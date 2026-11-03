@@ -27,18 +27,13 @@ import { Reveal } from '@/components/site/reveal';
 import { SectionHeading } from '@/components/site/section-heading';
 import { Container } from '@/components/ui/container';
 import { IMG } from '@/content/images';
+import { CLIENT_LOGOS } from '@/content/clients';
+import { ClientLogoTile } from '@/components/site/client-logo-tile';
 
 export const metadata: Metadata = {
   title: 'Our Clients',
   description: 'International brands and retailers that source apparel through Emerge Buying House.',
 };
-
-/* Placeholders: replace with real client names. */
-const REGIONS = [
-  { name: 'Europe', clients: ['Client One', 'Client Two', 'Client Three', 'Client Four'] },
-  { name: 'North America', clients: ['Client Five', 'Client Six', 'Client Seven', 'Client Eight'] },
-  { name: 'Asia Pacific and Middle East', clients: ['Client Nine', 'Client Ten', 'Client Eleven', 'Client Twelve'] },
-];
 
 const CATEGORIES = [
   { icon: Sparkles, title: 'Denim', body: 'Jeans, jackets and shirts with full wash development.' },
@@ -83,23 +78,13 @@ export default function ClientsPage() {
       <section className="py-16 sm:py-20 2xl:py-28">
         <Container>
           <SectionHeading eyebrow="Partners" title="Brands we work with." />
-          <div className="mt-12 space-y-10">
-            {REGIONS.map((r) => (
-              <Reveal key={r.name}>
-                <h3 className="font-display text-fg text-xl font-semibold">{r.name}</h3>
-                <ul className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-                  {r.clients.map((c) => (
-                    <li
-                      key={c}
-                      className="border-border bg-surface text-fg-subtle hover:border-primary/30 hover:text-primary flex h-24 items-center justify-center rounded-2xl border p-4 text-center font-semibold shadow-sm transition-all hover:shadow-md"
-                    >
-                      {c}
-                    </li>
-                  ))}
-                </ul>
+          <ul className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+            {CLIENT_LOGOS.map((c, i) => (
+              <Reveal as="li" key={c.name} delay={(i % 4) * 0.05}>
+                <ClientLogoTile client={c} />
               </Reveal>
             ))}
-          </div>
+          </ul>
         </Container>
       </section>
 
