@@ -17,7 +17,6 @@ export const MISSION = [
 ];
 
 export const VALUES = [
-  { title: 'Ownership', body: 'We treat every order as our own and answer for the result.' },
   { title: 'Excellence', body: 'We aim for the right standard the first time, not the second.' },
   {
     title: 'Transparency',

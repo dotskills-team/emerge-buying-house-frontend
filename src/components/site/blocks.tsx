@@ -103,7 +103,7 @@ export function FeatureGrid({
         <ul
           className={cn(
             'mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5',
-            columns === 3 && 'lg:grid-cols-3',
+            columns === 3 && 'md:grid-cols-3',
             columns === 4 && 'lg:grid-cols-4',
           )}
         >

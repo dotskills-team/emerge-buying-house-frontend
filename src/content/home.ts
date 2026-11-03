@@ -7,36 +7,66 @@
  * before the site goes live. Figures repeat what the rest of the site already states.
  */
 
-export const MANUFACTURING_FIGURES = [
-  { value: '40+', label: 'Audited partner factories' },
-  { value: '40K', label: 'Pieces a day across our network' },
-  { value: '4', label: 'Product lines: knit, woven, denim, sweaters' },
-  { value: 'AQL 2.5', label: 'Final inspection standard' },
-];
-
-export const MANUFACTURING_CAPABILITIES = [
-  'Automatic cutting and balanced sewing lines',
-  'Denim washing, laser and ozone finishing',
-  'Embroidery, screen and digital print',
-  'Computerised flat-knit sweater lines',
-  'Inline and final quality inspection',
-  'Retail-ready finishing and packing',
-];
-
-export interface SourcingPoint {
-  title: string;
-  body: string;
-}
-
-export const SOURCING_POINTS: SourcingPoint[] = [
+export const MANUFACTURING_COMPANIES = [
   {
-    title: 'Trims and accessories',
-    body: 'Labels, buttons, zippers and packaging sourced and approved before bulk starts.',
+    name: 'Jeans & Jacket',
+    items: [
+      {
+        title: 'Production Capacity',
+        body: '2.5 Million Pieces Monthly Production & Shipment.',
+      },
+      {
+        title: 'Production Planning',
+        body: 'Efficient Planning for On-Time Shipment.',
+      },
+      {
+        title: 'Quality Control',
+        body: 'K2 Inspection & Quality Assurance.',
+      },
+    ],
   },
   {
-    title: 'Sourcing offices',
-    body: 'Teams in Dhaka and next to the port in Chattogram, close to mills and to shipping.',
+    name: 'Just Clean BD',
+    items: [
+      {
+        title: 'Specialized Washing Capacity',
+        body: '200,000 Denim & 100,000 Twill Pieces Monthly Capacity.',
+      },
+      {
+        title: 'Advanced Wash Development',
+        body: 'Expertise in Critical Washes, Special Effects & Customized Finishing.',
+      },
+      {
+        title: 'Quality & Consistency',
+        body: 'Strict Quality Control, Consistent Wash Standards & Superior Finishing.',
+      },
+    ],
   },
+];
+
+// export const MANUFACTURING_CAPABILITIES = [
+//   'Automatic cutting and balanced sewing lines',
+//   'Denim washing, laser and ozone finishing',
+//   'Embroidery, screen and digital print',
+//   'Computerised flat-knit sweater lines',
+//   'Inline and final quality inspection',
+//   'Retail-ready finishing and packing',
+// ];
+
+export const SOURCING_INTRO = {
+  eyebrow: 'Emerge Style',
+  title: 'Your Strategic Partner in Global Apparel Sourcing.',
+  paragraphs: [
+    "Emerge Style is the buying house and apparel sourcing division of Emerge Group, delivering integrated sourcing solutions backed by real manufacturing expertise. We connect international fashion brands, retailers, and buyers with reliable manufacturing resources, offering end-to-end support from product development and material sourcing to merchandising, production coordination, quality assurance, washing, and shipment management. With Emerge Group's garment industry experience since 2010, we bring together technical knowledge, manufacturing capabilities, and sourcing expertise to help buyers achieve the right balance of quality, cost, and delivery.",
+    'Through our strong manufacturing connections with Jeans & Jacket and Just Clean BD, we offer practical expertise in garment production, denim processing, washing, and finishing. Our commitment is to simplify the sourcing process, maintain consistent quality, deliver reliable solutions, and build lasting partnerships through trust, transparency, and professional service.',
+  ],
+  closing: 'Emerge Style — Where Sourcing Expertise Meets Manufacturing Strength.',
+};
+
+// PLACEHOLDER addresses: replace with the real office addresses.
+export const SOURCING_OFFICES: Array<{ city: string; address: string }> = [
+  { city: 'Dhaka', address: 'Placeholder address, Dhaka' },
+  { city: 'Chattogram', address: 'Placeholder address, next to the port, Chattogram' },
 ];
 
 export interface Partner {

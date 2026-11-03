@@ -11,7 +11,6 @@ import {
   Quote,
   ScanSearch,
   ShieldCheck,
-  Target,
   type LucideIcon,
 } from 'lucide-react';
 import { ImageAccents } from '@/components/site/image-accent';
@@ -97,9 +96,15 @@ export function IntroSplit() {
             />
           </h2>
           <p className="text-fg-muted mt-6 text-base sm:text-lg lg:text-base 2xl:text-lg">
-            We are an international garments buying house working across knitwear, woven and denim.
-            Our teams act as the brand’s eyes and hands in Bangladesh: finding the right factory,
-            protecting quality and keeping delivery dates realistic.
+            Since 2010, <strong className="text-fg">Emerge Group</strong> has been growing across
+            the apparel industry through manufacturing, garment processing, and strategic sourcing.
+            Our three specialized businesses—<strong className="text-fg">Jeans &amp; Jacket</strong>
+            , <strong className="text-fg">Just Clean BD</strong>, and{' '}
+            <strong className="text-fg">Emerge Style</strong>—deliver integrated solutions across
+            garment manufacturing, denim and twill washing, product development, and apparel
+            sourcing. With a fourth project, a fully compliant garment manufacturing facility, under
+            development, we continue to expand our capabilities and strengthen our position in the
+            global apparel industry.
           </p>
           <ul className="border-border mt-8 grid gap-5 border-t pt-8 sm:grid-cols-3">
             {INTRO_POINTS.map((p, i) => (
@@ -151,7 +156,7 @@ export function StatsBand() {
   );
 }
 
-const VALUE_ICONS: LucideIcon[] = [Target, Gem, Eye, HeartHandshake];
+const VALUE_ICONS: LucideIcon[] = [Gem, Eye, HeartHandshake];
 
 export function VisionMission() {
   return (
@@ -191,7 +196,7 @@ export function VisionMission() {
           </Reveal>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 2xl:mt-16">
+        <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 2xl:mt-16">
           {VALUES.map((v, i) => {
             const Icon = VALUE_ICONS[i] ?? BadgeCheck;
             return (

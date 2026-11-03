@@ -9,9 +9,6 @@ const group = (label: string) => MAIN_NAV.find((e) => e.label === label)?.childr
 
 const EXPLORE = [
   { label: 'Products', href: '/products' },
-  { label: 'Environmental Sustainability', href: '/sustainability/environmental-sustainability' },
-  { label: 'Employee Welfare', href: '/sustainability/employee-welfare' },
-  { label: 'CSR', href: '/csr' },
   { label: 'News & Events', href: '/news-events' },
   // { label: 'Blog', href: '/blog' }, // hidden for now, like the main menu
   // { label: 'Career', href: '/career' }, // off, like the main menu

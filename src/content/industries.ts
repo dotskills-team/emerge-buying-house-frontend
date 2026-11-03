@@ -1,5 +1,6 @@
 import type { StaticImageData } from 'next/image';
 import { IMG } from './images';
+import { PRODUCT_CATEGORIES } from './product-categories';
 
 export interface Industry {
   slug: string;
@@ -17,30 +18,21 @@ export const INDUSTRIES: Industry[] = [
   {
     slug: 'textile',
     name: 'RMG',
-    tagline: 'Knit, woven and denim apparel for international brands.',
+    tagline: 'Creating Opportunities, Strengthening Local Industry.',
     summary:
-      'Our core business: we source, develop and follow up apparel orders across a network of audited mills and factories in Bangladesh.',
+      'Our contribution to the RMG industry: jobs, local supply chains and manufacturing capacity.',
     image: IMG.textileKnitFloor,
     highlights: [
-      { value: '40+', label: 'Partner factories' },
-      { value: '18M', label: 'Pieces shipped a year' },
-      { value: '22', label: 'Export markets' },
+      { value: '2.5M', label: 'Average monthly capacity, Jeans & Jacket' },
+      { value: '300K', label: 'Combined washing capacity, Just Clean BD' },
+      { value: '3', label: 'Businesses: Jeans & Jacket, Just Clean BD, Emerge Style' },
     ],
-    capabilities: [
-      {
-        title: 'Knitwear',
-        body: 'T-shirts, polos, sweatshirts, fleece and babywear in cotton and blends.',
-      },
-      { title: 'Woven', body: 'Shirts, blouses, trousers and workwear with full trim sourcing.' },
-      { title: 'Denim', body: 'Jeans and jackets with wash development and lab-tested finishes.' },
-      {
-        title: 'Sweaters',
-        body: 'Flat-knit sweaters and cardigans on computerised knitting lines.',
-      },
-    ],
+    capabilities: PRODUCT_CATEGORIES.map((c) => ({ title: c.name, body: c.description })),
     body: [
-      'Every style starts with a tech pack review, fabric and trim sourcing and a sampling plan agreed with the buyer. Our merchandisers then match the order to a factory with the right machines, capacity and compliance record.',
-      'During production our quality team runs inline and final inspections against the agreed AQL level, so problems are fixed on the line rather than discovered at the port.',
+      "Since 2010, Emerge Group has been contributing to Bangladesh's RMG industry by creating employment opportunities, strengthening local supply chains, and expanding manufacturing capabilities. Through our three businesses—Jeans & Jacket, Just Clean BD, and Emerge Style—we support garment production, specialized washing, product development, and apparel sourcing.",
+      "Our operations generate employment across manufacturing, washing, merchandising, quality control, and support functions while creating business opportunities for local fabric suppliers, accessories manufacturers, service providers, and other industry partners. With Jeans & Jacket's average monthly capacity of 2.5 million pieces and Just Clean BD's combined washing capacity of 300,000 pieces on average, we contribute to a stronger local production ecosystem. Emerge Style further connects local manufacturing resources with international buyers.",
+      "As we continue to expand, our focus remains on developing skilled manpower, supporting local businesses, strengthening industry partnerships, and contributing to Bangladesh's position in the global apparel market.",
+      'Emerge Group — Creating Opportunities, Strengthening Local Industry.',
     ],
   },
   {

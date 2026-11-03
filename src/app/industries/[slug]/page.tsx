@@ -30,7 +30,6 @@ export async function generateMetadata({
 export default async function IndustryPage({ params }: { params: Promise<{ slug: string }> }) {
   const industry = industryBySlug((await params).slug);
   if (!industry) notFound();
-  const others = INDUSTRIES.filter((i) => i.slug !== industry.slug);
 
   return (
     <MarketingShell>
@@ -108,6 +107,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         </Container>
       </section>
 
+      {/*
       <section className="bg-surface border-border border-t py-16 sm:py-20">
         <Container>
           <SectionHeading eyebrow="Explore more" title="Other industries we serve." />
@@ -148,6 +148,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           </ul>
         </Container>
       </section>
+      */}
     </MarketingShell>
   );
 }

@@ -5,10 +5,8 @@ import {
   Building2,
   Check,
   Factory,
-  Layers,
   MapPin,
   PenTool,
-  Scissors,
   Truck,
   type LucideIcon,
 } from 'lucide-react';
@@ -18,10 +16,11 @@ import { Container } from '@/components/ui/container';
 import {
   CLIENTS,
   GROUP_COMPANIES,
-  MANUFACTURING_CAPABILITIES,
-  MANUFACTURING_FIGURES,
+  
+  MANUFACTURING_COMPANIES,
   PARTNERS,
-  SOURCING_POINTS,
+  SOURCING_INTRO,
+  SOURCING_OFFICES,
 } from '@/content/home';
 import { SERVICES } from '@/content/services';
 import { ImageAccents } from '@/components/site/image-accent';
@@ -54,77 +53,66 @@ export function ManufacturingStrength() {
             title="Capacity you can plan around."
             lead="A network of audited factories gives every order the right line, at the right time, without stretching anyone thin."
           />
-          <dl className="border-border mt-8 grid grid-cols-2 border-t">
-            {MANUFACTURING_FIGURES.map((f, i) => (
-              <div
-                key={f.label}
-                className="border-border flex flex-col border-b py-5 pr-4 odd:border-r even:pl-5"
+          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {MANUFACTURING_COMPANIES.map((c, i) => (
+              <Reveal
+                key={c.name}
+                delay={i * 0.06}
+                className="border-border bg-surface rounded-2xl border p-6 shadow-sm"
               >
-                <dt className="text-fg-muted order-2 text-sm">{f.label}</dt>
-                <dd className="text-primary font-display order-1 mb-1 text-3xl font-semibold tracking-tight">
-                  <Reveal delay={i * 0.05}>{f.value}</Reveal>
-                </dd>
-              </div>
+                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">
+                  {c.name}
+                </p>
+                <ul className="mt-4 space-y-4">
+                  {c.items.map((item) => (
+                    <li key={item.title}>
+                      <p className="text-fg font-semibold">{item.title}</p>
+                      <p className="text-fg-muted mt-1 text-sm">{item.body}</p>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
             ))}
-          </dl>
-          <ul className="mt-6 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
-            {MANUFACTURING_CAPABILITIES.map((c) => (
-              <li key={c} className="text-fg-muted flex gap-2.5 text-sm">
-                <Check size={16} aria-hidden className="text-primary mt-0.5 shrink-0" />
-                {c}
-              </li>
-            ))}
-          </ul>
+          </div>
+          
         </div>
       </Container>
     </section>
   );
 }
 
-const SOURCING_ICONS: LucideIcon[] = [Scissors, MapPin];
-
-/** D. Sourcing strength: where fabric, trims and factories come from. */
+/** D. Sourcing strength: the buying house, and the offices where sourcing teams work. */
 export function SourcingStrength() {
   return (
     <section className={`bg-surface-inverse text-white ${section}`}>
-      <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-        <div className="flex flex-col">
+      <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+        <div>
           <SectionHeading
             tone="inverse"
-            eyebrow="Emerge Style"
-            title="Fabric, trims and factories, sourced close to the line."
-            lead="Years of relationships with mills and suppliers in Bangladesh mean better prices, earlier bookings and fewer surprises."
+            eyebrow={SOURCING_INTRO.eyebrow}
+            title={SOURCING_INTRO.title}
           />
-          <Reveal className="relative isolate mt-8 hidden lg:block">
-            <ImageAccents preset="night" />
-            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-              <Image
-                src={IMG.sourcingFabricStack}
-                alt="Stacks of colourful woven fabric"
-                fill
-                placeholder="blur"
-                sizes="40vw"
-                className="object-cover"
-              />
-            </div>
-          </Reveal>
+          <div className="mt-6 space-y-4 text-base leading-relaxed text-white/80 sm:text-lg">
+            {SOURCING_INTRO.paragraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+          <p className="text-gold-light mt-8 text-sm font-semibold tracking-[0.18em] uppercase">
+            {SOURCING_INTRO.closing}
+          </p>
         </div>
-        <ul className="grid grid-cols-1 gap-px self-center overflow-hidden rounded-2xl border border-white/10 bg-white/10">
-          {SOURCING_POINTS.map((p, i) => {
-            const Icon = SOURCING_ICONS[i] ?? Layers;
-            return (
-              <li key={p.title} className="group bg-surface-inverse p-8 sm:p-10">
-                <Reveal delay={i * 0.05}>
-                  <IconBadge icon={Icon} tone={toneAt(i + 1)} dark />
-                  <h3 className="mt-6 text-2xl font-semibold sm:text-3xl">{p.title}</h3>
-                  <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
-                    {p.body}
-                  </p>
-                </Reveal>
+        <Reveal className="self-center rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
+          <IconBadge icon={MapPin} tone={toneAt(1)} dark />
+          <h3 className="mt-6 text-2xl font-semibold sm:text-3xl">Sourcing offices</h3>
+          <ul className="mt-6 space-y-6">
+            {SOURCING_OFFICES.map((o) => (
+              <li key={o.city}>
+                <p className="font-semibold">{o.city}</p>
+                <p className="mt-1 text-base leading-relaxed text-white/70">{o.address}</p>
               </li>
-            );
-          })}
-        </ul>
+            ))}
+          </ul>
+        </Reveal>
       </Container>
     </section>
   );
