@@ -83,26 +83,33 @@ export function ManufacturingStrength() {
 /** D. Sourcing strength: the buying house, and the offices where sourcing teams work. */
 export function SourcingStrength() {
   return (
-    <section className={`bg-surface-inverse text-white ${section}`}>
-      <Container>
-        <div>
-          <h2 className="font-display text-gold-light text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            {SOURCING_INTRO.eyebrow}
-          </h2>
-          <h3 className="font-display mt-4 text-2xl leading-snug font-semibold tracking-tight text-white sm:text-3xl">
-            {SOURCING_INTRO.title}
-          </h3>
-          <div className="mt-6 space-y-4 text-base leading-relaxed text-white/80 sm:text-lg">
-            {SOURCING_INTRO.paragraphs.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </div>
-          <p className="text-gold-light mt-8 text-sm font-semibold tracking-[0.18em] uppercase">
-            {SOURCING_INTRO.closing}
+  
+<section className={`text-black ${section}`}>
+  <Container>
+    <div className="mx-auto w-full">
+      <h2 className="font-display text-primary text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+        {SOURCING_INTRO.eyebrow}
+      </h2>
+
+      <h3 className="font-display mt-4 text-2xl leading-snug font-semibold tracking-tight text-black sm:text-3xl">
+        {SOURCING_INTRO.title}
+      </h3>
+
+      <div className="mt-6 space-y-4 text-base leading-relaxed text-black sm:text-lg text-justify">
+        {SOURCING_INTRO.paragraphs.map((p) => (
+          <p key={p} className="w-full">
+            {p}
           </p>
-        </div>
-      </Container>
-    </section>
+        ))}
+      </div>
+
+      <p className="mt-8 text-base font-semibold tracking-[0.18em] uppercase text-black">
+        {SOURCING_INTRO.closing}
+      </p>
+    </div>
+  </Container>
+</section>
+
   );
 }
 
@@ -256,7 +263,7 @@ export function GroupCompanies() {
       <Container>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
-            eyebrow="Emerge Group"
+            eyebrow=""
             title="Our companies."
             lead="Specialist businesses under one group, each focused on what it makes best."
           />

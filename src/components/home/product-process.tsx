@@ -60,11 +60,13 @@ const STEPS: Array<{ title: string; body: string; icon: LucideIcon }> = [
 
 const AUTOPLAY_MS = 4500;
 
-/**
- * Product development process as an interactive stepper: a rail of eight stages, a line that
- * fills as the stages advance, and a detail panel. It cycles on its own until a visitor picks a
- * stage, and every stage can be reached by hover, click, or keyboard.
- */
+    /**
+     * Product development process as an interactive stepper: a rail of eight stages, a line that
+     * fills as the stages advance, and a detail panel. It cycles on its own until a visitor picks a
+     * stage, and every stage can be reached by hover, click, or keyboard.
+     */
+
+
 export function ProductProcess() {
   const [active, setActive] = useState(0);
   const [auto, setAuto] = useState(true);

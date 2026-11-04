@@ -28,8 +28,8 @@ export default function HomePage() {
       <HeroSlider />
       <IntroSplit />
       <StatsBand />
-            <Services />
-<GroupCompanies />
+      <Services />
+      <GroupCompanies />
       <ManufacturingStrength />
       <SourcingStrength />
       <ProductProcess />
@@ -38,7 +38,7 @@ export default function HomePage() {
       <ProductionTeaser />
       <Clients />
       {/* <TestimonialSlider /> */}
-      
+
     </MarketingShell>
   );
 }
