@@ -207,14 +207,14 @@ function DesktopDropdown({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-full left-1/2 z-(--z-drawer) w-[min(40rem,calc(100vw-4rem))] -translate-x-1/2 pt-3"
+            className="absolute top-full left-1/2 z-(--z-drawer) w-[min(44rem,calc(100vw-2rem))] -translate-x-1/2 pt-3"
           >
-            <div className="border-border bg-surface grid grid-cols-[minmax(0,1fr)_13.5rem] overflow-hidden rounded-xl border shadow-[0_18px_40px_-16px_rgb(15_23_42/0.22)]">
-              <div className="p-2.5">
-                <p className="text-fg-subtle px-3 pt-2 pb-1.5 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase">
+            <div className="border-border bg-surface overflow-hidden rounded-xl border shadow-[0_18px_40px_-16px_rgb(15_23_42/0.22)]">
+              <div className="p-3 sm:p-4">
+                <p className="text-fg-subtle px-3 pt-1 pb-2 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase">
                   {entry.label}
                 </p>
-                <ul>
+                <ul className={cn('grid gap-0.5', children.length > 6 && 'sm:grid-cols-2 sm:gap-x-3')}>
                   {children.map((c) => {
                     const Icon = ICONS[c.href] ?? ArrowRight;
                     return (
@@ -235,7 +235,7 @@ function DesktopDropdown({
                               {c.label}
                             </span>
                             {c.description && (
-                              <span className="text-fg-subtle mt-0.5 block truncate text-xs">
+                              <span className="text-fg-subtle mt-0.5 block text-xs leading-snug">
                                 {c.description}
                               </span>
                             )}
@@ -246,38 +246,6 @@ function DesktopDropdown({
                   })}
                 </ul>
               </div>
-              {feature && (
-                <Link
-                  href={feature.href}
-                  onClick={() => setOpen(false)}
-                  className="group/cta bg-surface-muted border-border flex flex-col border-l p-4"
-                >
-                  <span className="relative block aspect-[4/3] overflow-hidden rounded-md">
-                    <Image
-                      src={feature.image}
-                      alt=""
-                      fill
-                      placeholder="blur"
-                      sizes="13rem"
-                      className="object-cover transition-transform duration-500 group-hover/cta:scale-[1.04]"
-                    />
-                  </span>
-                  <span className="text-fg mt-3.5 block text-sm leading-snug font-semibold">
-                    {feature.title}
-                  </span>
-                  <span className="text-fg-muted mt-1 block text-xs leading-relaxed">
-                    {feature.body}
-                  </span>
-                  <span className="text-primary mt-3 inline-flex items-center gap-1 text-xs font-semibold">
-                    {feature.cta}
-                    <ArrowRight
-                      size={13}
-                      aria-hidden
-                      className="transition-transform group-hover/cta:translate-x-0.5"
-                    />
-                  </span>
-                </Link>
-              )}
             </div>
           </motion.div>
         )}

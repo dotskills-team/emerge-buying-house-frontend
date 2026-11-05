@@ -37,7 +37,7 @@ export default function AboutPage() {
         <p>
           Our foundation, <strong className="text-fg">Jeans &amp; Jacket</strong>, represents our
           garment manufacturing strength, with an average monthly sewing capacity of{' '}
-          <strong className="text-fg">2.5 million pieces</strong>. Complementing this capability,{' '}
+          <strong className="text-fg">2.9 million pieces</strong>. Complementing this capability,{' '}
           <strong className="text-fg">Just Clean BD</strong> delivers specialized denim and twill
           washing solutions, with a monthly capacity of 200,000 denim pieces and 100,000 twill
           pieces.

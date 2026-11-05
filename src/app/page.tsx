@@ -34,11 +34,10 @@ export default function HomePage() {
       <SourcingStrength />
       <ProductProcess />
       {/* <ManufacturingPartners /> */}
-      <CertificationStrip />
+      {/* <CertificationStrip /> */}
       <ProductionTeaser />
       <Clients />
       {/* <TestimonialSlider /> */}
-
     </MarketingShell>
   );
 }

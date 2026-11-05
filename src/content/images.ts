@@ -13,7 +13,6 @@ import heroFactory from '@/assets/images/hero-factory.jpg';
 import heroSewing from '@/assets/images/hero-sewing.jpg';
 import heroCleanLine from '@/assets/images/hero-clean-line.jpg';
 import heroModernFloor from '@/assets/images/hero-modern-floor.jpg';
-import heroWorker from '@/assets/images/hero-worker.jpg';
 import productionLine from '@/assets/images/production-line.jpg';
 import skilledOperator from '@/assets/images/skilled-operator.jpg';
 import sourcingFabricLibrary from '@/assets/images/sourcing-fabric-library.jpg';
@@ -44,7 +43,6 @@ export const IMG = {
   heroSewing,
   heroCleanLine,
   heroModernFloor,
-  heroWorker,
   productionLine,
   skilledOperator,
   sourcingFabricLibrary,

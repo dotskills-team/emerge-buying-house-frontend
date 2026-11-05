@@ -23,14 +23,14 @@ export const INDUSTRIES: Industry[] = [
       'Our contribution to the RMG industry: jobs, local supply chains and manufacturing capacity.',
     image: IMG.textileKnitFloor,
     highlights: [
-      { value: '2.5M', label: 'Average monthly capacity, Jeans & Jacket' },
+      { value: '2.9M', label: 'Average monthly capacity, Jeans & Jacket' },
       { value: '300K', label: 'Combined washing capacity, Just Clean BD' },
       { value: '3', label: 'Businesses: Jeans & Jacket, Just Clean BD, Emerge Style' },
     ],
     capabilities: PRODUCT_CATEGORIES.map((c) => ({ title: c.name, body: c.description })),
     body: [
       "Since 2010, Emerge Group has been contributing to Bangladesh's RMG industry by creating employment opportunities, strengthening local supply chains, and expanding manufacturing capabilities. Through our three businesses—Jeans & Jacket, Just Clean BD, and Emerge Style—we support garment production, specialized washing, product development, and apparel sourcing.",
-      "Our operations generate employment across manufacturing, washing, merchandising, quality control, and support functions while creating business opportunities for local fabric suppliers, accessories manufacturers, service providers, and other industry partners. With Jeans & Jacket's average monthly capacity of 2.5 million pieces and Just Clean BD's combined washing capacity of 300,000 pieces on average, we contribute to a stronger local production ecosystem. Emerge Style further connects local manufacturing resources with international buyers.",
+      "Our operations generate employment across manufacturing, washing, merchandising, quality control, and support functions while creating business opportunities for local fabric suppliers, accessories manufacturers, service providers, and other industry partners. With Jeans & Jacket's average monthly capacity of 2.9 million pieces and Just Clean BD's combined washing capacity of 300,000 pieces on average, we contribute to a stronger local production ecosystem. Emerge Style further connects local manufacturing resources with international buyers.",
       "As we continue to expand, our focus remains on developing skilled manpower, supporting local businesses, strengthening industry partnerships, and contributing to Bangladesh's position in the global apparel market.",
       'Emerge Group — Creating Opportunities, Strengthening Local Industry.',
     ],

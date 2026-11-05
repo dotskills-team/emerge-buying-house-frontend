@@ -13,7 +13,7 @@ export const MANUFACTURING_COMPANIES = [
     items: [
       {
         title: 'Production Capacity',
-        body: '2.5 Million Pieces Monthly Production & Shipment.',
+        body: '0.2 Million+ Pieces Monthly Production & Shipment.',
       },
       {
         title: 'Production Planning',

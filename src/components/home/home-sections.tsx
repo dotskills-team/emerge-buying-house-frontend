@@ -34,14 +34,10 @@ import { IMG } from '@/content/images';
 import { PRODUCT_CATEGORIES } from '@/content/product-categories';
 import { NEWS_SORTED } from '@/content/news';
 import { cn } from '@/lib/utils';
+import aboutUsPhoto from '@/assets/aboutus/banne11.jpeg';
 
 const INTRO_POINTS = [
-  { icon: Layers, title: 'Knitwear, woven & denim', text: 'One team across every category.' },
-  {
-    icon: ShieldCheck,
-    title: 'Audited factories only',
-    text: 'Compliance checked before an order.',
-  },
+  { icon: Layers, title: 'Denim & woven, Knitwear', text: 'One team across every category.' },
   {
     icon: ScanSearch,
     title: 'On-the-ground QC',
@@ -57,8 +53,8 @@ export function IntroSplit() {
         <Reveal className="relative lg:col-span-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image
-              src={IMG.skilledOperator}
-              alt="Skilled operators at work on a clean garment line"
+              src={aboutUsPhoto}
+              alt="Emerge Group team at work on a garment line"
               fill
               placeholder="blur"
               sizes="(min-width: 1024px) 46vw, 100vw"
@@ -106,7 +102,7 @@ export function IntroSplit() {
             development, we continue to expand our capabilities and strengthen our position in the
             global apparel industry.
           </p>
-          <ul className="border-border mt-8 grid gap-5 border-t pt-8 sm:grid-cols-3">
+          <ul className="border-border mt-8 grid w-full gap-5 border-t pt-8 sm:grid-cols-2">
             {INTRO_POINTS.map((p, i) => (
               <li key={p.title} className="group">
                 <IconBadge icon={p.icon} tone={toneAt(i)} size="sm" />

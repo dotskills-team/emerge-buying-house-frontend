@@ -7,35 +7,42 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ArrowRight, Pause, Play } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { IMG } from '@/content/images';
+import banner3 from '@/assets/banner/pexels-equalstock-31112178.jpg';
+import banner2 from '@/assets/banner/pexels-equalstock-31112181.jpg';
+import banner1 from '@/assets/banner/pexels-equalstock-31251591.jpg';
 
 interface Slide {
-  image: StaticImageData;
+  /** Imported photos get a blur placeholder; files in /public are plain paths. */
+  image: StaticImageData | string;
   eyebrow: string;
   title: string;
   lead: string;
   cta?: { label: string; href: string };
+  /** Where the photo is anchored when it is cropped, e.g. 'center 20%' keeps the top of the frame. */
+  focus?: string;
 }
 
 const SLIDES: Slide[] = [
   {
-    image: IMG.heroModernFloor,
+    image: banner1,
+    focus: 'center 15%',
     eyebrow: 'Garments buying house · Bangladesh',
-    title: 'From first sketch to loaded container, one accountable team for your brand.',
-    lead: 'We connect international fashion brands and retailers with audited manufacturers across Bangladesh, then manage every step in between: sampling, fabric and trims, production follow-up, quality inspection and on-time shipment.',
+    title: ' A legacy of Manufacturing. A vission for tomorrow',
+    lead: 'Rooted in manufacturing excellence and driven by innovation, Emerge Group combines industry expertise, integrated capabilities and forward-thinking solutions to shape a more progressive and sustainable future for the global apparel industry.',
     cta: { label: 'Discover our company', href: '/company/about-us' },
   },
   {
-    image: IMG.heroWorker,
+    image: banner2,
     eyebrow: 'Production you can see',
     title: 'Quality built into every line, not checked at the port.',
     lead: 'Our merchandisers and quality inspectors work beside the factories every day. Inline and final inspections, digital QC reports and clear updates mean problems are fixed on the production floor, long before goods are packed.',
     cta: { label: 'Explore products', href: '/products' },
   },
   {
-    image: IMG.heroCleanLine,
+    image: banner3,
     eyebrow: 'Responsible by design',
-    title: 'Sustainable production, passion-driven and made for a better future.',
-    lead: 'Safe, audited factories, fair working conditions and lower-impact materials across our partner network. We help brands move to certified organic and recycled fibres and keep every claim on the label traceable.',
+    title: 'From first sketch to loaded container, one accountable team for your brand.',
+    lead: 'Drives progress in the global apparel industry through manufacturing excellence, innovative product development, advanced washing solutions and strategic sourcing, creating lasting value across the entire apparel supply chain.',
   },
 ];
 
@@ -87,8 +94,9 @@ export function HeroSlider() {
             fill
             priority={i === 0}
             loading={i === 0 ? undefined : 'eager'}
-            placeholder="blur"
+            placeholder={typeof s.image === 'string' ? 'empty' : 'blur'}
             sizes="100vw"
+            style={{ objectPosition: s.focus ?? 'center' }}
             // One slow, endless zoom on every photo: nothing restarts or snaps when slides change.
             className="object-cover motion-safe:animate-[kenburns_24s_ease-in-out_infinite_alternate] dark:brightness-110 dark:saturate-110"
           />
@@ -96,11 +104,11 @@ export function HeroSlider() {
       ))}
       <div
         aria-hidden
-        className="from-ink-deep via-ink-deep/70 absolute inset-0 -z-10 bg-gradient-to-t to-transparent"
+        className="from-ink-deep via-ink-deep/35 absolute inset-0 -z-10 bg-gradient-to-t to-transparent"
       />
       <div
         aria-hidden
-        className="from-ink-deep/80 absolute inset-0 -z-10 bg-gradient-to-r via-transparent to-transparent"
+        className="from-ink-deep/70 absolute inset-0 -z-10 bg-gradient-to-r via-transparent to-transparent"
       />
 
       {/* Vertically centred in the banner, which now starts below the header. */}
