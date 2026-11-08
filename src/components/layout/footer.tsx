@@ -141,7 +141,7 @@ export function Footer() {
                 href="https://dotskillsbd.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gold-light font-semibold tracking-wide transition-colors hover:text-white"
+                className="text-gold-light font-semibold tracking-wide transition-colors hover:text-white cursor-pointer"
               >
                 DotSkills
               </Link>
