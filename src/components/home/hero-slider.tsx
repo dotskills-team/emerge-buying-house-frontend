@@ -127,10 +127,10 @@ export function HeroSlider() {
               exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }}
               transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.22em] uppercase lg:text-[0.85rem]">
+              {/* <p className="text-gold-light inline-flex items-center gap-3 text-xs font-semibold tracking-[0.22em] uppercase lg:text-[0.85rem]">
                 <span aria-hidden className="h-px w-8 bg-current" />
                 {slide.eyebrow}
-              </p>
+              </p> */}
               <h1 className="font-display text-display 2xl:text-display mt-5 max-w-3xl font-semibold tracking-tight text-balance lg:mt-6 lg:max-w-[52rem] lg:text-[clamp(3rem,1.5rem+2.6vw,3.75rem)] lg:leading-[1.06]">
                 {slide.title}
               </h1>

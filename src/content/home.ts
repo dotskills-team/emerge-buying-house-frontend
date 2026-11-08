@@ -21,7 +21,8 @@ export const MANUFACTURING_COMPANIES = [
       },
       {
         title: 'Quality Control',
-        body: 'K2 Inspection & Quality Assurance.',
+        // body: 'K2 Inspection & Quality Assurance.',
+        body: 'K2 Inspection & Piece-to-Piece Quality Assurance.',
       },
     ],
   },
