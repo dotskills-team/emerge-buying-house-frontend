@@ -84,18 +84,18 @@ export function ManufacturingStrength() {
 export function SourcingStrength() {
   return (
   
-<section className={`text-black ${section}`}>
+<section className={`text-fg ${section}`}>
   <Container>
     <div className="mx-auto w-full">
       <h2 className="font-display text-primary text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
         {SOURCING_INTRO.eyebrow}
       </h2>
 
-      <h3 className="font-display mt-4 text-2xl leading-snug font-semibold tracking-tight text-black sm:text-3xl">
+      <h3 className="font-display text-fg mt-4 text-2xl leading-snug font-semibold tracking-tight sm:text-3xl">
         {SOURCING_INTRO.title}
       </h3>
 
-      <div className="mt-6 space-y-4 text-base leading-relaxed text-black sm:text-lg text-justify">
+      <div className="text-fg mt-6 space-y-4 text-base leading-relaxed sm:text-lg text-justify">
         {SOURCING_INTRO.paragraphs.map((p) => (
           <p key={p} className="w-full">
             {p}
@@ -103,7 +103,7 @@ export function SourcingStrength() {
         ))}
       </div>
 
-      <p className="mt-8 text-base font-semibold tracking-[0.18em] uppercase text-black">
+      <p className="text-fg mt-8 text-base font-semibold tracking-[0.18em] uppercase">
         {SOURCING_INTRO.closing}
       </p>
     </div>
