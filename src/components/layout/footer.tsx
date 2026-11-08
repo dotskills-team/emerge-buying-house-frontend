@@ -133,12 +133,25 @@ export function Footer() {
           <p>
             &copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
+
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <p>
               Designed &amp; developed by{' '}
-              <span className="text-gold-light font-semibold tracking-wide">DotSkills</span>
+              <Link
+                href="https://dotskillsbd.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold-light font-semibold tracking-wide transition-colors hover:text-white"
+              >
+                DotSkills
+              </Link>
             </p>
-            <span aria-hidden className="hidden h-3 w-px bg-white/20 sm:block" />
+
+            <span
+              aria-hidden
+              className="hidden h-3 w-px bg-white/20 sm:block"
+            />
+
             <Link href="/login" className="hover:text-white">
               Staff sign in
             </Link>
